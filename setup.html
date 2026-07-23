@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="Setup – 50-Day LLM Bootcamp">
-<meta property="og:description" content="Day 0 — about an hour, tonight. Do this so day 1 is a study day and not a dependency-error afternoon.">
+<meta property="og:description" content="Day 0 — done on the evening of 23 July 2026. This page records what was installed, what you still need to do yourself, and how to rebuild any of it.">
 <meta property="og:site_name" content="50-Day LLM Bootcamp">
 </head>
 
@@ -339,13 +339,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#a-python-you-can-actually-install-things-into" id="toc-a-python-you-can-actually-install-things-into" class="nav-link active" data-scroll-target="#a-python-you-can-actually-install-things-into">1. A Python you can actually install things into</a></li>
-  <li><a href="#pytorch" id="toc-pytorch" class="nav-link" data-scroll-target="#pytorch">2. PyTorch</a></li>
-  <li><a href="#compute-honestly" id="toc-compute-honestly" class="nav-link" data-scroll-target="#compute-honestly">3. Compute, honestly</a></li>
-  <li><a href="#two-accounts-three-minutes" id="toc-two-accounts-three-minutes" class="nav-link" data-scroll-target="#two-accounts-three-minutes">4. Two accounts, three minutes</a></li>
-  <li><a href="#repositories-to-clone" id="toc-repositories-to-clone" class="nav-link" data-scroll-target="#repositories-to-clone">5. Repositories to clone</a></li>
-  <li><a href="#somewhere-to-put-your-own-work" id="toc-somewhere-to-put-your-own-work" class="nav-link" data-scroll-target="#somewhere-to-put-your-own-work">6. Somewhere to put your own work</a></li>
-  <li><a href="#verify" id="toc-verify" class="nav-link" data-scroll-target="#verify">7. Verify</a></li>
+  <li><a href="#already-done" id="toc-already-done" class="nav-link active" data-scroll-target="#already-done">Already done</a></li>
+  <li><a href="#still-yours-to-do-about-five-minutes" id="toc-still-yours-to-do-about-five-minutes" class="nav-link" data-scroll-target="#still-yours-to-do-about-five-minutes">Still yours to do — about five minutes</a></li>
+  <li><a href="#the-cuda-trap-and-why-the-install-is-pinned" id="toc-the-cuda-trap-and-why-the-install-is-pinned" class="nav-link" data-scroll-target="#the-cuda-trap-and-why-the-install-is-pinned">The CUDA trap, and why the install is pinned</a></li>
+  <li><a href="#rebuilding-the-environment-from-scratch" id="toc-rebuilding-the-environment-from-scratch" class="nav-link" data-scroll-target="#rebuilding-the-environment-from-scratch">Rebuilding the environment from scratch</a></li>
+  <li><a href="#what-your-4-gb-of-vram-will-and-wont-do" id="toc-what-your-4-gb-of-vram-will-and-wont-do" class="nav-link" data-scroll-target="#what-your-4-gb-of-vram-will-and-wont-do">What your 4 GB of VRAM will and won’t do</a></li>
+  <li><a href="#verify" id="toc-verify" class="nav-link" data-scroll-target="#verify">Verify</a></li>
+  <li><a href="#where-things-go" id="toc-where-things-go" class="nav-link" data-scroll-target="#where-things-go">Where things go</a></li>
   </ul>
 </nav>
     </div>
@@ -356,7 +356,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Setup</h1>
-<p class="subtitle lead">Day 0 — about an hour, tonight. Do this so day 1 is a study day and not a dependency-error afternoon.</p>
+<p class="subtitle lead">Day 0 — done on the evening of 23 July 2026. This page records what was installed, what you still need to do yourself, and how to rebuild any of it.</p>
 </div>
 
 
@@ -373,106 +373,146 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="a-python-you-can-actually-install-things-into" class="level2">
-<h2 class="anchored" data-anchor-id="a-python-you-can-actually-install-things-into">1. A Python you can actually install things into</h2>
-<p>Your system Python on WSL is 3.8 and its <code>pip</code> is broken, so don’t fight it — install <a href="https://docs.astral.sh/uv/">uv</a> and let it manage a modern Python and a project virtual environment.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-LsSf</span> https://astral.sh/uv/install.sh <span class="kw">|</span> <span class="fu">sh</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span> <span class="va">$SHELL</span> <span class="at">-l</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/llm-bootcamp <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/llm-bootcamp</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv <span class="at">--python</span> 3.12</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Everything for the next fifty days goes in that environment. If you prefer conda or miniforge, use it — the only requirement is Python 3.11 or newer and a package manager that works.</p>
-</section>
-<section id="pytorch" class="level2">
-<h2 class="anchored" data-anchor-id="pytorch">2. PyTorch</h2>
-<p>Check whether WSL can see a GPU first:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvidia-smi</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If that prints a table, install the CUDA build. If it errors, you have no local GPU and that is fine — weeks 1 through 4 run comfortably on CPU, and from week 5 onward you use Colab.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># with a GPU</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install torch <span class="at">--index-url</span> https://download.pytorch.org/whl/cu124</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># CPU only</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install torch <span class="at">--index-url</span> https://download.pytorch.org/whl/cpu</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then the rest of what you’ll need over the fifty days:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install numpy matplotlib jupyter ipykernel <span class="dt">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>               transformers datasets accelerate evaluate <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>               peft trl sentence-transformers faiss-cpu <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>               tiktoken scikit-learn pandas wandb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Confirm it works:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-c</span> <span class="st">"import torch; print(torch.__version__, torch.cuda.is_available())"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="compute-honestly" class="level2">
-<h2 class="anchored" data-anchor-id="compute-honestly">3. Compute, honestly</h2>
+<section id="already-done" class="level2">
+<h2 class="anchored" data-anchor-id="already-done">Already done</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Where</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Python 3.12.13 virtual environment</td>
+<td style="text-align: left;"><code>~/.venvs/llm-bootcamp</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PyTorch (CUDA 12.8 build) and the full stack</td>
+<td style="text-align: left;">in that environment</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Working repository</td>
+<td style="text-align: left;"><code>~/Desktop/projects/llm-bootcamp-work</code> → <a href="https://github.com/sunami-lab/llm-bootcamp-work"><code>sunami-lab/llm-bootcamp-work</code></a> (private)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Karpathy reference repos</td>
+<td style="text-align: left;"><code>~/Desktop/projects/llm-bootcamp-refs/</code> — <code>nn-zero-to-hero</code>, <code>micrograd</code>, <code>makemore</code>, <code>minbpe</code>, <code>nanoGPT</code></td>
+</tr>
+</tbody>
+</table>
+<p>To start work on any day:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Desktop/projects/llm-bootcamp-work</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> env.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="still-yours-to-do-about-five-minutes" class="level2">
+<h2 class="anchored" data-anchor-id="still-yours-to-do-about-five-minutes">Still yours to do — about five minutes</h2>
+<p>Two accounts, because they need a browser and a password you own:</p>
+<ul>
+<li><strong><a href="https://huggingface.co/join">Hugging Face</a></strong> — needed from day 29. Create an access token under Settings → Access Tokens, then <code>huggingface-cli login</code>.</li>
+<li><strong><a href="https://wandb.ai/site">Weights &amp; Biases</a></strong> — free for personal use, and it’s what makes day 25’s experiment table and the milestone write-ups easy. Then <code>wandb login</code>.</li>
+</ul>
+<p>Optional: an API key for a hosted model (Anthropic or OpenAI) makes day 33’s prompting baseline quicker. An open instruction-tuned model from the Hub works too.</p>
+</section>
+<section id="the-cuda-trap-and-why-the-install-is-pinned" class="level2">
+<h2 class="anchored" data-anchor-id="the-cuda-trap-and-why-the-install-is-pinned">The CUDA trap, and why the install is pinned</h2>
+<p>Your driver is <strong>573.57, advertising CUDA 12.8</strong>. The GPU is a GTX 1650 Ti (Turing, sm_75).</p>
+<p>Installing <code>torch</code> from PyPI the obvious way gets you a <strong>CUDA 13</strong> build, which does not run on a 12.8 driver. It does not fail loudly either — it installs cleanly and then reports:</p>
+<pre><code>torch 2.13.0+cu130 | cuda available: False</code></pre>
+<p>which is the kind of thing you discover on day 25 when a sweep takes all afternoon on CPU. So the environment pins the CUDA 12.8 build explicitly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">--python</span> ~/.venvs/llm-bootcamp/bin/python <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--index-url</span> https://download.pytorch.org/whl/cu128 torch</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you ever rebuild the environment, use that line rather than a bare <code>uv pip install torch</code>.</p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Sanity check before any GPU day: <code>python -c "import torch; print(torch.cuda.is_available())"</code> must print <code>True</code>. If it prints <code>False</code>, you are about to train on CPU.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="rebuilding-the-environment-from-scratch" class="level2">
+<h2 class="anchored" data-anchor-id="rebuilding-the-environment-from-scratch">Rebuilding the environment from scratch</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv ~/.venvs/llm-bootcamp <span class="at">--python</span> 3.12</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">--python</span> ~/.venvs/llm-bootcamp/bin/python <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--index-url</span> https://download.pytorch.org/whl/cu128 torch</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">--python</span> ~/.venvs/llm-bootcamp/bin/python <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-r</span> ~/Desktop/projects/llm-bootcamp-work/requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The environment deliberately lives at <code>~/.venvs/llm-bootcamp</code>, on the Linux filesystem, rather than beside the code under <code>/mnt/c</code>. WSL2’s bridge to the Windows drive is slow for operations over thousands of small files, which is exactly what a PyTorch venv is. Code and notebooks on <code>/mnt/c</code> are fine; the venv is not.</p>
+</section>
+<section id="what-your-4-gb-of-vram-will-and-wont-do" class="level2">
+<h2 class="anchored" data-anchor-id="what-your-4-gb-of-vram-will-and-wont-do">What your 4 GB of VRAM will and won’t do</h2>
+<p>This decides which days run on your laptop and which want Colab.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
 <th style="text-align: left;">Weeks</th>
-<th style="text-align: left;">What you need</th>
+<th style="text-align: left;">Locally?</th>
 <th style="text-align: left;">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">1–4</td>
-<td style="text-align: left;">CPU is fine</td>
-<td style="text-align: left;">micrograd, makemore and a small GPT on TinyShakespeare all train on a laptop. A GPU makes day 25’s sweeps pleasant rather than possible.</td>
+<td style="text-align: left;">Comfortably</td>
+<td style="text-align: left;">micrograd and makemore barely touch the GPU. The day 22–26 GPT is about 10.8 M parameters at the video’s config and trains on TinyShakespeare in minutes. Day 25’s sweeps are the first thing that really benefits from the card.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">5–7</td>
-<td style="text-align: left;">A GPU for a few hours</td>
-<td style="text-align: left;">Fine-tuning a small model, a LoRA run, and embedding a few thousand abstracts. <a href="https://colab.research.google.com/">Colab</a>’s free T4 covers all of it.</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Tight but workable</td>
+<td style="text-align: left;">A BERT-family encoder fine-tune fits with a modest batch size and mixed precision. Reach for gradient accumulation before reaching for Colab.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Day 45</td>
-<td style="text-align: left;">Optional 8×H100</td>
-<td style="text-align: left;">Only if you want to actually run the nanochat speedrun (~1.5 h, ~$48 on demand, ~$15 spot). Reading the pipeline carefully is enough — the day is written so that renting is optional.</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Depends</td>
+<td style="text-align: left;">Day 41’s LoRA run is where 4 GB starts choosing your model for you. Small model plus LoRA plus 4-bit fits; a full fine-tune of anything decoder-shaped probably doesn’t.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">Embeddings yes, speedrun no</td>
+<td style="text-align: left;">Day 47’s retrieval work runs locally. Day 45’s nanochat speedrun needs 8×H100 — it is explicitly optional, and reading the pipeline carefully is the point.</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="two-accounts-three-minutes" class="level2">
-<h2 class="anchored" data-anchor-id="two-accounts-three-minutes">4. Two accounts, three minutes</h2>
-<ul>
-<li><strong><a href="https://huggingface.co/join">Hugging Face</a></strong> — you need this from day 29. Create an access token (Settings → Access Tokens) and run <code>huggingface-cli login</code>.</li>
-<li><strong><a href="https://wandb.ai/site">Weights &amp; Biases</a></strong> — free for personal use. You start logging runs on day 25 and it’s what makes the milestone write-ups easy. Run <code>wandb login</code>.</li>
-</ul>
-<p>Optional: an API key for a hosted model (Anthropic or OpenAI) makes the day 33 prompting baseline quicker, but an open instruction-tuned model from the Hub works too.</p>
-</section>
-<section id="repositories-to-clone" class="level2">
-<h2 class="anchored" data-anchor-id="repositories-to-clone">5. Repositories to clone</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/llm-bootcamp</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/karpathy/nn-zero-to-hero.git   <span class="co"># lecture notebooks, weeks 1-3</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/karpathy/micrograd.git          <span class="co"># day 3-4 reference</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/karpathy/makemore.git           <span class="co"># names.txt lives here</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/karpathy/minbpe.git             <span class="co"># day 18</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/karpathy/nanoGPT.git            <span class="co"># day 26</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>nanochat</code> you clone on day 44, not now.</p>
-</section>
-<section id="somewhere-to-put-your-own-work" class="level2">
-<h2 class="anchored" data-anchor-id="somewhere-to-put-your-own-work">6. Somewhere to put your own work</h2>
-<p>Make one directory for the things you write, separate from the cloned repos, and put it under git on day 1. You will produce roughly fifty artifacts and the milestone write-ups are much easier if they’re not scattered.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/llm-bootcamp/work <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/llm-bootcamp/work <span class="kw">&amp;&amp;</span> <span class="fu">git</span> init</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When something doesn’t fit, <a href="https://colab.research.google.com/">Colab</a>’s free T4 has 16 GB and covers everything in weeks 5–7.</p>
 </section>
 <section id="verify" class="level2">
-<h2 class="anchored" data-anchor-id="verify">7. Verify</h2>
-<p>If this prints a decreasing loss, you are ready for day 1:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.randn(<span class="dv">64</span>, <span class="dv">3</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (x.<span class="bu">sum</span>(dim<span class="op">=</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>) <span class="op">&gt;</span> <span class="dv">0</span>).<span class="bu">float</span>()</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> torch.zeros(<span class="dv">3</span>, <span class="dv">1</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.zeros(<span class="dv">1</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> torch.nn.functional.binary_cross_entropy_with_logits(x <span class="op">@</span> w <span class="op">+</span> b, y)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        w <span class="op">-=</span> <span class="fl">0.5</span> <span class="op">*</span> w.grad<span class="op">;</span> b <span class="op">-=</span> <span class="fl">0.5</span> <span class="op">*</span> b.grad</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        w.grad <span class="op">=</span> <span class="va">None</span><span class="op">;</span> b.grad <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> step <span class="op">%</span> <span class="dv">50</span> <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(step, <span class="bu">round</span>(loss.item(), <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You will not fully understand <code>loss.backward()</code> yet. That is day 2 through day 4.</p>
+<h2 class="anchored" data-anchor-id="verify">Verify</h2>
+<p>If this prints a decreasing loss and <code>cuda: True</code>, you are ready for day 1:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"cuda:"</span>, torch.cuda.is_available())</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.randn(<span class="dv">64</span>, <span class="dv">3</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (x.<span class="bu">sum</span>(dim<span class="op">=</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>) <span class="op">&gt;</span> <span class="dv">0</span>).<span class="bu">float</span>()</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> torch.zeros(<span class="dv">3</span>, <span class="dv">1</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.zeros(<span class="dv">1</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> torch.nn.functional.binary_cross_entropy_with_logits(x <span class="op">@</span> w <span class="op">+</span> b, y)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        w <span class="op">-=</span> <span class="fl">0.5</span> <span class="op">*</span> w.grad<span class="op">;</span> b <span class="op">-=</span> <span class="fl">0.5</span> <span class="op">*</span> b.grad</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        w.grad <span class="op">=</span> <span class="va">None</span><span class="op">;</span> b.grad <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> step <span class="op">%</span> <span class="dv">50</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(step, <span class="bu">round</span>(loss.item(), <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You will not fully understand <code>loss.backward()</code> yet. That is days 2 through 4.</p>
+</section>
+<section id="where-things-go" class="level2">
+<h2 class="anchored" data-anchor-id="where-things-go">Where things go</h2>
+<pre><code>~/Desktop/projects/
+├── llm-50-day-bootcamp/     this site, and data/schedule.yml
+├── llm-bootcamp-work/       your notebooks, experiments and reports  ← work here
+├── llm-bootcamp-refs/       Karpathy's repos, read-only reference
+└── llm-bootcamp-prompts/    how this bootcamp was generated</code></pre>
+<p>Inside <code>llm-bootcamp-work</code>, name files by day — <code>work/week-1-foundations/day-03-micrograd.ipynb</code> — so that on day 28 and day 50, when a milestone report needs results from three weeks earlier, they are findable. <code>data/</code> and <code>checkpoints/</code> are gitignored: commit the query, the seed and the split definition, not the data.</p>
 
 
 </section>

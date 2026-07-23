@@ -395,7 +395,7 @@ ul.task-list li input[type="checkbox"] {
 <p><input type="checkbox" class="task-check"> Download the SLP3 Chapter 3 PDF on n-gram language models. Tomorrow starts there and you do not want to spend study time fetching it.</p>
 </div>
 <div class="task">
-<p><input type="checkbox" class="task-check"> Clone <code>github.com/karpathy/makemore</code> and confirm <code>names.txt</code> is present. <code>wc -l names.txt</code> should print 32033.</p>
+<p><input type="checkbox" class="task-check"> Clone <code>github.com/karpathy/makemore</code> and confirm <code>names.txt</code> is present. It holds 32,033 names, but <code>wc -l</code> prints 32032 because the file has no trailing newline - use <code>grep -c . names.txt</code> for the real count.</p>
 </div>
 <div class="task">
 <p><input type="checkbox" class="task-check"> Run <code>head -20 names.txt</code>: lowercase, one name per line, no header. That single file is Week 2’s entire dataset.</p>

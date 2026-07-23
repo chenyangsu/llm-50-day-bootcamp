@@ -1194,7 +1194,7 @@
     "href": "days/day-07.html#prepare-for-tomorrow",
     "title": "Day 7 — Re-derive backprop from memory",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 8, Friday, 31 July 2026 starts clean. This is what the evening email sends you.\n\n\n Download the SLP3 Chapter 3 PDF on n-gram language models. Tomorrow starts there and you do not want to spend study time fetching it.\n\n\n Clone github.com/karpathy/makemore and confirm names.txt is present. wc -l names.txt should print 32033.\n\n\n Run head -20 names.txt: lowercase, one name per line, no header. That single file is Week 2’s entire dataset.\n\n\n Write down your guess, before you read anything, for how many distinct character bigrams exist in a 27-symbol alphabet including the start/end token."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 8, Friday, 31 July 2026 starts clean. This is what the evening email sends you.\n\n\n Download the SLP3 Chapter 3 PDF on n-gram language models. Tomorrow starts there and you do not want to spend study time fetching it.\n\n\n Clone github.com/karpathy/makemore and confirm names.txt is present. It holds 32,033 names, but wc -l prints 32032 because the file has no trailing newline - use grep -c . names.txt for the real count.\n\n\n Run head -20 names.txt: lowercase, one name per line, no header. That single file is Week 2’s entire dataset.\n\n\n Write down your guess, before you read anything, for how many distinct character bigrams exist in a 27-symbol alphabet including the start/end token."
   },
   {
     "objectID": "days/day-05.html",
@@ -2671,55 +2671,55 @@
     "href": "setup.html",
     "title": "Setup",
     "section": "",
-    "text": "Your system Python on WSL is 3.8 and its pip is broken, so don’t fight it — install uv and let it manage a modern Python and a project virtual environment.\ncurl -LsSf https://astral.sh/uv/install.sh | sh\nexec $SHELL -l\n\nmkdir -p ~/llm-bootcamp && cd ~/llm-bootcamp\nuv venv --python 3.12\nsource .venv/bin/activate\nEverything for the next fifty days goes in that environment. If you prefer conda or miniforge, use it — the only requirement is Python 3.11 or newer and a package manager that works."
+    "text": "Where\n\n\n\n\nPython 3.12.13 virtual environment\n~/.venvs/llm-bootcamp\n\n\nPyTorch (CUDA 12.8 build) and the full stack\nin that environment\n\n\nWorking repository\n~/Desktop/projects/llm-bootcamp-work → sunami-lab/llm-bootcamp-work (private)\n\n\nKarpathy reference repos\n~/Desktop/projects/llm-bootcamp-refs/ — nn-zero-to-hero, micrograd, makemore, minbpe, nanoGPT\n\n\n\nTo start work on any day:\ncd ~/Desktop/projects/llm-bootcamp-work\nsource env.sh"
   },
   {
-    "objectID": "setup.html#a-python-you-can-actually-install-things-into",
-    "href": "setup.html#a-python-you-can-actually-install-things-into",
+    "objectID": "setup.html#already-done",
+    "href": "setup.html#already-done",
     "title": "Setup",
     "section": "",
-    "text": "Your system Python on WSL is 3.8 and its pip is broken, so don’t fight it — install uv and let it manage a modern Python and a project virtual environment.\ncurl -LsSf https://astral.sh/uv/install.sh | sh\nexec $SHELL -l\n\nmkdir -p ~/llm-bootcamp && cd ~/llm-bootcamp\nuv venv --python 3.12\nsource .venv/bin/activate\nEverything for the next fifty days goes in that environment. If you prefer conda or miniforge, use it — the only requirement is Python 3.11 or newer and a package manager that works."
+    "text": "Where\n\n\n\n\nPython 3.12.13 virtual environment\n~/.venvs/llm-bootcamp\n\n\nPyTorch (CUDA 12.8 build) and the full stack\nin that environment\n\n\nWorking repository\n~/Desktop/projects/llm-bootcamp-work → sunami-lab/llm-bootcamp-work (private)\n\n\nKarpathy reference repos\n~/Desktop/projects/llm-bootcamp-refs/ — nn-zero-to-hero, micrograd, makemore, minbpe, nanoGPT\n\n\n\nTo start work on any day:\ncd ~/Desktop/projects/llm-bootcamp-work\nsource env.sh"
   },
   {
-    "objectID": "setup.html#pytorch",
-    "href": "setup.html#pytorch",
+    "objectID": "setup.html#still-yours-to-do-about-five-minutes",
+    "href": "setup.html#still-yours-to-do-about-five-minutes",
     "title": "Setup",
-    "section": "2. PyTorch",
-    "text": "2. PyTorch\nCheck whether WSL can see a GPU first:\nnvidia-smi\nIf that prints a table, install the CUDA build. If it errors, you have no local GPU and that is fine — weeks 1 through 4 run comfortably on CPU, and from week 5 onward you use Colab.\n# with a GPU\nuv pip install torch --index-url https://download.pytorch.org/whl/cu124\n\n# CPU only\nuv pip install torch --index-url https://download.pytorch.org/whl/cpu\nThen the rest of what you’ll need over the fifty days:\nuv pip install numpy matplotlib jupyter ipykernel \\\n               transformers datasets accelerate evaluate \\\n               peft trl sentence-transformers faiss-cpu \\\n               tiktoken scikit-learn pandas wandb\nConfirm it works:\npython -c \"import torch; print(torch.__version__, torch.cuda.is_available())\""
+    "section": "Still yours to do — about five minutes",
+    "text": "Still yours to do — about five minutes\nTwo accounts, because they need a browser and a password you own:\n\nHugging Face — needed from day 29. Create an access token under Settings → Access Tokens, then huggingface-cli login.\nWeights & Biases — free for personal use, and it’s what makes day 25’s experiment table and the milestone write-ups easy. Then wandb login.\n\nOptional: an API key for a hosted model (Anthropic or OpenAI) makes day 33’s prompting baseline quicker. An open instruction-tuned model from the Hub works too."
   },
   {
-    "objectID": "setup.html#compute-honestly",
-    "href": "setup.html#compute-honestly",
+    "objectID": "setup.html#the-cuda-trap-and-why-the-install-is-pinned",
+    "href": "setup.html#the-cuda-trap-and-why-the-install-is-pinned",
     "title": "Setup",
-    "section": "3. Compute, honestly",
-    "text": "3. Compute, honestly\n\n\n\nWeeks\nWhat you need\nNotes\n\n\n\n\n1–4\nCPU is fine\nmicrograd, makemore and a small GPT on TinyShakespeare all train on a laptop. A GPU makes day 25’s sweeps pleasant rather than possible.\n\n\n5–7\nA GPU for a few hours\nFine-tuning a small model, a LoRA run, and embedding a few thousand abstracts. Colab’s free T4 covers all of it.\n\n\nDay 45\nOptional 8×H100\nOnly if you want to actually run the nanochat speedrun (~1.5 h, ~$48 on demand, ~$15 spot). Reading the pipeline carefully is enough — the day is written so that renting is optional."
+    "section": "The CUDA trap, and why the install is pinned",
+    "text": "The CUDA trap, and why the install is pinned\nYour driver is 573.57, advertising CUDA 12.8. The GPU is a GTX 1650 Ti (Turing, sm_75).\nInstalling torch from PyPI the obvious way gets you a CUDA 13 build, which does not run on a 12.8 driver. It does not fail loudly either — it installs cleanly and then reports:\ntorch 2.13.0+cu130 | cuda available: False\nwhich is the kind of thing you discover on day 25 when a sweep takes all afternoon on CPU. So the environment pins the CUDA 12.8 build explicitly:\nuv pip install --python ~/.venvs/llm-bootcamp/bin/python \\\n  --index-url https://download.pytorch.org/whl/cu128 torch\nIf you ever rebuild the environment, use that line rather than a bare uv pip install torch.\n\n\n\n\n\n\nSanity check before any GPU day: python -c \"import torch; print(torch.cuda.is_available())\" must print True. If it prints False, you are about to train on CPU."
   },
   {
-    "objectID": "setup.html#two-accounts-three-minutes",
-    "href": "setup.html#two-accounts-three-minutes",
+    "objectID": "setup.html#rebuilding-the-environment-from-scratch",
+    "href": "setup.html#rebuilding-the-environment-from-scratch",
     "title": "Setup",
-    "section": "4. Two accounts, three minutes",
-    "text": "4. Two accounts, three minutes\n\nHugging Face — you need this from day 29. Create an access token (Settings → Access Tokens) and run huggingface-cli login.\nWeights & Biases — free for personal use. You start logging runs on day 25 and it’s what makes the milestone write-ups easy. Run wandb login.\n\nOptional: an API key for a hosted model (Anthropic or OpenAI) makes the day 33 prompting baseline quicker, but an open instruction-tuned model from the Hub works too."
+    "section": "Rebuilding the environment from scratch",
+    "text": "Rebuilding the environment from scratch\nuv venv ~/.venvs/llm-bootcamp --python 3.12\nuv pip install --python ~/.venvs/llm-bootcamp/bin/python \\\n  --index-url https://download.pytorch.org/whl/cu128 torch\nuv pip install --python ~/.venvs/llm-bootcamp/bin/python \\\n  -r ~/Desktop/projects/llm-bootcamp-work/requirements.txt\nThe environment deliberately lives at ~/.venvs/llm-bootcamp, on the Linux filesystem, rather than beside the code under /mnt/c. WSL2’s bridge to the Windows drive is slow for operations over thousands of small files, which is exactly what a PyTorch venv is. Code and notebooks on /mnt/c are fine; the venv is not."
   },
   {
-    "objectID": "setup.html#repositories-to-clone",
-    "href": "setup.html#repositories-to-clone",
+    "objectID": "setup.html#what-your-4-gb-of-vram-will-and-wont-do",
+    "href": "setup.html#what-your-4-gb-of-vram-will-and-wont-do",
     "title": "Setup",
-    "section": "5. Repositories to clone",
-    "text": "5. Repositories to clone\ncd ~/llm-bootcamp\ngit clone https://github.com/karpathy/nn-zero-to-hero.git   # lecture notebooks, weeks 1-3\ngit clone https://github.com/karpathy/micrograd.git          # day 3-4 reference\ngit clone https://github.com/karpathy/makemore.git           # names.txt lives here\ngit clone https://github.com/karpathy/minbpe.git             # day 18\ngit clone https://github.com/karpathy/nanoGPT.git            # day 26\nnanochat you clone on day 44, not now."
-  },
-  {
-    "objectID": "setup.html#somewhere-to-put-your-own-work",
-    "href": "setup.html#somewhere-to-put-your-own-work",
-    "title": "Setup",
-    "section": "6. Somewhere to put your own work",
-    "text": "6. Somewhere to put your own work\nMake one directory for the things you write, separate from the cloned repos, and put it under git on day 1. You will produce roughly fifty artifacts and the milestone write-ups are much easier if they’re not scattered.\nmkdir -p ~/llm-bootcamp/work && cd ~/llm-bootcamp/work && git init"
+    "section": "What your 4 GB of VRAM will and won’t do",
+    "text": "What your 4 GB of VRAM will and won’t do\nThis decides which days run on your laptop and which want Colab.\n\n\n\n\n\n\n\n\nWeeks\nLocally?\nNotes\n\n\n\n\n1–4\nComfortably\nmicrograd and makemore barely touch the GPU. The day 22–26 GPT is about 10.8 M parameters at the video’s config and trains on TinyShakespeare in minutes. Day 25’s sweeps are the first thing that really benefits from the card.\n\n\n5\nTight but workable\nA BERT-family encoder fine-tune fits with a modest batch size and mixed precision. Reach for gradient accumulation before reaching for Colab.\n\n\n6\nDepends\nDay 41’s LoRA run is where 4 GB starts choosing your model for you. Small model plus LoRA plus 4-bit fits; a full fine-tune of anything decoder-shaped probably doesn’t.\n\n\n7\nEmbeddings yes, speedrun no\nDay 47’s retrieval work runs locally. Day 45’s nanochat speedrun needs 8×H100 — it is explicitly optional, and reading the pipeline carefully is the point.\n\n\n\nWhen something doesn’t fit, Colab’s free T4 has 16 GB and covers everything in weeks 5–7."
   },
   {
     "objectID": "setup.html#verify",
     "href": "setup.html#verify",
     "title": "Setup",
-    "section": "7. Verify",
-    "text": "7. Verify\nIf this prints a decreasing loss, you are ready for day 1:\nimport torch\n\nx = torch.randn(64, 3)\ny = (x.sum(dim=1, keepdim=True) &gt; 0).float()\nw = torch.zeros(3, 1, requires_grad=True)\nb = torch.zeros(1, requires_grad=True)\n\nfor step in range(200):\n    loss = torch.nn.functional.binary_cross_entropy_with_logits(x @ w + b, y)\n    loss.backward()\n    with torch.no_grad():\n        w -= 0.5 * w.grad; b -= 0.5 * b.grad\n        w.grad = None; b.grad = None\n    if step % 50 == 0:\n        print(step, round(loss.item(), 4))\nYou will not fully understand loss.backward() yet. That is day 2 through day 4."
+    "section": "Verify",
+    "text": "Verify\nIf this prints a decreasing loss and cuda: True, you are ready for day 1:\nimport torch\nprint(\"cuda:\", torch.cuda.is_available())\n\nx = torch.randn(64, 3)\ny = (x.sum(dim=1, keepdim=True) &gt; 0).float()\nw = torch.zeros(3, 1, requires_grad=True)\nb = torch.zeros(1, requires_grad=True)\n\nfor step in range(200):\n    loss = torch.nn.functional.binary_cross_entropy_with_logits(x @ w + b, y)\n    loss.backward()\n    with torch.no_grad():\n        w -= 0.5 * w.grad; b -= 0.5 * b.grad\n        w.grad = None; b.grad = None\n    if step % 50 == 0:\n        print(step, round(loss.item(), 4))\nYou will not fully understand loss.backward() yet. That is days 2 through 4."
+  },
+  {
+    "objectID": "setup.html#where-things-go",
+    "href": "setup.html#where-things-go",
+    "title": "Setup",
+    "section": "Where things go",
+    "text": "Where things go\n~/Desktop/projects/\n├── llm-50-day-bootcamp/     this site, and data/schedule.yml\n├── llm-bootcamp-work/       your notebooks, experiments and reports  ← work here\n├── llm-bootcamp-refs/       Karpathy's repos, read-only reference\n└── llm-bootcamp-prompts/    how this bootcamp was generated\nInside llm-bootcamp-work, name files by day — work/week-1-foundations/day-03-micrograd.ipynb — so that on day 28 and day 50, when a milestone report needs results from three weeks earlier, they are findable. data/ and checkpoints/ are gitignored: commit the query, the seed and the split definition, not the data."
   }
 ]
