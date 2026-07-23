@@ -1,0 +1,72 @@
+---
+title: "Day 24 — Rebuild it from an empty file"
+subtitle: "Sunday, 16 August 2026 · Week 4 · Build a GPT · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 23](day-23.qmd) · [All 50 days](../timeline.qmd) · [Day 25 →](day-25.qmd)
+:::
+
+::: {.why}
+Typing along with a video and writing the same code from nothing are different skills, and only the second one survives contact with a model you have not seen before.
+:::
+
+## What you should be able to do tonight
+
+- You can build a working decoder-only transformer from an empty file with no reference open, and name every piece you had to go look up.
+- You can predict the loss at initialization before running it - ln(65) = 4.17 for TinyShakespeare's character vocabulary - and treat any mismatch as a bug signal rather than a curiosity.
+- You can list, straight from your own notes, which parts of the architecture you did not actually know yesterday.
+
+## Tasks <span class='task-total'>220 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [95 min]{.task-min} Write `gpt_mine.py` from empty, in this order: data loading and encode/decode, `get_batch`, `Head`, `MultiHeadAttention`, `FeedForward`, `Block`, `GPTLanguageModel.forward`, `GPTLanguageModel.generate`, training loop. Video closed, `gpt_karpathy.py` in the other directory, PyTorch docs allowed.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [25 min]{.task-min} Write the exact question into `stuck.md` before you look anything up, every time you stall for more than ten minutes - 'what shape does tril need in register_buffer', 'does the position embedding index by arange(T) or by the token ids', 'does dropout go before or after the projection'. Write the answer beside it once you have it. This list is the real output of today.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Get it training. Run 1000 iterations on a small config (n_layer=4, n_head=4, n_embd=128, block_size=64) and confirm the loss starts near 4.17 and drops below 2.2. A file that imports cleanly but never trains does not count as done.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [20 min]{.task-min} Generate 300 tokens and add them to `samples.md` under a heading for your own implementation.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Diff `gpt_mine.py` against `gpt_karpathy.py` line by line and sort every difference into two piles in `notes.md`: things that are actual bugs in yours, and things that are only style. Be strict about which pile a difference belongs in - a transposed dimension that happens to work at n_head=4 is a bug.
+:::
+:::
+
+## Resources
+
+- [PyTorch docs](https://pytorch.org/docs/stable/index.html) [docs]{.res-kind}
+- [Karpathy L7 - Let's build GPT from scratch (for checking, after you are done)](https://www.youtube.com/watch?v=kCc8FmEb1nY) [video]{.res-kind}
+- [nn-zero-to-hero repo](https://github.com/karpathy/nn-zero-to-hero) [repo]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`gpt_mine.py`, written without a reference, that trains and generates. Plus `stuck.md`, the honest list of what you could not remember, which is a better map of this week's learning than the working code is.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Write the chain of tensor shapes from `idx` entering `forward` as (B,T) through to `logits` leaving it as (B,T,vocab_size), naming every intermediate, without running the code.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 25, Monday, 17 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Add `torch.manual_seed(1337)` explicitly at the top of `gpt_mine.py` - tomorrow's comparisons are worthless if runs are not seeded.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Time one 500-step run on the small config and write down the seconds. Tomorrow is thirteen runs; if one takes six minutes, shrink the config tonight.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Decide now whether you log train/val curves to CSV or to Weights & Biases, and if it is W&B, create the account and run `wandb login` tonight. Do not decide this mid-sweep tomorrow.
+:::
+:::

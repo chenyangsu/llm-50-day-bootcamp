@@ -1,0 +1,3050 @@
+# 50-Day LLM Bootcamp -- single source of truth.
+# Edit here, then run: python3 scripts/build.py
+
+meta:
+  title: 50-Day LLM Bootcamp
+  start_date: '2026-07-24'
+  end_date: '2026-09-11'
+  timezone: America/Winnipeg
+  site_url: https://chenyangsu.github.io/llm-50-day-bootcamp
+  daily_hours: 3-4 h
+  prep_for_day_1:
+  - 'Install uv and create a Python 3.12 environment, then install PyTorch — the Setup page has the exact
+    commands: https://chenyangsu.github.io/llm-50-day-bootcamp/setup.html'
+  - Run `nvidia-smi` to find out whether WSL can see a GPU. If it can't, that is fine for weeks 1-4; open
+    Colab and confirm you can start a runtime.
+  - Clone the five repos listed on the Setup page (nn-zero-to-hero, micrograd, makemore, minbpe, nanoGPT).
+  - Create Hugging Face and Weights & Biases accounts if you don't have them, and run the verification
+    snippet at the bottom of the Setup page.
+days:
+- day: 1
+  date: '2026-07-24'
+  weekday: Friday
+  week: 1
+  phase: Foundations
+  kind: study
+  title: Tensors, gradients, and the chain rule
+  hours: 3-4 h
+  why: Everything in the next 49 days is matrix multiplies and elementwise functions glued together by
+    the chain rule, so today fixes the notation and the tensor mechanics before anything else depends
+    on them.
+  objectives:
+  - Derive the gradient of ||y - Xb||^2 with respect to b and land on -2X'(y - Xb) using only the identities
+    from D2L 2.4, not memory.
+  - Predict the output shape of A.sum(axis=0), A.sum(axis=1), and A.sum(axis=1, keepdims=True) for A of
+    shape (5, 4) before running any of them.
+  - Write a central-difference gradient checker and state what value of eps makes it worse rather than
+    better.
+  tasks:
+  - text: Read D2L 2.3 Linear Algebra in a notebook, typing every code cell instead of reading past it.
+      Stop at every `axis=` argument and say the output shape out loud before you run the cell, especially
+      where `keepdims=True` appears.
+    minutes: 65
+  - text: 'Read D2L 2.4 Calculus, including the gradient identities near the end: grad of Ax, of x''A,
+      of x''Ax, and of ||x||^2. Copy those four into your notes by hand. You will use them constantly
+      and you will not want to re-derive them each time.'
+    minutes: 55
+  - text: Derive d/db of ||y - Xb||^2 on paper using only those identities, and confirm you get -2X'(y
+      - Xb). You already know the closed-form OLS solution; the point is that today it falls out of the
+      chain rule rather than out of a textbook box.
+    minutes: 40
+  - text: 'Implement `numerical_gradient(f, x, eps=1e-5)` using the central difference (f(x+eps) - f(x-eps))
+      / (2*eps) and check it against your analytic OLS gradient on a random X of shape (100, 5). Print
+      the max absolute difference: it should sit at 1e-7 or below. Then rerun with eps=1e-12 and watch
+      it get worse.'
+    minutes: 45
+  resources:
+  - label: D2L 2.3 - Linear Algebra
+    url: https://d2l.ai/chapter_preliminaries/linear-algebra.html
+    kind: textbook
+  - label: D2L 2.4 - Calculus
+    url: https://d2l.ai/chapter_preliminaries/calculus.html
+    kind: textbook
+  - label: D2L landing page
+    url: https://d2l.ai/
+    kind: textbook
+  deliverable: '`day01_linalg_calculus.ipynb` containing the 2.3 and 2.4 cells you typed yourself, your
+    hand-derived OLS gradient (photo or a LaTeX cell), and the numerical-vs-analytic check with the max
+    absolute difference printed for eps=1e-5 and eps=1e-12.'
+  checkpoint: 'For A of shape (5, 4): why does `A / A.sum(axis=1)` either fail or silently give you the
+    wrong thing, while `A / A.sum(axis=1, keepdims=True)` does what you meant?'
+  prep_for_tomorrow:
+  - Run `import torch; print(torch.__version__)` and confirm you have a 2.x build. Install it tonight
+    if not, because tomorrow is entirely PyTorch.
+  - Open D2L 2.5 Automatic Differentiation and read only the section headings. Five minutes, no code.
+  - Bookmark the PyTorch autograd mechanics note; it is the second half of tomorrow's reading.
+- day: 2
+  date: '2026-07-25'
+  weekday: Saturday
+  week: 1
+  phase: Foundations
+  kind: study
+  title: What backward() actually does
+  hours: 3-4 h
+  why: Yesterday you differentiated by hand; today you find out what PyTorch records during the forward
+    pass in order to do it for you, and what its failure modes look like when you get it wrong.
+  objectives:
+  - Say what is in `x.grad` after two consecutive `backward()` calls with no `zero_()` between them, and
+    why PyTorch chose accumulation over overwriting.
+  - Explain what `detach()` cuts out of the recorded graph and name one situation where you want exactly
+    that.
+  - Explain why a function containing a `while` loop and an `if` branch still differentiates correctly.
+  tasks:
+  - text: Read D2L 2.5 Automatic Differentiation end to end, typing the cells. Slow down on `requires_grad_(True)`,
+      on `x.grad.zero_()`, and on the subsection about calling `backward()` on a non-scalar.
+    minutes: 55
+  - text: Read the PyTorch autograd mechanics note, specifically how autograd encodes the history and
+      how to locally disable gradient computation (`no_grad`, `inference_mode`, `detach`). This is the
+      reference page you will come back to in Week 4 when something silently stops training.
+    minutes: 45
+  - text: 'Run the control-flow example from 2.5: `f(a)` with a `while b.norm() < 1000` loop and an `if
+      b.sum() > 0` branch. Call `backward()` and confirm `a.grad == d / a`. Then write two sentences explaining
+      why that identity holds - for any fixed `a`, `f` is linear in `a` with some constant k, so d = k*a.'
+    minutes: 45
+  - text: 'Build the accumulation bug on purpose: take a scalar parameter, run `backward()` twice without
+      `zero_()`, and print `.grad` after each call. Write down the number you would have expected if gradients
+      overwrote instead of accumulated. Keep this cell - you will hit this for real on Day 4.'
+    minutes: 30
+  - text: Call `backward()` twice on the same graph, read the RuntimeError about backward through the
+      graph a second time, then fix it with `retain_graph=True` and write one line on what that costs
+      you in memory.
+    minutes: 25
+  resources:
+  - label: D2L 2.5 - Automatic Differentiation
+    url: https://d2l.ai/chapter_preliminaries/autograd.html
+    kind: textbook
+  - label: PyTorch autograd mechanics
+    url: https://pytorch.org/docs/stable/notes/autograd.html
+    kind: docs
+  - label: PyTorch docs (index)
+    url: https://pytorch.org/docs/stable/index.html
+    kind: docs
+  deliverable: '`day02_autograd.ipynb` with the 2.5 cells, the control-flow check that passes, a cell
+    that deliberately raises the freed-graph RuntimeError with your one-line explanation under it, and
+    the accumulate-without-zeroing demo.'
+  checkpoint: Why does PyTorch accumulate into `.grad` rather than overwriting it, and what does that
+    design decision force you to write in every training loop you will ever author?
+  prep_for_tomorrow:
+  - Clone `github.com/karpathy/nn-zero-to-hero`. Tomorrow you work inside `lectures/micrograd/`.
+  - Clone `github.com/karpathy/micrograd` as well, but do not open `engine.py`. You write that yourself
+    on Day 4.
+  - Open the micrograd lecture and confirm it plays. It runs 2h25m total and tomorrow you watch the first
+    1h15m.
+- day: 3
+  date: '2026-07-26'
+  weekday: Sunday
+  week: 1
+  phase: Foundations
+  kind: study
+  title: 'micrograd, first half: the Value object and the expression graph'
+  hours: 3-4 h
+  why: Karpathy builds a working autograd engine in about 100 lines of plain Python, and watching it assembled
+    node by node is what turns `backward()` from a call into a mechanism you could rewrite yourself.
+  objectives:
+  - Explain why the numerical derivative gets worse rather than better once h drops below roughly 1e-8.
+  - Given `c = a * b`, write the two lines that set `a.grad` and `b.grad` from `c.grad` without consulting
+    the video.
+  - Say what `_prev` and `_op` are stored for, and which nodes in an expression graph are leaves.
+  tasks:
+  - text: Watch the micrograd lecture from 0:00 to roughly 1:15, typing along in `lectures/micrograd/micrograd_lecture_first_half_roughly.ipynb`.
+      Budget well over the 75 minutes of runtime - with pauses and typing this is closer to two hours,
+      and that is the correct way to do it.
+    minutes: 115
+  - text: 'Reproduce the numerical-derivative section yourself: define f(x) = 3x^2 - 4x + 5, compute (f(x+h)
+      - f(x)) / h at x = 3 for h in [1e-1, 1e-3, 1e-6, 1e-12], and plot the absolute error against the
+      analytic value 6x - 4 = 14. Explain in one sentence why h = 1e-12 is worse than h = 1e-6.'
+    minutes: 30
+  - text: 'Do the tanh neuron by hand before the video shows you: x1 = 2.0, w1 = -3.0, x2 = 0.0, w2 =
+      1.0, b = 6.8813735870195432, n = x1*w1 + x2*w2 + b, o = tanh(n). Fill in every `.grad` on paper,
+      then check against the video. o comes out at 0.7071, so do/dn = 1 - o^2 = 0.5 exactly - that is
+      the number every other gradient is scaled by.'
+    minutes: 40
+  - text: Draw the expression graph for a = 2.0, b = -3.0, c = 10.0, d = a*b + c on paper. Label every
+      node with its `data`, its `_op`, and its `_prev` set, and mark which nodes are leaves. `d.data`
+      should be 4.0.
+    minutes: 20
+  resources:
+  - label: Karpathy L1 - micrograd, the spelled-out intro to backpropagation (2h25m)
+    url: https://www.youtube.com/watch?v=VMj-3S1tku0
+    kind: video
+  - label: nn-zero-to-hero repo (lectures/micrograd/)
+    url: https://github.com/karpathy/nn-zero-to-hero
+    kind: repo
+  - label: micrograd - the ~100-line autograd engine
+    url: https://github.com/karpathy/micrograd
+    kind: repo
+  - label: 'Neural Networks: Zero to Hero course page'
+    url: https://karpathy.ai/zero-to-hero.html
+    kind: video
+  deliverable: '`micrograd_lecture_first_half_roughly.ipynb` filled in by your own typing up to the 1:15
+    mark, plus a hand-drawn expression graph for the tanh neuron with every local derivative labelled
+    (a photo in the folder is fine).'
+  checkpoint: For `c = a + b`, `a.grad` picks up `1.0 * c.grad`. For `c = a * b`, it picks up `b.data
+    * c.grad`. Where does the multiplier come from in each case - in one sentence, without using the phrase
+    'chain rule'?
+  prep_for_tomorrow:
+  - Queue the micrograd video at 1:15 and open `micrograd_lecture_second_half_roughly.ipynb`.
+  - Create an empty file called `mygrad.py` in your working directory and leave it empty. Tomorrow you
+    write micrograd into it from nothing.
+  - Look at the file listing of `github.com/karpathy/micrograd` and note that `engine.py` is about 100
+    lines. Still do not open it.
+- day: 4
+  date: '2026-07-27'
+  weekday: Monday
+  week: 1
+  phase: Foundations
+  kind: study
+  title: Rebuild micrograd from an empty file
+  hours: 3-4 h
+  why: Watching an autograd engine get built and writing one from an empty file are different skills,
+    and only the second one transfers.
+  objectives:
+  - Write `backward()` including the topological sort from memory, and say why the sort is required rather
+    than calling each node's `_backward` in creation order.
+  - Describe what `.grad` holds at step k when `zero_grad()` is missing, and what that does to the loss
+    curve.
+  - Explain why `_backward` is a closure over its parent nodes instead of a method taking arguments.
+  tasks:
+  - text: 'Watch the micrograd lecture from 1:15 to 2:25, typing into `micrograd_lecture_second_half_roughly.ipynb`.
+      The three places to pause: the `_backward` closure attached to each `Value`, the topological sort
+      inside `backward()`, and the `zero_grad` bug Karpathy walks into live.'
+    minutes: 95
+  - text: 'Close every tab and write `mygrad.py` from empty: `Value` with `__add__`, `__mul__`, `__pow__`,
+      `tanh`, and `backward()` with a topological sort, then `Neuron`, `Layer`, `MLP`. No looking. When
+      you get stuck, write down what you were stuck on before you look it up - that list is the real output
+      of this exercise.'
+    minutes: 70
+  - text: 'Train `MLP(3, [4, 4, 1])` on Karpathy''s four-example toy set with ys = [1.0, -1.0, -1.0, 1.0]
+      and MSE loss for 100 steps, and get the loss under 1e-3. Sanity check first: `len(n.parameters())`
+      should be 41. Then delete the `zero_grad()` call, rerun, and write one sentence on what the loss
+      curve does and why.'
+    minutes: 35
+  - text: 'Cross-check `mygrad.py` against PyTorch: build the same small expression in both, call `backward()`
+      in both, and assert the gradients agree to 1e-9. If they don''t, the disagreement is in one operation
+      - find which.'
+    minutes: 25
+  resources:
+  - label: Karpathy L1 - micrograd (watch 1:15 to 2:25)
+    url: https://www.youtube.com/watch?v=VMj-3S1tku0
+    kind: video
+  - label: nn-zero-to-hero repo (lectures/micrograd/)
+    url: https://github.com/karpathy/nn-zero-to-hero
+    kind: repo
+  - label: micrograd - compare your mygrad.py against engine.py only after you finish
+    url: https://github.com/karpathy/micrograd
+    kind: repo
+  deliverable: '`mygrad.py`, written from an empty file, that trains the toy dataset to final loss below
+    1e-3 and passes a gradient-agreement assertion against PyTorch at 1e-9. Plus your written list of
+    the places you got stuck.'
+  checkpoint: Your `backward()` topologically sorts the graph and then walks it in reverse calling `_backward()`.
+    Name the specific quantity that would be read before it is written if you walked the list forward
+    instead.
+  prep_for_tomorrow:
+  - Write down, from memory tonight, the multinomial logistic regression log-likelihood the way you would
+    write it in a stats paper. Tomorrow you match it to D2L's cross-entropy notation.
+  - Confirm `torchvision.datasets.FashionMNIST` downloads in your environment - tomorrow's classifier
+    needs a real 10-class dataset and you do not want to spend study time on the download.
+  - Open D2L 4.1 Softmax Regression and read only its first paragraph.
+- day: 5
+  date: '2026-07-28'
+  weekday: Tuesday
+  week: 1
+  phase: Foundations
+  kind: study
+  title: Softmax regression is multinomial logistic regression
+  hours: 3-4 h
+  why: You have fit this model before under a different name, so the work today is translating your likelihood
+    notation into D2L's loss notation and then implementing it in a form that does not overflow.
+  objectives:
+  - Show that minimizing cross-entropy against one-hot labels is exactly maximizing the multinomial log-likelihood,
+    in three lines of algebra.
+  - Explain why `exp(o)` returns `inf` above roughly 88.7 in float32 and roughly 709.8 in float64, and
+    prove that subtracting max(o) leaves softmax(o) unchanged.
+  - Derive dL/do = yhat - y for softmax plus cross-entropy and verify it numerically against autograd.
+  tasks:
+  - text: Read D2L 4.1 Softmax Regression in full, including the Log-Likelihood subsection, the Softmax
+      and Cross-Entropy Loss subsection, and the information theory section. Where D2L writes cross-entropy,
+      write NLL in the margin - they are the same object and you should stop translating between them
+      by the end of today.
+    minutes: 50
+  - text: 'Write `softmax(X)` twice: the naive version `exp(X) / exp(X).sum(1, keepdim=True)`, and the
+      stable version that subtracts `X.max(1, keepdim=True).values` first. Feed both a float32 logit row
+      containing 100.0 and record exactly what each returns.'
+    minutes: 40
+  - text: Implement cross-entropy directly from logits as `logsumexp(o) - o[y]`, never forming probabilities
+      first, and check it agrees with `torch.nn.functional.cross_entropy` to 1e-6 on a random batch of
+      shape (64, 10).
+    minutes: 40
+  - text: Train softmax regression on FashionMNIST from scratch - your softmax, your loss, manual SGD
+      on W of shape (784, 10) and b of shape (10,) - for 10 epochs, and print test accuracy. Low-to-mid
+      80s is the expected number. If you are sitting at 10% you have a sign error, not a learning-rate
+      problem.
+    minutes: 60
+  - text: 'Derive dL/do = softmax(o) - onehot(y) on paper for a single example, then check it: build a
+      random logit vector with `requires_grad=True`, compute your loss, call `backward()`, and compare
+      `o.grad` against `softmax(o) - onehot(y)`.'
+    minutes: 30
+  resources:
+  - label: D2L 4.1 - Softmax Regression
+    url: https://d2l.ai/chapter_linear-classification/softmax-regression.html
+    kind: textbook
+  - label: D2L 4.1 - Softmax and Cross-Entropy Loss (subsection)
+    url: https://d2l.ai/chapter_linear-classification/softmax-regression.html#softmax-and-cross-entropy-loss
+    kind: textbook
+  deliverable: '`day05_softmax.py` with your stable `softmax`, a logit-space cross-entropy matching `F.cross_entropy`
+    to 1e-6, a trained FashionMNIST classifier with test accuracy printed, and the numerical confirmation
+    that `o.grad` equals `softmax(o) - onehot(y)`.'
+  checkpoint: Your naive softmax returns `nan` on a logit row containing 100.0, and subtracting the row
+    max fixes it. Prove in one line that the subtraction changes nothing mathematically, and say which
+    float type breaks first and at roughly what logit value.
+  prep_for_tomorrow:
+  - Open D2L 5.1, 5.3, and 5.4 in three tabs. Tomorrow is all three and it is the heaviest reading day
+    of the week.
+  - 'Sketch on one sheet the forward pass of a 2-layer MLP: X to Z1 = XW1 + b1 to H = relu(Z1) to O =
+    HW2 + b2 to loss. Annotate every shape. You differentiate this tomorrow.'
+  - Skim only the section headings of D2L 5.3 so tomorrow's densest read does not start cold.
+- day: 6
+  date: '2026-07-29'
+  weekday: Wednesday
+  week: 1
+  phase: Foundations
+  kind: study
+  title: Backprop through a 2-layer MLP, by hand
+  hours: 3-4 h
+  why: D2L 5.3 turns the chain rule into a specific list of matrix expressions, and writing that backward
+    pass yourself is what makes the vanishing-gradient argument in 5.4 a measurement instead of a warning.
+  objectives:
+  - Write dL/dW1 and dL/dW2 for a 2-layer MLP as matrix expressions with every shape checked, and match
+    them against `torch.autograd.grad` to 1e-5.
+  - State the maximum value of the sigmoid derivative and compute what it does to a gradient after 10
+    stacked layers.
+  - State what variance Xavier initialization targets and which two numbers it depends on.
+  tasks:
+  - text: Read D2L 5.1 Multilayer Perceptrons - the ReLU, sigmoid and tanh sections and the universal-approximation
+      note. Move quickly; a hidden layer is a learned basis expansion and you already know what those
+      buy you.
+    minutes: 35
+  - text: Read D2L 5.3 Forward Propagation, Backward Propagation, and Computational Graphs slowly, then
+      redraw its computational graph on paper with your own shape annotations on every edge.
+    minutes: 45
+  - text: 'Read D2L 5.4 Numerical Stability and Initialization, then reproduce its vanishing-gradient
+      point numerically: compute the sigmoid derivative over x in [-8, 8], read off the maximum (0.25,
+      at x = 0), and raise it to the 10th power. That number, around 9.5e-7, is the whole argument.'
+    minutes: 40
+  - text: Implement a 2-layer MLP on FashionMNIST with a hand-written backward pass - no autograd, no
+      `nn.Module`. Compute dL/dO = (softmax(O) - Y)/n, then dW2, db2, dH, dZ1 (masked by the ReLU), dW1,
+      db1 yourself. Then rebuild the same forward pass a second time with `requires_grad=True` and assert
+      every one of your gradients matches `torch.autograd.grad` to 1e-5 before you let it train.
+    minutes: 75
+  - text: Train a deeper net twice - 4 hidden layers with sigmoid activations, deeper than task 4 on purpose
+      because the effect needs depth to show up - once with W ~ N(0, 1) and once with Xavier. Plot the
+      mean absolute gradient of the first layer over the first 200 steps for both on one axis.
+    minutes: 30
+  resources:
+  - label: D2L 5.1 - Multilayer Perceptrons
+    url: https://d2l.ai/chapter_multilayer-perceptrons/mlp.html
+    kind: textbook
+  - label: D2L 5.3 - Forward Propagation, Backward Propagation, and Computational Graphs
+    url: https://d2l.ai/chapter_multilayer-perceptrons/backprop.html
+    kind: textbook
+  - label: D2L 5.4 - Numerical Stability and Initialization
+    url: https://d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html
+    kind: textbook
+  deliverable: '`day06_mlp_manual_backward.py` - a 2-layer MLP whose backward pass you wrote, with an
+    assertion that every gradient matches `torch.autograd.grad` to 1e-5, plus one figure comparing first-layer
+    gradient magnitude under N(0, 1) versus Xavier initialization.'
+  checkpoint: In your backward pass, `dZ1 = dH * (Z1 > 0)`. Why is that elementwise mask there, and what
+    term replaces it if you swap ReLU for sigmoid?
+  prep_for_tomorrow:
+  - Put a blank sheet of paper somewhere visible and close your Day 6 code. Tomorrow you re-derive that
+    backward pass from memory before you are allowed to reopen it.
+  - Write the list of things from Days 1 to 6 you left half-finished or half-understood. Tomorrow's first
+    task is closing that list.
+  - Check that `mygrad.py` from Day 4 still runs, so tomorrow's clean-interpreter check is not a surprise.
+- day: 7
+  date: '2026-07-30'
+  weekday: Thursday
+  week: 1
+  phase: Foundations
+  kind: catchup
+  title: Re-derive backprop from memory
+  hours: 2-3 h
+  why: 'Nothing new today: if Days 1 through 6 are done and every gradient check passes, this day is yours
+    to spend or skip, and if they aren''t, this is the buffer that keeps Week 2 from starting on a broken
+    foundation.'
+  objectives:
+  - Reproduce the full backward pass of a 2-layer MLP on paper, from the loss down to dW1, with all code
+    closed.
+  - Name in writing the two gradient bugs you actually hit this week and describe what each looked like
+    from the outside, before you knew the cause.
+  tasks:
+  - text: Close out the list you wrote last night. Gradient checks that do not pass count as outstanding,
+      and so does any notebook that only runs if you execute the cells in a particular order.
+    minutes: 45
+  - text: On paper, with everything closed, re-derive the backward pass for X to Z1 = XW1 + b1 to H =
+      relu(Z1) to O = HW2 + b2 to softmax cross-entropy. Write each expression with its shape beside it.
+      Then open `day06_mlp_manual_backward.py` and diff your paper against it line by line.
+    minutes: 50
+  - text: 'Write `week1_summary.md`, one page, answering in your own words: what a computational graph
+      is and what gets stored in it; what a `_backward` closure captures; why cross-entropy computed from
+      logits is numerically different from cross-entropy computed from probabilities; and what initialization
+      is actually controlling.'
+    minutes: 40
+  - text: Re-run `mygrad.py` and `day06_mlp_manual_backward.py` from a fresh interpreter, top to bottom,
+      and confirm both still produce the numbers you recorded. Fix anything that only worked because of
+      state left in a session.
+    minutes: 25
+  resources:
+  - label: SLP3 Ch3 - N-gram Language Models (Week 2 starts here)
+    url: https://web.stanford.edu/~jurafsky/slp3/3.pdf
+    kind: textbook
+  - label: makemore - single makemore.py plus names.txt
+    url: https://github.com/karpathy/makemore
+    kind: repo
+  - label: SLP3 landing page
+    url: https://web.stanford.edu/~jurafsky/slp3/
+    kind: textbook
+  deliverable: '`week1_summary.md` at one page, your paper re-derivation photographed into the same folder,
+    and both `mygrad.py` and `day06_mlp_manual_backward.py` running clean from a fresh interpreter.'
+  checkpoint: Explain backpropagation in under two minutes to someone who knows the chain rule and matrix
+    calculus but has never seen a neural network. If you cannot say what the graph is and why the traversal
+    runs in reverse, go back to Day 4.
+  prep_for_tomorrow:
+  - Download the SLP3 Chapter 3 PDF on n-gram language models. Tomorrow starts there and you do not want
+    to spend study time fetching it.
+  - Clone `github.com/karpathy/makemore` and confirm `names.txt` is present. `wc -l names.txt` should
+    print 32033.
+  - 'Run `head -20 names.txt`: lowercase, one name per line, no header. That single file is Week 2''s
+    entire dataset.'
+  - Write down your guess, before you read anything, for how many distinct character bigrams exist in
+    a 27-symbol alphabet including the start/end token.
+- day: 8
+  date: '2026-07-31'
+  weekday: Friday
+  week: 2
+  phase: Language models
+  kind: study
+  title: A language model you can count by hand
+  hours: 3-4 h
+  why: A language model is a conditional probability table before it is anything else, and estimating
+    one by counting gives you a baseline that every neural model this month has to beat.
+  objectives:
+  - Write the chain rule of probability for a 5-token sentence, then write what the bigram Markov assumption
+    replaces it with, and name what is thrown away.
+  - Derive the bigram MLE as count(w_prev, w) / count(w_prev) from the multinomial log-likelihood rather
+    than quoting it as a definition.
+  - Sample 10 names from your own bigram model and explain why they are name-shaped but not names.
+  tasks:
+  - text: Read SLP3 Ch3 sections 3.1-3.4. Before you reach the MLE equation, stop and maximize the multinomial
+      log-likelihood yourself on paper - it is the same estimator you use for allele frequencies, with
+      the same Lagrange-multiplier normalization step.
+    minutes: 65
+  - text: Clone github.com/karpathy/makemore, confirm names.txt loads and count the entries (32,033),
+      then build a 27x27 integer tensor N of character bigram counts using '.' as index 0 for both start
+      and end of a name.
+    minutes: 55
+  - text: Normalize N row-wise into P, assert P.sum(dim=1) is all ones to within floating-point tolerance,
+      and sample 10 names with torch.multinomial under a fixed generator seed so the run is reproducible.
+    minutes: 40
+  - text: Compute by hand, from the raw counts, the MLE probability of three specific bigrams - ('.',
+      'a'), ('q', 'u'), ('n', '.') - and check each against the corresponding entry of P.
+    minutes: 25
+  - text: 'Write five sentences in bigram_notes.md on what a bigram model cannot represent: name one property
+      of real names that needs more than one character of context.'
+    minutes: 20
+  resources:
+  - label: SLP3 Ch3 - N-gram Language Models
+    url: https://web.stanford.edu/~jurafsky/slp3/3.pdf
+    kind: textbook
+  - label: makemore repo (names.txt, 32K SSA names)
+    url: https://github.com/karpathy/makemore
+    kind: repo
+  deliverable: bigram_counts.py (or a notebook) that builds the 27x27 count matrix from names.txt, prints
+    the 10 most frequent bigrams with their MLE probabilities, samples 10 names, and saves N to disk.
+    Plus bigram_notes.md.
+  checkpoint: 'Without looking: show that count(w_prev, w) / count(w_prev) is the maximizer of the multinomial
+    log-likelihood, not just a reasonable-looking ratio.'
+  prep_for_tomorrow:
+  - torch.save the 27x27 count matrix N so tomorrow starts from it instead of a rebuild.
+  - Split names.txt into 90% train and 10% held-out with a fixed seed, and write both to disk as separate
+    files.
+  - Skim the two pages of SLP3 3.5 that define perplexity - do not work through it, just see the equation
+    once.
+- day: 9
+  date: '2026-08-01'
+  weekday: Saturday
+  week: 2
+  phase: Language models
+  kind: study
+  title: Perplexity, and what smoothing is actually for
+  hours: 3-4 h
+  why: Perplexity is the number every paper reports and few define carefully, so today you define it as
+    exp of the mean NLL and then watch smoothing decide whether your held-out number is finite at all.
+  objectives:
+  - Show numerically that the perplexity of your Day 8 model equals exp of the mean cross-entropy loss
+    you wrote from scratch on Day 5.
+  - Explain why an unsmoothed bigram model returns infinite perplexity on held-out text, and what add-k
+    does to the zero cells.
+  - Compare add-k against linear interpolation on the same held-out split and say which bigrams each one
+    moves most.
+  tasks:
+  - text: Read SLP3 3.5-3.8. At the perplexity definition, rewrite it in exp(mean NLL) form before reading
+      on, and note that add-k is a Dirichlet pseudocount - the same device you already use for low-count
+      allele frequencies.
+    minutes: 70
+  - text: Compute mean negative log-likelihood per character for the Day 8 model on the train file and
+      on the held-out file, convert both to perplexity, and find at least one held-out bigram with zero
+      count that sends the held-out figure to inf.
+    minutes: 45
+  - text: Add add-k smoothing as (N + k) for k in {0.01, 0.1, 1, 10}, recompute held-out perplexity for
+      each, plot perplexity against k on a log-x axis, and read the minimum off the plot.
+    minutes: 45
+  - text: Implement linear interpolation between the bigram and unigram distributions, sweep lambda over
+      {0.1, ..., 0.9}, and compare the best interpolated held-out perplexity against the best add-k perplexity.
+    minutes: 40
+  - text: Write a paragraph in smoothing_notes.md on which of the two is doing more work on a 27-symbol
+      character vocabulary, and why Kneser-Ney's continuation counts matter far more for words than for
+      characters.
+    minutes: 20
+  resources:
+  - label: SLP3 Ch3 - N-gram Language Models
+    url: https://web.stanford.edu/~jurafsky/slp3/3.pdf
+    kind: textbook
+  - label: D2L 4.1 - Softmax and cross-entropy loss
+    url: https://d2l.ai/chapter_linear-classification/softmax-regression.html#softmax-and-cross-entropy-loss
+    kind: textbook
+  deliverable: A table of held-out perplexity for unsmoothed, add-k at four values of k, and best interpolation;
+    the perplexity-vs-k plot saved as ppl_vs_k.png; and smoothing_notes.md.
+  checkpoint: 'Without looking: your held-out perplexity is some number P. State what P means operationally
+    - an equivalent uniform choice among how many characters - and why train perplexity comes out below
+    held-out perplexity.'
+  prep_for_tomorrow:
+  - 'Queue makemore part 1 and block the time: it is 1h57m, not a background video.'
+  - Clone github.com/karpathy/nn-zero-to-hero and open lectures/makemore/makemore_part1_bigrams.ipynb
+    next to your own Day 8 script.
+  - Write your best held-out perplexity and its NLL somewhere visible - tomorrow you check whether a trained
+    network can beat it.
+- day: 10
+  date: '2026-08-02'
+  weekday: Sunday
+  week: 2
+  phase: Language models
+  kind: study
+  title: The same bigram model, built twice
+  hours: 3-4 h
+  why: Karpathy builds one bigram model by counting and another by gradient descent, and the whole value
+    of today is watching two very different procedures land on the same distribution.
+  objectives:
+  - Train a 27x27 weight matrix by gradient descent and show its final NLL sits within about 0.01 of the
+    count model's NLL from Day 8.
+  - Explain what W[x] does when x is a one-hot row vector, and why that matrix multiply is an embedding
+    lookup in disguise.
+  - Predict the output shape of counts / counts.sum(1, keepdim=True) before running it, and say what silently
+    goes wrong with keepdim=False.
+  tasks:
+  - text: Watch makemore part 1 (1h57m) with makemore_part1_bigrams.ipynb open, typing along rather than
+      watching. At the broadcasting section, pause and state each output shape before he does.
+    minutes: 117
+  - text: Rebuild the one-hot to logits to softmax to NLL path in your own file and train the 27x27 W
+      with gradient descent until the loss plateaus near 2.45-2.47.
+    minutes: 45
+  - text: 'Compare softmax(W) row by row against the P matrix from Day 8: print the maximum absolute difference,
+      then re-run with the W**2 regularization term at two different strengths and report how that difference
+      moves.'
+    minutes: 30
+  - text: Break the broadcast on purpose - use counts.sum(1) instead of counts.sum(1, keepdim=True) -
+      inspect the resulting shape, and write one sentence explaining which axis got normalized and why
+      no error was raised.
+    minutes: 20
+  resources:
+  - label: Karpathy L2 - makemore part 1, bigrams (1h57m)
+    url: https://www.youtube.com/watch?v=PaCmpygFfXo
+    kind: video
+  - label: nn-zero-to-hero repo (lectures/makemore/makemore_part1_bigrams.ipynb)
+    url: https://github.com/karpathy/nn-zero-to-hero
+    kind: repo
+  deliverable: One file holding both computations - the Day 8 count table and the trained 27x27 W - printing
+    the two negative log-likelihoods side by side and the max absolute difference between P and softmax(W).
+  checkpoint: 'Without looking: why does gradient descent on the NLL of a linear model with one-hot inputs
+    converge to exactly the count-based MLE table? Answer in terms of what the gradient with respect to
+    a single row of W is.'
+  prep_for_tomorrow:
+  - Queue makemore part 2 (1h15m) and open lectures/makemore/makemore_part2_mlp.ipynb.
+  - Skim the architecture figure reproduced in the first cells of that notebook so the embedding table
+    is not new to you at 8am.
+  - Add your bigram network's final NLL to the results file you started on Day 9 - the MLP row goes in
+    tomorrow.
+- day: 11
+  date: '2026-08-03'
+  weekday: Monday
+  week: 2
+  phase: Language models
+  kind: study
+  title: Embeddings and a context window
+  hours: 3-4 h
+  why: A count table for a 3-character context needs 19,683 rows and most of them are empty; the embedding
+    table from Bengio 2003 is how you buy more context without buying more rows.
+  objectives:
+  - State what the embedding matrix C gives you that the one-hot bigram W cannot, in terms of how parameter
+    count grows as the context window goes from 1 to 3 characters.
+  - Pick a learning rate from a swept loss-vs-exponent plot rather than by feel, and justify the point
+    you picked.
+  - Report train, dev and test loss separately and say which of the three you are allowed to look at more
+    than once.
+  tasks:
+  - text: 'Watch makemore part 2 (1h15m), building alongside: the C embedding table, block_size=3 context,
+      a tanh hidden layer, and the output logits.'
+    minutes: 75
+  - text: Build the dataset yourself at block_size=3 with an 80/10/10 train/dev/test split, then print
+      X.shape and Y.shape and confirm by hand that row 0 of X is the context you expect for the first
+      name.
+    minutes: 35
+  - text: Sweep the learning rate over 10**torch.linspace(-3, 0, 1000) across 1000 steps, plot loss against
+      the exponent, and choose the rate from the region where the curve still descends but has started
+      to get noisy.
+    minutes: 40
+  - text: Train to a dev loss under about 2.2, then raise n_embd or n_hidden once and report whether dev
+      loss followed train loss down or split away from it.
+    minutes: 45
+  - text: Sample 20 names from the MLP, put them beside the Day 10 bigram samples, and write two sentences
+      naming what specifically improved - not 'they look better'.
+    minutes: 20
+  resources:
+  - label: Karpathy L3 - makemore part 2, MLP (1h15m)
+    url: https://www.youtube.com/watch?v=TCH_1BHY58I
+    kind: video
+  - label: nn-zero-to-hero repo (lectures/makemore/makemore_part2_mlp.ipynb)
+    url: https://github.com/karpathy/nn-zero-to-hero
+    kind: repo
+  - label: D2L 5.1 - Multilayer Perceptrons
+    url: https://d2l.ai/chapter_multilayer-perceptrons/mlp.html
+    kind: textbook
+  deliverable: makemore_mlp.py with the 80/10/10 split, the learning-rate sweep saved as lr_sweep.png,
+    and train/dev/test losses added to the results file alongside the Day 8 and Day 10 numbers.
+  checkpoint: 'Without looking: with 27 characters and a 3-character context, how many rows would a pure
+    count table need? Count the parameters your MLP used instead, and say where the saving comes from.'
+  prep_for_tomorrow:
+  - torch.save the trained C matrix so tomorrow you can inspect it without retraining.
+  - Download SLP3 Ch5 and skim the figure showing words projected into two dimensions.
+  - Confirm torch.pca_lowrank or sklearn's PCA imports cleanly - tomorrow's projection needs one of them.
+- day: 12
+  date: '2026-08-04'
+  weekday: Tuesday
+  week: 2
+  phase: Language models
+  kind: study
+  title: What the embedding space encodes
+  hours: 3-4 h
+  why: You trained an embedding matrix yesterday without asking what its geometry means; this chapter
+    defines similarity in that space and shows what else gets encoded along with it.
+  objectives:
+  - Compute cosine similarity between two rows of your own C and justify cosine rather than Euclidean
+    distance.
+  - State what PPMI corrects for relative to raw co-occurrence counts, and why the positive clipping is
+    there.
+  - Describe the skip-gram objective as logistic regression over (target, context) pairs with negative
+    sampling, including where the negative samples come from.
+  tasks:
+  - text: Read SLP3 Ch5 through the skip-gram training section. Derive the PPMI expression yourself from
+      the definition of pointwise mutual information before reading the boxed version - it is a log ratio
+      of observed to expected, the same shape as an enrichment statistic.
+    minutes: 80
+  - text: Load the C matrix saved from Day 11, project it to two dimensions with torch.pca_lowrank or
+      sklearn PCA, scatter it with every character labelled, and check whether the vowels cluster.
+    minutes: 40
+  - text: Compute the full 27x27 cosine-similarity matrix over C, print each character's three nearest
+      neighbours, and write down two neighbour pairs that make phonetic sense plus one that does not.
+    minutes: 40
+  - text: Read the bias-and-embeddings section near the end of Ch5, then write a paragraph on the analogous
+      failure for an embedding trained on clinical notes - name the specific variable you would expect
+      it to encode and how you would test for it.
+    minutes: 35
+  resources:
+  - label: SLP3 Ch5 - Embeddings
+    url: https://web.stanford.edu/~jurafsky/slp3/5.pdf
+    kind: textbook
+  - label: nn-zero-to-hero repo (lectures/makemore/makemore_part2_mlp.ipynb)
+    url: https://github.com/karpathy/nn-zero-to-hero
+    kind: repo
+  deliverable: embedding_inspect.py producing the labelled 2-D scatter of C as embedding_2d.png and the
+    nearest-neighbour listing, plus the written paragraph on embedding bias in clinical text.
+  checkpoint: 'Without looking: your character vectors came from an MLP trained to predict the next character;
+    word2vec''s come from a classifier trained to say whether a (word, context) pair is real. Why does
+    similarity end up meaningful in both?'
+  prep_for_tomorrow:
+  - Queue makemore part 3 (1h55m) and open lectures/makemore/makemore_part3_bn.ipynb.
+  - Keep yesterday's MLP training script runnable end to end - tomorrow you break it on purpose and need
+    a working baseline to break.
+  - Compute -log(1/27) tonight and write the number down; it is the loss your network should start at.
+- day: 13
+  date: '2026-08-05'
+  weekday: Wednesday
+  week: 2
+  phase: Language models
+  kind: study
+  title: Reading the histograms when training goes wrong
+  hours: 3-4 h
+  why: Networks rarely fail loudly - they train slowly and plateau at a mediocre loss - so today you learn
+    to diagnose from activation and gradient statistics instead of guessing at hyperparameters.
+  objectives:
+  - Explain why the initial loss should be about 3.30 and what a starting loss of 20 tells you about the
+    output layer's initialization.
+  - Read the four diagnostic plots - activation distribution, gradient distribution, weight-gradient ratio,
+    update-to-data ratio - and say what each looks like on a healthy run.
+  - State the Kaiming scaling for a tanh layer and where the gain of 5/3 comes from.
+  tasks:
+  - text: Watch makemore part 3 (1h55m), pausing at each histogram to say out loud what is wrong with
+      it before Karpathy tells you.
+    minutes: 115
+  - text: 'Break your Day 11 MLP on purpose: initialize W2 and b2 large so training starts near a loss
+      of 20 instead of 3.30, plot the loss curve, and mark the wasted early steps where the network is
+      only shrinking logits.'
+    minutes: 35
+  - text: 'Fix tanh saturation: plot the histogram of the hidden activations h and the fraction with |h|
+      > 0.99, before and after scaling W1 by (5/3)/sqrt(fan_in).'
+    minutes: 35
+  - text: Insert a BatchNorm layer before the tanh, retrain, and report dev loss with and without it -
+      plus what happens to b1 once BatchNorm sits in front of it, and why.
+    minutes: 30
+  - text: 'Skim D2L 5.4 on numerical stability and initialization, then write down which failure mode
+      your broken run actually had: vanishing gradients, exploding gradients, or neither.'
+    minutes: 20
+  resources:
+  - label: Karpathy L4 - makemore part 3, activations, gradients, BatchNorm (1h55m)
+    url: https://www.youtube.com/watch?v=P6sfmUTpUmc
+    kind: video
+  - label: nn-zero-to-hero repo (lectures/makemore/makemore_part3_bn.ipynb)
+    url: https://github.com/karpathy/nn-zero-to-hero
+    kind: repo
+  - label: D2L 5.4 - Numerical Stability and Initialization
+    url: https://d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html
+    kind: textbook
+  deliverable: 'A notebook showing the broken run and the fixed run side by side - loss curves and activation
+    histograms for each - plus dev loss for three configurations: broken init, Kaiming init, Kaiming with
+    BatchNorm.'
+  checkpoint: 'Without looking: you plot the ratio of update magnitude to parameter magnitude per layer
+    and one layer sits near 1e-1 while another sits near 1e-5. What is wrong with each, and what do you
+    change?'
+  prep_for_tomorrow:
+  - Gather the saved losses from Days 8, 9, 10 and 11 into one file - tomorrow they all go into a single
+    table.
+  - Check whether the n-gram work used your 90/10 split while the MLP used the 80/10/10 split; if so,
+    note the mismatch now, because tomorrow you fix it.
+  - 'Confirm every saved model loads: the count matrix N, the trained W, and the MLP parameters.'
+- day: 14
+  date: '2026-08-06'
+  weekday: Thursday
+  week: 2
+  phase: Language models
+  kind: catchup
+  title: One table, one held-out split
+  hours: 2-3 h
+  why: 'Nothing new today: finish whatever is outstanding from Days 8-13, then put every model this week
+    on one honest scoreboard - and if you are already on track, the day is yours to spend or skip.'
+  objectives:
+  - Produce one table giving held-out perplexity for the unsmoothed count bigram, the smoothed count bigram,
+    the bigram network and the MLP, all scored on an identical held-out file.
+  - Explain in writing why the two bigram models agree to about 0.01 while the MLP comes in meaningfully
+    lower.
+  tasks:
+  - text: Finish anything still open from Days 8-13 - most likely the interpolation sweep or the BatchNorm
+      run.
+    minutes: 40
+  - text: Write one evaluation function and re-score all four models with it on a single held-out file,
+      so no model gets a different split or a different treatment of the boundary '.' token.
+    minutes: 45
+  - text: 'Build the comparison table with columns: model, parameter count, train NLL, held-out NLL, held-out
+      perplexity - and verify that perplexity equals exp(NLL) in every row.'
+    minutes: 30
+  - text: 'Write 200-300 words in week2_summary.md answering three things: why the two bigram models agree,
+      why the MLP is better, and what you would have to change about the count model to close the gap.'
+    minutes: 35
+  resources:
+  - label: SLP3 Ch3 - N-gram Language Models
+    url: https://web.stanford.edu/~jurafsky/slp3/3.pdf
+    kind: textbook
+  - label: nn-zero-to-hero repo
+    url: https://github.com/karpathy/nn-zero-to-hero
+    kind: repo
+  deliverable: week2_summary.md containing the four-row perplexity table and the written explanation,
+    together with the single evaluation script that produced every number in it.
+  checkpoint: 'Without looking at the table: rank the four models by held-out perplexity and give the
+    approximate gap between the bigram network and the MLP. If you cannot recall your own numbers, you
+    have not absorbed them.'
+  prep_for_tomorrow:
+  - Open lectures/makemore/makemore_part4_backprop.ipynb from nn-zero-to-hero and run the setup cell so
+    the data is loaded and ready.
+  - Re-read your Day 6 hand-written backward pass for the 2-layer MLP - tomorrow you write one of those
+    for every intermediate tensor, BatchNorm included.
+  - Queue makemore part 4, Backprop Ninja (1h55m), and block the time for it.
+- day: 15
+  date: '2026-08-07'
+  weekday: Friday
+  week: 3
+  phase: Tokens and attention
+  kind: study
+  title: 'Backprop ninja: every backward pass by hand'
+  hours: 3-4 h
+  why: You have called loss.backward() for two weeks without ever computing what it computes. Today you
+    write every backward pass yourself - cross-entropy, the output matmul, tanh, BatchNorm, the input
+    matmul, the embedding gather - and check each gradient against PyTorch's. This is the hardest day
+    of the bootcamp so far. Budget the frustration, not just the minutes.
+  objectives:
+  - For y = x @ W + b you can write dx, dW and db from dy alone, including which axis db sums over and
+    why that sum exists at all.
+  - You can derive dlogits = softmax(logits); dlogits[range(n), Yb] -= 1; dlogits /= n, and say why it
+    is the same observed-minus-fitted gradient as multinomial logistic regression.
+  - You can point at the 1/(n-1) in bnvar and say where Bessel's correction shows up again in the backward
+    pass.
+  tasks:
+  - text: Rerun the forward-pass cells in the makemore_part4_backprop.ipynb you set up last night, then
+      read the cmp() helper line by line until you can say exactly what ex, app and maxdiff each test
+      and why all three get reported instead of just one.
+    minutes: 20
+  - text: 'Watch to roughly 1:05 and do exercise 1 the slow way: pause at every new tensor, write your
+      own dlogprobs, dprobs, dcounts_sum_inv, dcounts, dlogits, dh, dW2, db2, dhpreact, dbngain, dbnraw,
+      dbnvar_inv, dbnvar, dbndiff2, dbndiff, dhprebn, dbnmeani, dembcat, dW1, db1, demb, dC before he
+      reveals each one. Every cmp() should print exact: True.'
+    minutes: 85
+  - text: 'Watch the rest: exercise 2 collapses the whole cross-entropy backward into three lines, exercise
+      3 does the same for BatchNorm, and exercise 4 trains the MLP with your manual backward and no loss.backward()
+      at all.'
+    minutes: 55
+  - text: Write two rules in your notes in your own words - how a gradient flows back through broadcasting
+      (you sum over the axis that was broadcast), and where the transpose goes in a matmul backward. If
+      either refuses to stick, D2L 5.3 draws the same thing as a computational graph.
+    minutes: 25
+  resources:
+  - label: Karpathy L5 - makemore part 4, Becoming a Backprop Ninja (1h55m)
+    url: https://www.youtube.com/watch?v=q8SA3rM6ckI
+    kind: video
+  - label: nn-zero-to-hero repo - lectures/makemore/makemore_part4_backprop.ipynb
+    url: https://github.com/karpathy/nn-zero-to-hero
+    kind: repo
+  - label: D2L 5.3 - Forward Propagation, Backward Propagation, and Computational Graphs
+    url: https://d2l.ai/chapter_multilayer-perceptrons/backprop.html
+    kind: textbook
+  deliverable: 'makemore_part4_backprop.ipynb with every cmp() in exercises 1-3 printing exact: True (or
+    approximate: True with maxdiff under 1e-8), plus half a page of notes holding the broadcasting rule
+    and the matmul-transpose rule.'
+  checkpoint: hpreact = embcat @ W1 + b1, with embcat (32, 30), W1 (30, 200), b1 (200,). Given dhpreact
+    of shape (32, 200), write dembcat, dW1 and db1 - shapes and where each transpose goes - and say which
+    axis db1 sums over and why the sum is there.
+  prep_for_tomorrow:
+  - Download SLP3 Ch6 (6.pdf) so you are not waiting on it tomorrow.
+  - Open lectures/makemore/makemore_part5_cnn1.ipynb and run the data-loading cell to confirm names.txt
+    is where the notebook expects it.
+  - Run python -c "import torch.nn.modules.module as m; print(m.__file__)" and note the path - you will
+    read that file tomorrow.
+- day: 16
+  date: '2026-08-08'
+  weekday: Saturday
+  week: 3
+  phase: Tokens and attention
+  kind: study
+  title: WaveNet, and reading torch.nn without flinching
+  hours: 3-4 h
+  why: Two loose ends close today. The WaveNet lecture turns the flat MLP into a hierarchical model that
+    fuses characters in pairs instead of crushing all eight at once, and on the way it rebuilds Linear,
+    BatchNorm1d, Embedding, Tanh and Sequential as classes short enough to read in one sitting. SLP3 Ch6
+    is the same material as a textbook, which is the cheapest way to find whatever the videos skipped
+    past.
+  objectives:
+  - You can say what FlattenConsecutive(2) does to a (32, 8, 10) tensor and why three of them reduce a
+    context of 8 to one vector.
+  - You can open torch/nn/modules/module.py and point at the code that lets model.parameters() find a
+    parameter nested three levels down.
+  - You can name the BatchNorm bug Karpathy hits with 3-D input and say what shape bnmean had before the
+    fix versus after.
+  tasks:
+  - text: 'Watch makemore part 5 end to end, tracking one thing above all else: the shape printed after
+      each layer when he loops over model.layers.'
+    minutes: 60
+  - text: Build the hierarchical model yourself in makemore_part5_cnn1.ipynb and log your validation loss
+      after each change - flat MLP at context 3, flat at context 8, hierarchical with three FlattenConsecutive(2)
+      layers, then BatchNorm dims fixed. Four numbers, written down, in order.
+    minutes: 60
+  - text: Read SLP3 Ch6 Neural Networks. The feedforward neural language model section is makemore part
+      2 written as equations - read it as a check on what you already built, and slow down on the computation-graph
+      and backward-differentiation sections, which is yesterday in textbook form.
+    minutes: 60
+  - text: 'Open the real torch/nn source and read four things: Module.__setattr__ (how assigning a submodule
+      registers it), _named_members behind parameters(), Sequential.forward (a for loop), and Module.train()
+      setting self.training recursively - which is the flag BatchNorm reads to choose batch statistics
+      over running statistics.'
+    minutes: 30
+  resources:
+  - label: Karpathy L6 - makemore part 5, WaveNet (56m)
+    url: https://www.youtube.com/watch?v=t3YJ5hKiMQ0
+    kind: video
+  - label: nn-zero-to-hero repo - lectures/makemore/makemore_part5_cnn1.ipynb
+    url: https://github.com/karpathy/nn-zero-to-hero
+    kind: repo
+  - label: SLP3 Ch6 - Neural Networks
+    url: https://web.stanford.edu/~jurafsky/slp3/6.pdf
+    kind: textbook
+  - label: PyTorch docs (for nn.Module and nn.Sequential)
+    url: https://pytorch.org/docs/stable/index.html
+    kind: docs
+  deliverable: A working hierarchical model in makemore_part5_cnn1.ipynb with four validation losses logged
+    in order, plus five lines in your notes on what nn.Sequential.forward actually contains and what Module.train()
+    actually changes.
+  checkpoint: Batch 32, block size 8, embedding dim 10, 68 channels. Give the tensor shape going into
+    and coming out of each of the three FlattenConsecutive(2) layers, and for each stage say which axes
+    BatchNorm1d has to average over to get the statistics right.
+  prep_for_tomorrow:
+  - Download SLP3 Ch2 (2.pdf).
+  - pip install tiktoken and confirm tiktoken.get_encoding('cl100k_base').encode('hello') returns something.
+  - Write down ten strings from your own work to tokenize tomorrow - a couple of rsIDs, gene and protein
+    symbols, a p-value in scientific notation, a dosage, one sentence that is not English.
+- day: 17
+  date: '2026-08-09'
+  weekday: Sunday
+  week: 3
+  phase: Tokens and attention
+  kind: study
+  title: Words, tokens, and why models are bad at spelling
+  hours: 3-4 h
+  why: Arithmetic that fails on long numbers, code that changes meaning when you reindent it, non-English
+    prompts costing three times as much per sentence - these trace back to a design decision made before
+    the model has a single parameter. Today is the theory of that decision. Tomorrow you implement it.
+  objectives:
+  - You can run BPE by hand on a short corpus and produce the merge list in the right order.
+  - You can state BPE's merge criterion and WordPiece's in one line of arithmetic each, and say why the
+    second one prefers different pairs.
+  - You can predict, before running the tokenizer, which of your ten field-specific strings cl100k_base
+    will shred into the most pieces, and be right about why.
+  tasks:
+  - text: Read SLP3 Ch2 up to and through the byte pair encoding section. Do not read the BPE algorithm
+      passively - stop and run it by hand on a five-word toy corpus, writing each merge and the vocabulary
+      after it.
+    minutes: 75
+  - text: 'Read the rest of Ch2: text normalization and case folding, the WordPiece and unigram/SentencePiece
+      alternatives, word normalization and lemmatization, sentence segmentation. Note in one line each
+      what SentencePiece does differently that makes it work on languages without spaces.'
+    minutes: 45
+  - text: 'Tokenize your ten strings with tiktoken''s cl100k_base and record the token count and the actual
+      pieces for each. Then add these and explain every surprise: ''2026'' versus ''20260'', '' colocalization''
+      with a leading space versus without, four spaces of indentation, and the same clinical sentence
+      in English and in one other language.'
+    minutes: 60
+  - text: Write a short note listing the model behaviours tokenization explains - digit grouping and arithmetic
+      errors, whitespace sensitivity in code, rare gene and drug names fragmenting into five or six pieces,
+      the cost multiplier on non-English text. One sentence each, tied to a specific example from your
+      own table.
+    minutes: 25
+  resources:
+  - label: SLP3 Ch2 - Words and Tokens
+    url: https://web.stanford.edu/~jurafsky/slp3/2.pdf
+    kind: textbook
+  - label: tiktoken
+    url: https://github.com/openai/tiktoken
+    kind: repo
+  - label: Hugging Face - Summary of the tokenizers
+    url: https://huggingface.co/docs/transformers/tokenizer_summary
+    kind: docs
+  deliverable: A note holding your hand-run BPE merges on the toy corpus, and a table of cl100k_base token
+    counts and splits for your ten field-specific strings plus the four probe cases, with one line each
+    on why the split came out that way.
+  checkpoint: 'Corpus: low low lower lowest. Three merges. Write the merges in order and the final vocabulary.
+    Then say what changes if the selection criterion is WordPiece''s count(ab)/(count(a) x count(b)) instead
+    of raw pair frequency, and which pair each criterion picks first.'
+  prep_for_tomorrow:
+  - Register for an NCBI API key from your NCBI account settings - it raises the E-utilities rate limit
+    from 3 to 10 requests per second, and you will want it tomorrow.
+  - Paste one esearch URL for db=pubmed into your browser and confirm it returns XML with a list of PMIDs.
+  - Clone minbpe and read exercise.md - just the four step headings, not the detail.
+  - Decide your PubMed query now (a disease or exposure you know well) and write it down, because you
+    will build the corpus on it tomorrow and still be using it on Day 33.
+- day: 18
+  date: '2026-08-10'
+  weekday: Monday
+  week: 3
+  phase: Tokens and attention
+  kind: study
+  title: Build the tokenizer, train it on PubMed
+  hours: 3-4 h
+  why: You write a byte pair encoder that trains, encodes and decodes, then train it on biomedical abstracts
+    and see how far its vocabulary drifts from cl100k_base on the same text. The corpus you pull today
+    is the one the applied project runs on from Day 33 through the capstone, so give it a permanent path
+    and a reproducible fetch script rather than a throwaway cell.
+  objectives:
+  - Your BasicTokenizer satisfies decode(encode(s)) == s for arbitrary UTF-8, including a Greek mu, an
+    em dash, and a degree sign.
+  - You can explain why decode needs errors='replace' and construct a token id sequence that triggers
+    it.
+  - You can quote your tokens-per-abstract ratio against cl100k_base on held-out abstracts, say which
+    direction it goes, and name the merges that account for most of the difference.
+  tasks:
+  - text: Watch the tokenizer lecture to roughly 1:15 - UTF-8 encoding to raw bytes, get_stats, merge,
+      the training loop, then encode and decode. The whole BasicTokenizer lives in that stretch.
+    minutes: 75
+  - text: 'Write BasicTokenizer yourself following step 1 of minbpe''s exercise.md: train(text, vocab_size),
+      encode(text) -> ids, decode(ids) -> text. Assert decode(encode(s)) == s on a real abstract containing
+      a Greek letter, an em dash and a superscript.'
+    minutes: 40
+  - text: 'Watch the rest: the regex split pattern and why GPT-2 and GPT-4 differ on it, special tokens,
+      sentencepiece, and the closing section that walks back through the odd model behaviours you catalogued
+      yesterday.'
+    minutes: 58
+  - text: Pull roughly 1,000 abstracts for your chosen query with E-utilities - esearch with usehistory
+      to get the PMIDs, then efetch with db=pubmed and retmode=xml in batches of 200 - and write them
+      to data/pubmed_abstracts.jsonl with pmid, title and abstract per line. Respect the rate limit and
+      keep the fetch script in version control.
+    minutes: 25
+  - text: 'Train your tokenizer on that corpus at vocab_size=2000 and compare it against cl100k_base on
+      20 held-out abstracts: mean tokens per abstract for each, and side-by-side splits for ''immunohistochemistry'',
+      ''rs4988235'', ''p = 3.2e-8'', ''NOTCH2'' and ''odds ratio''. Note which merges your tokenizer learned
+      that OpenAI''s never would.'
+    minutes: 30
+  resources:
+  - label: Karpathy L8 - Let's build the GPT Tokenizer (2h13m)
+    url: https://www.youtube.com/watch?v=zduSFxRajkE
+    kind: video
+  - label: minbpe - BasicTokenizer, RegexTokenizer, GPT4Tokenizer, lecture.md, exercise.md
+    url: https://github.com/karpathy/minbpe
+    kind: repo
+  - label: NCBI E-utilities - programmatic PubMed access
+    url: https://www.ncbi.nlm.nih.gov/books/NBK25501/
+    kind: docs
+  - label: PubMed
+    url: https://pubmed.ncbi.nlm.nih.gov/
+    kind: tool
+  - label: tiktoken
+    url: https://github.com/openai/tiktoken
+    kind: repo
+  deliverable: bpe.py with a BasicTokenizer that round-trips arbitrary UTF-8, data/pubmed_abstracts.jsonl
+    with about 1,000 abstracts and the script that fetched them, a merge table trained at vocab_size=2000,
+    and a comparison table against cl100k_base on 20 held-out abstracts.
+  checkpoint: Your decode maps ids to bytes and calls .decode('utf-8'). Build a token id sequence that
+    makes that call raise, say which UTF-8 rule the byte string violates, and say what errors='replace'
+    substitutes instead of raising.
+  prep_for_tomorrow:
+  - Download SLP3 Ch8 (8.pdf) - it is the longest chapter you have read so far, so have it open before
+    you start.
+  - Write down the three questions you most want answered about attention, so you can check them off tomorrow.
+  - Skim Ch8's figures only, no text, so the shapes are not a cold start.
+- day: 19
+  date: '2026-08-11'
+  weekday: Tuesday
+  week: 3
+  phase: Tokens and attention
+  kind: study
+  title: 'Attention from the textbook: Q, K, V and the sqrt(d_k)'
+  hours: 3-4 h
+  why: Attention is a weighted average where the weights are computed from the data itself. Heads, masks,
+    positional embeddings, residuals and layer norm all exist to make that one operation trainable and
+    stackable. Get the whole thing from a chapter that shows the equations and the shapes, before tomorrow's
+    paper compresses it into half a page.
+  objectives:
+  - You can explain the sqrt(d_k) divisor from the variance of a dot product, and say what breaks at d_k
+    = 64 without it.
+  - You can write causal masking in three lines and say why the mask is applied to the scores before the
+    softmax rather than to the weights after it.
+  - You can count the parameters in one transformer block at d_model = 384 with 6 heads, and say what
+    fraction sits in the feed-forward sublayer rather than in attention.
+  tasks:
+  - text: 'Read SLP3 Ch8 through single-head attention. When you reach the scaling factor, stop and do
+      the algebra yourself: for two independent d_k-vectors with unit-variance entries, the dot product
+      has variance d_k, so dividing by sqrt(d_k) puts the scores back at unit variance. Then write what
+      a variance of 64 does to a softmax.'
+    minutes: 70
+  - text: Read multi-head attention and causal masking. Work out on paper why the mask is a lower-triangular
+      fill with negative infinity and not a multiply by zero, and what each row of the attention matrix
+      has to sum to.
+    minutes: 50
+  - text: 'Read the input and output ends: token embeddings plus positional embeddings, the residual stream,
+      where layer norm sits, the feed-forward sublayer with its 4x expansion, the unembedding matrix and
+      weight tying.'
+    minutes: 45
+  - text: Write one attention head as five matrix operations with a shape on every intermediate, for batch
+      32, context 256, d_model 384, 6 heads. Then write out the causal mask explicitly for T = 4 and sanity-check
+      that row 2 attends to exactly three positions.
+    minutes: 35
+  resources:
+  - label: SLP3 Ch8 - Transformers
+    url: https://web.stanford.edu/~jurafsky/slp3/8.pdf
+    kind: textbook
+  deliverable: 'One page of notes: a single head as five matrix operations with shapes, the causal mask
+    written out for T = 4, the sqrt(d_k) variance argument in your own algebra, and the parameter count
+    of one block split into attention versus feed-forward.'
+  checkpoint: Why sqrt(d_k), and not d_k or d_k squared? Give the variance argument for a dot product
+    of two independent d_k-dimensional vectors with unit-variance entries, then say concretely what happens
+    to the softmax outputs and to the gradients at d_k = 64 if you drop the divisor entirely.
+  prep_for_tomorrow:
+  - Download the PDF of arXiv 1706.03762.
+  - Print Figure 1 on its own sheet, or open it in a window you can keep beside the text - you will annotate
+    it tomorrow.
+  - Write down where SLP3 Ch8 put layer norm relative to the residual add, because tomorrow's paper does
+    it differently and you want to catch the discrepancy yourself.
+- day: 20
+  date: '2026-08-12'
+  weekday: Wednesday
+  week: 3
+  phase: Tokens and attention
+  kind: study
+  title: Attention Is All You Need, first pass
+  hours: 3-4 h
+  why: 'The 2017 paper is short and roughly a third of it is machine-translation results you can skim.
+    Read it for Figure 1 and Section 3, and read it as a historical document: modern decoder-only models
+    kept the attention block nearly unchanged and discarded most of the surrounding design. A first pass
+    means you finish it today - do not stall on the equations you already saw yesterday.'
+  objectives:
+  - You can redraw Figure 1 from memory and mark which boxes a decoder-only GPT keeps and which it deletes.
+  - You can name four parts of the 2017 design that modern decoder-only models do differently, and give
+    the reason each changed.
+  - You can quote the base model's N, d_model, h, d_k and d_ff, and show that d_k = d_model / h falls
+    out of the head split.
+  tasks:
+  - text: Read Sections 1 through 3.2 - background, encoder-decoder stacks, scaled dot-product attention,
+      multi-head attention - checking each equation against the notes you wrote yesterday rather than
+      re-deriving anything.
+    minutes: 70
+  - text: 'Read 3.3 to 3.5 (position-wise feed-forward, embeddings and softmax, positional encoding) and
+      Section 4, Why Self-Attention. Section 4''s table is the actual argument of the paper: complexity
+      per layer, sequential operations, and maximum path length between two positions. Skim Section 5
+      and 6 for the training setup and the 28.4 BLEU on English-German, then stop.'
+    minutes: 45
+  - text: 'Redraw Figure 1 by hand and annotate every box: encoder stack, decoder stack, the cross-attention
+      block, where layer norm sits relative to each residual add. Then mark each box keep or drop for
+      a decoder-only model.'
+    minutes: 35
+  - text: Write a four-row comparison table - 2017 design, modern decoder-only equivalent, why it changed
+      - covering the encoder and cross-attention, sinusoidal absolute positional encoding, post-norm versus
+      pre-norm, and the ReLU feed-forward. Resolve the layer-norm discrepancy you noted yesterday and
+      write down which arrangement trains without a warmup schedule.
+    minutes: 40
+  resources:
+  - label: Attention Is All You Need (Vaswani et al., 2017)
+    url: https://arxiv.org/abs/1706.03762
+    kind: paper
+  - label: SLP3 Ch8 - Transformers (yesterday's chapter, for the layer-norm comparison)
+    url: https://web.stanford.edu/~jurafsky/slp3/8.pdf
+    kind: textbook
+  deliverable: Your own redrawing of Figure 1 with every box marked keep or drop for a decoder-only model,
+    plus the four-row comparison table with a reason in each row.
+  checkpoint: The base model has d_model = 512 and h = 8, so each head is 64 wide and the four projection
+    matrices together are about the same size as one 512-wide head. Since the parameter count barely moves,
+    what does splitting into 8 heads actually buy you that one wide head cannot do?
+  prep_for_tomorrow:
+  - List what is still unfinished from Days 15-20 - most likely exercise 4 of the backprop notebook or
+    the tiktoken comparison table - so tomorrow starts with a decision instead of a search.
+  - Get blank paper or clear a whiteboard. Tomorrow is drawing, not typing.
+  - 'Write the config you will drill on at the top of a blank page: B = 64, T = 256, vocab = 65, d_model
+    = 384, 6 heads, 6 layers.'
+- day: 21
+  date: '2026-08-13'
+  weekday: Thursday
+  week: 3
+  phase: Tokens and attention
+  kind: catchup
+  title: 'Catch-up: the block from memory, with shapes on every arrow'
+  hours: 2-3 h
+  why: No new material today. Week 4 is the build week - you write a GPT from scratch - and the thing
+    that derails people there is not attention, it is losing track of shapes and spending an hour on a
+    transpose. So today you draw the architecture from memory and put a shape on every arrow. If Days
+    15-20 all landed, the rest of the day is yours to spend or skip.
+  objectives:
+  - You can draw a decoder-only transformer block from memory with no reference and get the order of layer
+    norm, attention, residual, layer norm, feed-forward, residual right.
+  - You can write the shape of every intermediate tensor from idx (64, 256) to logits (64, 256, 65) without
+    running any code.
+  - You can total the parameter count of the 6-layer, 384-wide, 6-head model and say which sublayer holds
+    most of it.
+  tasks:
+  - text: Clear the one thing still outstanding from Days 15-20. If everything is done, skip straight
+      to the next task - do not invent work.
+    minutes: 40
+  - text: 'Draw a complete decoder-only transformer from memory on paper, no notes: token embedding, positional
+      embedding, then the repeated block, then final layer norm and the language modelling head. Only
+      then open SLP3 Ch8 and Figure 1 of the paper, and mark your mistakes in a second colour.'
+    minutes: 35
+  - text: 'Annotate a full forward pass with shapes for B = 64, T = 256, vocab = 65, d_model = 384, 6
+      heads (so d_k = 64), 6 layers: idx (64, 256), token embedding, position add, q/k/v projection and
+      the reshape to (64, 6, 256, 64), scores (64, 6, 256, 256), mask, softmax, the weighted sum of values,
+      the concat back to (64, 256, 384), output projection, feed-forward through 1536 and back, and logits
+      (64, 256, 65). Write the shape of every weight matrix as you go and total them - you should land
+      near 10.6 M non-embedding parameters.'
+    minutes: 50
+  - text: Write half a page naming the three things from this week you would still have to look up if
+      you started writing model.py tomorrow morning. Be specific - 'the reshape before scores' is useful,
+      'attention' is not.
+    minutes: 20
+  resources:
+  - label: SLP3 Ch8 - Transformers (to check your drawing against)
+    url: https://web.stanford.edu/~jurafsky/slp3/8.pdf
+    kind: textbook
+  - label: Attention Is All You Need
+    url: https://arxiv.org/abs/1706.03762
+    kind: paper
+  - label: nanoGPT - model.py and train.py, about 300 lines each
+    url: https://github.com/karpathy/nanoGPT
+    kind: repo
+  deliverable: One page holding the block drawn from memory with corrections marked in a second colour,
+    the shape-annotated forward pass ending in a parameter total, and three specific gaps named.
+  checkpoint: 'Without notes: name every tensor between idx of shape (64, 256) and logits of shape (64,
+    256, 65), in order, with its shape. If you cannot get past the attention scores, reread the multi-head
+    attention section of SLP3 Ch8 tonight rather than starting Week 4 short.'
+  prep_for_tomorrow:
+  - Clone nanoGPT and read the README only - tomorrow is the build week and you want the repo already
+    on disk.
+  - Run python data/shakespeare_char/prepare.py inside the clone - it pulls TinyShakespeare down to data/shakespeare_char/input.txt
+    and then writes train.bin and val.bin. Copy input.txt into the folder you will write tomorrow's gpt.py
+    in, and confirm the character vocab comes out at 65.
+  - 'Confirm your compute actually works: run a tensor on the GPU with torch.cuda.is_available() locally,
+    or open Colab, set the runtime to a GPU, and check nvidia-smi returns a card. Do this tonight, not
+    Friday morning.'
+  - Note the parameter count nanoGPT prints when it starts on the shakespeare_char config, and compare
+    it to the number you totalled today.
+- day: 22
+  date: '2026-08-14'
+  weekday: Friday
+  week: 4
+  phase: Build a GPT
+  kind: study
+  title: Bigram baseline to one head of masked self-attention
+  hours: 3-4 h
+  why: 'Three weeks of setup come down to one idea today: a token computing a weighted average of the
+    tokens before it, with weights it produces itself from the content of those tokens.'
+  objectives:
+  - You can write the masked attention weight matrix for a 4-token sequence by hand, before and after
+    softmax, and say what each row sums to and why the first row has only one non-zero entry.
+  - You can explain why the scores are multiplied by head_size**-0.5, in terms of the variance of a dot
+    product between two vectors of length head_size with unit-variance entries.
+  - You can say what breaks if you delete the tril mask, and why an encoder for translation is allowed
+    to do exactly that.
+  tasks:
+  - text: 'Watch kCc8FmEb1nY from 00:00:00 to 00:38:00 and type the bigram baseline into a fresh `gpt.py`
+      yourself: reading input.txt, the character vocab (65 symbols), encode/decode, the 90/10 train-val
+      split, `get_batch`, `BigramLanguageModel` with `forward` and `generate`, and the AdamW loop. Do
+      not paste from the repo.'
+    minutes: 55
+  - text: 'Work through 00:42:13 to 01:00:00, the three ways to average the past: the explicit double
+      for-loop, `torch.tril` normalized so rows sum to 1 and applied by matmul, then `masked_fill(tril
+      == 0, float(''-inf''))` followed by softmax. Print `wei` at each version for T=8 and assert that
+      all three produce the same `xbow` tensor.'
+    minutes: 45
+  - text: 'Watch 01:00:18 to 01:19:11 and implement a single `Head`: key, query and value projections
+      with `bias=False`, the masked scaled dot product, and the position embedding table added to the
+      token embedding before the block. Karpathy''s six notes at the end of that stretch are the conceptual
+      payload, not filler.'
+    minutes: 55
+  - text: 'Derive the sqrt(head_size) scaling on paper first: with q and k entries iid at unit variance,
+      Var(q . k) = head_size, so unscaled scores grow with head_size and softmax collapses toward one-hot.
+      Then check it numerically at head_size=64 with random q and k, printing the variance of the scores
+      and the max of the softmax output with and without the scale.'
+    minutes: 35
+  - text: Stop at the end of the single-head model, before multi-head. Write three sentences in `notes.md`
+      naming something a bigram model structurally cannot do that one attention head can, using an actual
+      line of Shakespeare as the example.
+    minutes: 20
+  resources:
+  - label: Karpathy L7 - Let's build GPT from scratch (1h56m)
+    url: https://www.youtube.com/watch?v=kCc8FmEb1nY
+    kind: video
+  - label: nn-zero-to-hero repo
+    url: https://github.com/karpathy/nn-zero-to-hero
+    kind: repo
+  - label: SLP3 Ch8 - Transformers
+    url: https://web.stanford.edu/~jurafsky/slp3/8.pdf
+    kind: textbook
+  - label: Attention Is All You Need
+    url: https://arxiv.org/abs/1706.03762
+    kind: paper
+  deliverable: '`gpt.py` containing a trained bigram baseline (val loss around 2.5) and a single-head
+    attention model that beats it, with both losses written down, plus the three-version equivalence check
+    on `wei` and the sqrt(head_size) variance experiment.'
+  checkpoint: 'Without looking: what does `wei` look like at initialization if you delete `* head_size**-0.5`,
+    and what does that do to the gradient flowing back through the softmax?'
+  prep_for_tomorrow:
+  - Run `gpt.py` for 200 steps once more before you close the laptop, so tomorrow starts from a file you
+    know works.
+  - Queue kCc8FmEb1nY at 01:19:11 in a pinned tab so tomorrow starts exactly where you stopped.
+  - Check `torch.cuda.is_available()`. If it is False, open Colab and confirm you can get a T4, because
+    tomorrow's scaled-up model is painful on CPU.
+- day: 23
+  date: '2026-08-15'
+  weekday: Saturday
+  week: 4
+  phase: Build a GPT
+  kind: study
+  title: Multi-head, feed-forward, residuals, LayerNorm - and it writes Shakespeare
+  hours: 3-4 h
+  why: The rest of the transformer is four cheap ideas stacked around yesterday's expensive one, and by
+    tonight the thing generates text you can read.
+  objectives:
+  - You can say what each sublayer contributes - multi-head attention, the 4x feed-forward, the residual
+    path, LayerNorm - and predict from your own ablation which removal costs the most val loss at 500
+    steps.
+  - You can explain why the feed-forward acts on each token independently while attention does not, and
+    why a block needs both.
+  - You can state your scaled model's final val loss and how far it sits from the ~1.48 the video reaches
+    on the same config.
+  tasks:
+  - text: Watch 01:19:11 to 01:32:51 and add `MultiHeadAttention` (4 heads of head_size 8 when n_embd=32),
+      the `FeedForward` sublayer with its 4x inner width, and the residual connections around both. Note
+      where the projection back to n_embd sits in each sublayer - that is what makes the residual addition
+      shape-compatible.
+    minutes: 55
+  - text: 'Watch 01:32:51 to 01:42:00, add LayerNorm before each sublayer (pre-norm, which is not what
+      the 2017 paper does) and dropout on each sublayer''s output projection. Write in `notes.md` the
+      two differences from the BatchNorm you implemented in makemore part 3: which axis is normalized,
+      and why LayerNorm needs no running statistics and no train/eval switch.'
+    minutes: 40
+  - text: Scale to the video's config - n_layer=6, n_head=6, n_embd=384, block_size=256, batch_size=64,
+      dropout=0.2, lr=3e-4, 5000 iterations - and launch the run before you start the next task. Roughly
+      15 minutes on an A100; budget over an hour on a Colab T4.
+    minutes: 25
+  - text: 'Ablate on the small config while the big run trains: 500 steps with residuals removed, 500
+      with LayerNorm removed, 500 unmodified. Record three val losses, not three impressions.'
+    minutes: 45
+  - text: Generate 500 tokens from the trained model into `samples.md` and annotate what the model got
+      right (speaker labels, line lengths, the shape of a scene) against what is nonsense (most of the
+      actual words). Put a 500-token bigram sample from yesterday underneath for contrast.
+    minutes: 35
+  resources:
+  - label: Karpathy L7 - Let's build GPT from scratch (1h56m)
+    url: https://www.youtube.com/watch?v=kCc8FmEb1nY
+    kind: video
+  - label: nn-zero-to-hero repo
+    url: https://github.com/karpathy/nn-zero-to-hero
+    kind: repo
+  - label: Google Colab
+    url: https://colab.research.google.com/
+    kind: tool
+  deliverable: A trained 6-layer, 6-head, 384-dim model with its val loss recorded, `samples.md` with
+    annotated generations from both the full model and the bigram, and a three-row ablation table (baseline
+    / no residual / no LayerNorm) at 500 steps.
+  checkpoint: Why does removing residual connections hurt a 6-layer model far more than a 1-layer model?
+    Answer in terms of what the gradient encounters on the way back to the embedding table.
+  prep_for_tomorrow:
+  - Rename today's file to `gpt_karpathy.py` and move it into a different directory - not a background
+    tab, a directory you will not open tomorrow.
+  - Save the checkpoint with `torch.save(m.state_dict(), 'shakespeare_karpathy.pt')` so tomorrow's comparison
+    costs no retraining.
+  - Create an empty `gpt_mine.py` containing nothing but the imports you are sure you will need.
+  - Close the video tab.
+- day: 24
+  date: '2026-08-16'
+  weekday: Sunday
+  week: 4
+  phase: Build a GPT
+  kind: study
+  title: Rebuild it from an empty file
+  hours: 3-4 h
+  why: Typing along with a video and writing the same code from nothing are different skills, and only
+    the second one survives contact with a model you have not seen before.
+  objectives:
+  - You can build a working decoder-only transformer from an empty file with no reference open, and name
+    every piece you had to go look up.
+  - You can predict the loss at initialization before running it - ln(65) = 4.17 for TinyShakespeare's
+    character vocabulary - and treat any mismatch as a bug signal rather than a curiosity.
+  - You can list, straight from your own notes, which parts of the architecture you did not actually know
+    yesterday.
+  tasks:
+  - text: 'Write `gpt_mine.py` from empty, in this order: data loading and encode/decode, `get_batch`,
+      `Head`, `MultiHeadAttention`, `FeedForward`, `Block`, `GPTLanguageModel.forward`, `GPTLanguageModel.generate`,
+      training loop. Video closed, `gpt_karpathy.py` in the other directory, PyTorch docs allowed.'
+    minutes: 95
+  - text: Write the exact question into `stuck.md` before you look anything up, every time you stall for
+      more than ten minutes - 'what shape does tril need in register_buffer', 'does the position embedding
+      index by arange(T) or by the token ids', 'does dropout go before or after the projection'. Write
+      the answer beside it once you have it. This list is the real output of today.
+    minutes: 25
+  - text: Get it training. Run 1000 iterations on a small config (n_layer=4, n_head=4, n_embd=128, block_size=64)
+      and confirm the loss starts near 4.17 and drops below 2.2. A file that imports cleanly but never
+      trains does not count as done.
+    minutes: 45
+  - text: Generate 300 tokens and add them to `samples.md` under a heading for your own implementation.
+    minutes: 20
+  - text: 'Diff `gpt_mine.py` against `gpt_karpathy.py` line by line and sort every difference into two
+      piles in `notes.md`: things that are actual bugs in yours, and things that are only style. Be strict
+      about which pile a difference belongs in - a transposed dimension that happens to work at n_head=4
+      is a bug.'
+    minutes: 35
+  resources:
+  - label: PyTorch docs
+    url: https://pytorch.org/docs/stable/index.html
+    kind: docs
+  - label: Karpathy L7 - Let's build GPT from scratch (for checking, after you are done)
+    url: https://www.youtube.com/watch?v=kCc8FmEb1nY
+    kind: video
+  - label: nn-zero-to-hero repo
+    url: https://github.com/karpathy/nn-zero-to-hero
+    kind: repo
+  deliverable: '`gpt_mine.py`, written without a reference, that trains and generates. Plus `stuck.md`,
+    the honest list of what you could not remember, which is a better map of this week''s learning than
+    the working code is.'
+  checkpoint: Write the chain of tensor shapes from `idx` entering `forward` as (B,T) through to `logits`
+    leaving it as (B,T,vocab_size), naming every intermediate, without running the code.
+  prep_for_tomorrow:
+  - Add `torch.manual_seed(1337)` explicitly at the top of `gpt_mine.py` - tomorrow's comparisons are
+    worthless if runs are not seeded.
+  - Time one 500-step run on the small config and write down the seconds. Tomorrow is thirteen runs; if
+    one takes six minutes, shrink the config tonight.
+  - Decide now whether you log train/val curves to CSV or to Weights & Biases, and if it is W&B, create
+    the account and run `wandb login` tonight. Do not decide this mid-sweep tomorrow.
+- day: 25
+  date: '2026-08-17'
+  weekday: Monday
+  week: 4
+  phase: Build a GPT
+  kind: study
+  title: Sweep the knobs, then sweep the decoder
+  hours: 3-4 h
+  why: You now have a model that trains in minutes and six hyperparameters you have never turned, which
+    is the cheapest opportunity you will ever get to find out what each of them actually does.
+  objectives:
+  - You can point at the step where val loss turns upward on your dropout=0.0 run while train loss keeps
+    falling, and say why the dropout=0.2 run does not do that.
+  - You can say what temperature 0.5 and top-k=1 do differently to a sample, given that both make it more
+    conservative.
+  - You can report which single hyperparameter change bought the most val loss per second of compute on
+    your hardware, with the table row to back it.
+  tasks:
+  - text: Refactor `gpt_mine.py` so the configuration is a dict or argparse namespace and one function
+      `run(cfg)` returns the train and val curves plus wall-clock seconds. Thirteen runs from the command
+      line beats thirteen hand-edited copies of the file, and it stops you from misattributing a result
+      to the wrong config.
+    minutes: 30
+  - text: Run a one-factor-at-a-time sweep off a fixed baseline (n_layer=4, n_head=4, n_embd=128, block_size=64,
+      lr=1e-3, dropout=0.0, 1500 steps), varying block_size over {16, 64, 256}, n_layer over {1, 4, 8},
+      n_head over {1, 4, 8}, n_embd over {64, 128, 384}, lr over {1e-4, 1e-3, 3e-3}, dropout over {0.0,
+      0.2, 0.5}. Log train and val loss every 100 steps to CSV. The full grid is 729 runs; you are doing
+      13 and you should be able to say what that costs you.
+    minutes: 60
+  - text: Plot the curves, one panel per swept factor, train and val on the same axes with distinguishable
+      line styles. Label the y-axis 'cross-entropy loss (nats per character)', not 'loss'. Mark the step
+      where each val curve turns up.
+    minutes: 40
+  - text: 'Sweep decoding on your single best checkpoint: temperature over {0.5, 0.8, 1.0, 1.3} with top-k
+      off, then top-k over {1, 10, 50, None} at temperature 1.0. Same seed, same 20-character prompt,
+      200 tokens each.'
+    minutes: 40
+  - text: 'Write `experiments.md` with one table for the sweep (config, parameter count, final train loss,
+      final val loss, seconds) and one for decoding (setting, a 20-token excerpt, one sentence of judgement).
+      End with the single sentence: the change that bought the most val loss per second was X, worth Y
+      nats for Z seconds.'
+    minutes: 45
+  resources:
+  - label: Weights & Biases
+    url: https://wandb.ai/site
+    kind: tool
+  - label: Google Colab
+    url: https://colab.research.google.com/
+    kind: tool
+  deliverable: '`experiments.md` with the 13-run sweep table, the six curve panels exported as a PNG with
+    labelled axes and units, and the decoding table with excerpts. A colleague should be able to read
+    the tables and pick a config without running anything.'
+  checkpoint: What does temperature approaching 0 reduce the sampler to, and what happens to your Shakespeare
+    samples after roughly 100 tokens of it? You have the sample in front of you - check whether your answer
+    matches it.
+  prep_for_tomorrow:
+  - Clone nanoGPT with `git clone https://github.com/karpathy/nanoGPT` and run `pip install -r requirements.txt`
+    tonight - tiktoken and datasets are not instant installs.
+  - Run `python data/shakespeare_char/prepare.py` so tomorrow's training starts with no download in front
+    of it.
+  - Run `wc -l model.py train.py` and note the two numbers. Do not read the files yet.
+- day: 26
+  date: '2026-08-18'
+  weekday: Tuesday
+  week: 4
+  phase: Build a GPT
+  kind: study
+  title: 'nanoGPT: the same model with four days of GPU time in mind'
+  hours: 3-4 h
+  why: Your file and nanoGPT compute nearly the same function, and the gap between them is precisely what
+    people add when a model has to train for four days on eight GPUs rather than fifteen minutes on one.
+  objectives:
+  - You can list the differences between `gpt_mine.py` and nanoGPT's `model.py` and say for each whether
+    it would change your results or only your wall-clock time.
+  - You can compute nanoGPT's default effective batch size in tokens from `batch_size`, `block_size` and
+    `gradient_accumulation_steps`, and say what `gradient_accumulation_steps //= ddp_world_size` protects
+    against.
+  - You can explain what `F.scaled_dot_product_attention(..., is_causal=True)` changes relative to your
+    hand-written mask, and what it leaves identical.
+  tasks:
+  - text: 'Read `model.py` end to end with `gpt_mine.py` open beside it and mark every place it does something
+      you did not: weight tying (`self.transformer.wte.weight = self.lm_head.weight`), the scaled init
+      `std=0.02/sqrt(2*n_layer)` applied only to residual projections, `F.scaled_dot_product_attention`
+      in place of your explicit mask, and `vocab_size=50304` where GPT-2''s real vocabulary is 50257.'
+    minutes: 55
+  - text: Read `configure_optimizers` and work out why parameters with `dim() >= 2` get weight decay while
+      biases and LayerNorm gains do not. Compare against the plain `AdamW(model.parameters(), lr=1e-3)`
+      in your file and decide, with a reason, whether it would matter at your scale.
+    minutes: 30
+  - text: 'Read `train.py` and write down the four mechanisms you have no equivalent for: gradient accumulation,
+      the linear warmup plus cosine decay in `get_lr` (`warmup_iters`, `lr_decay_iters`, `min_lr`), gradient
+      clipping at `grad_clip=1.0`, and checkpointing on best val loss. One sentence each on what specifically
+      goes wrong at GPT-2 scale without it.'
+    minutes: 45
+  - text: Run `python train.py config/train_shakespeare_char.py`. On an A100 it reaches val loss around
+      1.47 in roughly three minutes; on CPU add `--device=cpu --compile=False --block_size=64 --batch_size=12
+      --n_layer=4 --n_head=4 --n_embd=128 --max_iters=2000`. Then `python sample.py --out_dir=out-shakespeare-char`
+      and put its output next to your Day 23 samples.
+    minutes: 40
+  - text: 'Trace `GPT.from_pretrained(''gpt2'')`: find the four weight names in the `transposed` list
+      and explain why each needs `.t()` - Hugging Face''s GPT-2 uses `Conv1D`, which stores its weight
+      in the opposite orientation to `nn.Linear`. Then run `python sample.py --init_from=gpt2 --start=''The
+      patient presented with''` and read what 124M parameters trained on the open internet produce.'
+    minutes: 40
+  resources:
+  - label: nanoGPT
+    url: https://github.com/karpathy/nanoGPT
+    kind: repo
+  - label: Karpathy L7 - nanoGPT walkthrough starts at 01:46:22
+    url: https://www.youtube.com/watch?v=kCc8FmEb1nY
+    kind: video
+  - label: Hugging Face Transformers docs
+    url: https://huggingface.co/docs/transformers
+    kind: docs
+  deliverable: '`nanogpt_diff.md` - a two-column table of what `gpt_mine.py` does against what nanoGPT
+    does, covering weight tying, initialization, attention kernel, optimizer parameter groups, LR schedule,
+    gradient accumulation, clipping and checkpointing. Plus a trained shakespeare-char checkpoint from
+    nanoGPT and its val loss written next to yours from Day 23.'
+  checkpoint: nanoGPT ties `wte.weight` to `lm_head.weight`. How many parameters does that save on a 124M-parameter
+    GPT-2 with vocabulary 50257 and n_embd=768, and what does tying assume about the relationship between
+    input and output embeddings?
+  prep_for_tomorrow:
+  - Download SLP3 Ch7 from https://web.stanford.edu/~jurafsky/slp3/7.pdf and skim only the section headings,
+    so you know tomorrow's shape.
+  - Open `experiments.md` to the decoding table - tomorrow covers top-p, which you did not implement,
+    and you will want your top-k numbers alongside.
+  - Note at the top of `nanogpt_diff.md` anything you ran out of time to trace today, so it does not silently
+    disappear.
+- day: 27
+  date: '2026-08-19'
+  weekday: Wednesday
+  week: 4
+  phase: Build a GPT
+  kind: study
+  title: SLP3 Ch7 - the same model in prose
+  hours: 3-4 h
+  why: Reading the textbook chapter after writing the code inverts the usual order, which makes it much
+    faster, because you already know what most of the terms point at in a file you wrote.
+  objectives:
+  - You can name each decoding strategy in Ch7, say what it does to the probability distribution before
+    a token is drawn, and identify from your Day 25 table which one produced the most readable Shakespeare.
+  - You can convert your model's val loss into perplexity and into bits per character, and explain why
+    that number is not comparable to a BPE-level model's perplexity.
+  - You can point at the line of `gpt_mine.py` that implements the training objective Ch7 writes as an
+    equation.
+  tasks:
+  - text: 'Read SLP3 Ch7 through the end of the decoding material with `gpt_mine.py` open, and locate
+      each named thing in your code: the unembedding layer is your `nn.Linear(n_embd, vocab_size)`, teacher
+      forcing is why you never feed the model its own output during training, the context window is `block_size`,
+      autoregressive conditioning is the loop in `generate`.'
+    minutes: 60
+  - text: 'Implement top-p (nucleus) sampling in `GPTLanguageModel.generate`: sort logits descending,
+      take the cumulative softmax, keep the smallest prefix whose mass exceeds p, mask the rest to -inf,
+      renormalize. Run p over {0.9, 0.95, 1.0} on your best checkpoint and add the rows to the Day 25
+      decoding table.'
+    minutes: 45
+  - text: Convert your val loss into the numbers Ch7's evaluation section uses. Your loss is cross-entropy
+      in nats per character, so a loss of 1.48 is exp(1.48) = 4.4 in perplexity and 1.48/ln(2) = 2.13
+      bits per character. Write in `slp3_ch7_notes.md` why a BPE-level model reporting perplexity 20 is
+      not therefore worse, and what you would have to normalize by to compare them.
+    minutes: 45
+  - text: 'Read the pretraining-data section - what is actually in Common Crawl, what filtering and deduplication
+      get applied before training. Write two sentences on what that implies for the PubMed abstract corpus
+      you trained BPE on in Week 3 and will reuse from Day 33: what your filtering step would be, and
+      what field you would deduplicate on.'
+    minutes: 30
+  - text: 'Write the paragraph that joins the two halves of this week: which parts of Ch7 you had already
+      implemented before you read them, and which parts the textbook has that your code does not - top-p
+      until an hour ago, the KV cache, beam search, anything about the data.'
+    minutes: 30
+  resources:
+  - label: SLP3 Ch7 - Large Language Models
+    url: https://web.stanford.edu/~jurafsky/slp3/7.pdf
+    kind: textbook
+  - label: SLP3 Ch3 - N-gram Language Models (perplexity, for the comparison)
+    url: https://web.stanford.edu/~jurafsky/slp3/3.pdf
+    kind: textbook
+  - label: SLP3 landing page
+    url: https://web.stanford.edu/~jurafsky/slp3/
+    kind: textbook
+  deliverable: Top-p implemented and benchmarked as new rows in the Day 25 decoding table, plus `slp3_ch7_notes.md`
+    containing the perplexity conversion worked out in nats and bits, the comparability argument, and
+    a list of Ch7 topics your code does not implement.
+  checkpoint: Beam search reliably finds higher-probability sequences than sampling does. Explain why
+    that is a defect rather than a feature for open-ended generation, and what property of human text
+    it conflicts with.
+  prep_for_tomorrow:
+  - Collect `gpt_mine.py`, `experiments.md`, `samples.md`, `nanogpt_diff.md`, `slp3_ch7_notes.md` and
+    `stuck.md` into one folder. Tomorrow you are assembling, not hunting.
+  - Run `sum(p.numel() for p in model.parameters())` on your best config and write the single number down
+    somewhere you will not look at until tomorrow afternoon.
+  - 'Pick the three generations you will actually show: one good, one that fails in an interesting way,
+    one bigram sample for contrast.'
+- day: 28
+  date: '2026-08-20'
+  weekday: Thursday
+  week: 4
+  phase: Build a GPT
+  kind: milestone
+  title: Milestone 1 - My GPT from scratch
+  hours: 3-4 h
+  why: 'Milestone 1: a parameter count you cannot rederive on paper is a model you do not really have,
+    and a week of results you never wrote down is a week you will not be able to reconstruct in September.'
+  objectives:
+  - You can derive the parameter count of a decoder-only transformer from n_layer, n_embd, block_size
+    and vocabulary size, and match `sum(p.numel() for p in model.parameters())` exactly rather than approximately.
+  - You can narrate the path of one token from an integer in `idx` to a sampled next token, with shapes,
+    without the code in front of you.
+  - You have a document a colleague can read that states what you built, what you measured, and what you
+    have not verified.
+  tasks:
+  - text: 'Derive the parameter count by hand before running anything: token embedding V*E, position embedding
+      T*E, then per block 4E^2 for attention (three projections plus the output projection) and 8E^2 for
+      the feed-forward, plus biases and two LayerNorms, then the final LayerNorm and the LM head. Notice
+      what the 4 to 8 ratio means - the feed-forward holds twice the parameters attention does, in every
+      block.'
+    minutes: 40
+  - text: 'Check the derivation against the number you wrote down last night. For n_layer=6, n_head=6,
+      n_embd=384, block_size=256 on a 65-character vocabulary the video''s script prints about 10.79 M,
+      and your algebra should land on the same figure to the digit. Any mismatch names the term you forgot:
+      a bias, the second LayerNorm, the position table. Do not move on until they agree.'
+    minutes: 25
+  - text: 'Assemble `milestone-1.md`: the architecture drawn with tensor shapes on every arrow from (B,T)
+      to (B,T,vocab_size), the parameter table broken down by component with each component''s share as
+      a percentage, the Day 25 sweep table, the decoding table including top-p, three annotated samples,
+      and your val loss beside nanoGPT''s ~1.47 on the same data.'
+    minutes: 60
+  - text: 'Write the ''what surprised me'' section with at least four specific items, each with its evidence
+      attached. Candidates from this week, to be replaced with your own: the feed-forward outweighs attention
+      two to one in parameters; removing residuals cost more than removing LayerNorm; the whole model
+      is roughly 200 lines; top-k=1 collapses into a repeating loop inside 100 tokens.'
+    minutes: 35
+  - text: Reread the whole thing as a hostile reviewer. Every claim needs a number or a file line behind
+      it, every plot axis needs units, every rounded figure needs consistent precision. Anything you believe
+      but did not test goes into a closing 'not verified' section. Then send it to someone.
+    minutes: 30
+  resources:
+  - label: nanoGPT (for the val-loss comparison)
+    url: https://github.com/karpathy/nanoGPT
+    kind: repo
+  - label: Hugging Face LLM Course - Chapter 1.1
+    url: https://huggingface.co/learn/llm-course/en/chapter1/1
+    kind: course
+  - label: Hugging Face Transformers docs
+    url: https://huggingface.co/docs/transformers
+    kind: docs
+  - label: Hugging Face Datasets docs
+    url: https://huggingface.co/docs/datasets
+    kind: docs
+  deliverable: '`milestone-1.md`, ''My GPT from scratch'': architecture with shapes, hand-derived parameter
+    count checked against the code, the sweep and decoding tables, three annotated samples, four things
+    that surprised you with evidence, and an explicit list of what you have not verified. Real enough
+    to hand to a colleague without a preamble.'
+  checkpoint: Where do a transformer's parameters actually live? Give the split between embeddings, attention
+    and feed-forward for your config as percentages, and say how that split moves as n_layer grows with
+    everything else fixed.
+  prep_for_tomorrow:
+  - Create a Hugging Face account and a read token if you do not have one, then run `huggingface-cli login`
+    and confirm it stores the token.
+  - Run `pip install transformers datasets` and check that `from transformers import pipeline` imports
+    without error.
+  - Open Chapter 1 of the Hugging Face LLM course at https://huggingface.co/learn/llm-course/en/chapter1/1
+    and read section 1 only. Five minutes - tomorrow the bootcamp stops writing models and starts using
+    ones that were trained for you.
+- day: 29
+  date: '2026-08-21'
+  weekday: Friday
+  week: 5
+  phase: Pretrained models
+  kind: study
+  title: Pipelines, and the three architecture families
+  hours: 3-4 h
+  why: You have written a decoder-only transformer twice, so from here you stop reimplementing and start
+    using models other people trained — and the first thing to get right is what `pipeline()` is doing
+    on your behalf.
+  objectives:
+  - Given a task - classifying abstracts by study design, translating a title, summarising a paper, open-ended
+    generation - you can say whether an encoder, decoder, or encoder-decoder is the natural fit, and justify
+    it by what each one's attention mask lets a token see.
+  - You can name the three stages `pipeline('text-classification')` runs between your raw string and the
+    printed label, and say which of the three you already wrote yourself on Day 18.
+  - You can find, for any pipeline you ran, which checkpoint it silently defaulted to and how many parameters
+    that checkpoint has.
+  tasks:
+  - text: Work through HF LLM Course chapter1/1 to chapter1/4 in Colab, running every code cell rather
+      than reading past it. When section 3 shows a pipeline, swap its example text for a sentence from
+      an abstract you actually read this week.
+    minutes: 70
+  - text: 'Read chapter1/5 (How Transformers solve tasks) and chapter1/6 (Transformer Architectures),
+      building a three-row table as you go: encoder / decoder / encoder-decoder, against what each token
+      can attend to, the pretraining objective, and one task each family is the wrong choice for.'
+    minutes: 55
+  - text: Run six pipeline tasks on your own text - at minimum `text-classification`, `fill-mask`, `ner`,
+      `question-answering`, `summarization`, `text-generation` - and for each print `pipe.model.config._name_or_path`
+      and `pipe.model.num_parameters()` so you know what you just downloaded.
+    minutes: 50
+  - text: 'Write one paragraph in your log placing the GPT you wrote in Week 4 onto the taxonomy in section
+      6: which family it belongs to, which objective trained it, and the two changes you would need to
+      turn it into an encoder.'
+    minutes: 30
+  resources:
+  - label: HF LLM Course ch1 §1-2 - Intro, NLP and LLMs
+    url: https://huggingface.co/learn/llm-course/en/chapter1/1
+    kind: course
+  - label: HF LLM Course ch1 §3 - Transformers, what can they do
+    url: https://huggingface.co/learn/llm-course/en/chapter1/3
+    kind: course
+  - label: HF LLM Course ch1 §4 - How do Transformers work
+    url: https://huggingface.co/learn/llm-course/en/chapter1/4
+    kind: course
+  - label: HF LLM Course ch1 §5 - How Transformers solve tasks
+    url: https://huggingface.co/learn/llm-course/en/chapter1/5
+    kind: course
+  - label: HF LLM Course ch1 §6 - Transformer Architectures
+    url: https://huggingface.co/learn/llm-course/en/chapter1/6
+    kind: course
+  - label: Hugging Face Transformers docs
+    url: https://huggingface.co/docs/transformers
+    kind: docs
+  - label: Google Colab
+    url: https://colab.research.google.com/
+    kind: tool
+  deliverable: '`day29_pipelines.ipynb` with six pipeline tasks run on your own text, each printing its
+    default checkpoint and parameter count, plus the three-row architecture table and the paragraph placing
+    your Week 4 GPT inside it.'
+  checkpoint: '`pipeline(''sentiment-analysis'')(''This trial was terminated early for futility.'')` returns
+    a label and a score of 0.98. Without looking anything up: name every transformation the string went
+    through to become that number, and say what the 0.98 is the probability of.'
+  prep_for_tomorrow:
+  - Open your Day 18 BPE implementation and leave the file somewhere you can find it - tomorrow you run
+    it head to head against `AutoTokenizer`.
+  - Run `pip install transformers datasets` in tomorrow's environment now, so you are not debugging installs
+    at 9am.
+  - 'Use PubMed''s Send to -> File -> Format: Abstract to export 200 abstracts from any query you like
+    into a local file. You tokenise them tomorrow.'
+- day: 30
+  date: '2026-08-22'
+  weekday: Saturday
+  week: 5
+  phase: Pretrained models
+  kind: study
+  title: Behind the pipeline, and your BPE against theirs
+  hours: 3-4 h
+  why: Chapter 2 takes `pipeline()` apart into tokenizer, model, and post-processing - the same three-stage
+    chain you built by hand - so today is where you find out what the production version of each stage
+    does that yours did not.
+  objectives:
+  - You can take a raw abstract to logits without touching `pipeline()`, using `AutoTokenizer` and `AutoModelForSequenceClassification`,
+    and match the pipeline's output to four decimal places.
+  - You can account for the token-count difference between your Day 18 BPE and `bert-base-uncased` on
+    the same abstract with reasons that are not 'different vocabulary size'.
+  - You can name two failure modes from section 9 that would actually show up in biomedical text, not
+    just the textbook gender-occupation example.
+  tasks:
+  - text: Take the chapter1/7 quiz cold, before rereading anything, and note which questions you miss.
+      Then read chapter1/8 (inference and TGI) and chapter1/9 (Bias and limitations), and skim chapter1/10.
+      Chapter1/11 is the certification exam and is optional.
+    minutes: 55
+  - text: 'Work chapter2/1 and chapter2/2 (Behind the pipeline) by rebuilding the chain yourself: `tokenizer(text,
+      return_tensors=''pt'')` -> `model(**inputs).logits` -> `torch.nn.functional.softmax` -> `model.config.id2label`.
+      Do not move on until your numbers match `pipeline()`.'
+    minutes: 55
+  - text: Read chapter2/3 (Models) and chapter2/4 (Tokenizers), and do a `save_pretrained` / `from_pretrained`
+      round trip into a local directory so you know exactly which files a checkpoint actually is.
+    minutes: 45
+  - text: 'Run the tokenizer bake-off on your 200 abstracts across four tokenizers: your Day 18 BPE, `bert-base-uncased`,
+      `gpt2`, and one biomedical checkpoint from the Hub (search PubMedBERT or BioBERT and take the most-downloaded).
+      Report median tokens per abstract for each, then print how each one splits `pharmacokinetics`, `immunohistochemistry`,
+      `SGLT2`, and `IL-6`.'
+    minutes: 55
+  resources:
+  - label: HF LLM Course ch1 §7 - Quiz
+    url: https://huggingface.co/learn/llm-course/en/chapter1/7
+    kind: course
+  - label: HF LLM Course ch1 §8 - Inference with LLMs / TGI deep dive
+    url: https://huggingface.co/learn/llm-course/en/chapter1/8
+    kind: course
+  - label: HF LLM Course ch1 §9 - Bias and limitations
+    url: https://huggingface.co/learn/llm-course/en/chapter1/9
+    kind: course
+  - label: HF LLM Course ch1 §10 - Summary
+    url: https://huggingface.co/learn/llm-course/en/chapter1/10
+    kind: course
+  - label: HF LLM Course ch1 §11 - Certification exam (optional)
+    url: https://huggingface.co/learn/llm-course/en/chapter1/11
+    kind: course
+  - label: HF LLM Course ch2 §1 - Introduction
+    url: https://huggingface.co/learn/llm-course/en/chapter2/1
+    kind: course
+  - label: HF LLM Course ch2 §2 - Behind the pipeline
+    url: https://huggingface.co/learn/llm-course/en/chapter2/2
+    kind: course
+  - label: HF LLM Course ch2 §3 - Models
+    url: https://huggingface.co/learn/llm-course/en/chapter2/3
+    kind: course
+  - label: HF LLM Course ch2 §4 - Tokenizers
+    url: https://huggingface.co/learn/llm-course/en/chapter2/4
+    kind: course
+  - label: Hugging Face Tokenizers library docs
+    url: https://huggingface.co/docs/tokenizers/main/en/index
+    kind: docs
+  - label: karpathy/minbpe - your Day 18 reference
+    url: https://github.com/karpathy/minbpe
+    kind: repo
+  deliverable: '`day30_behind_the_pipeline.ipynb` holding the manual tokenizer -> model -> softmax chain
+    that reproduces `pipeline()` to four decimals, and a token-count table over the same 200 abstracts
+    for four tokenizers, with the four word-splitting examples printed underneath it.'
+  checkpoint: Your Day 18 BPE and `bert-base-uncased` produce different token counts for the same abstract.
+    Give two reasons that have nothing to do with vocabulary size.
+  prep_for_tomorrow:
+  - Download the BERT paper (arXiv 1810.04805) and SLP3 Chapter 10 as PDFs tonight.
+  - Read only BERT's abstract and Figure 1. Five minutes, then stop.
+  - Write one sentence in your log predicting what 'masked language model' means, before you read anything.
+    You grade it tomorrow.
+- day: 31
+  date: '2026-08-23'
+  weekday: Sunday
+  week: 5
+  phase: Pretrained models
+  kind: study
+  title: BERT, masked language modelling, and when an encoder still wins
+  hours: 3-4 h
+  why: Everything you built in Weeks 3 and 4 was left-to-right and autoregressive; BERT throws away the
+    causal mask and trains by filling in blanked tokens, buying a better representation of a whole passage
+    at the cost of not being able to generate one.
+  objectives:
+  - You can write down BERT's masked-language-modelling loss and say why it does not give you a probability
+    of a sentence the way your causal LM's loss did.
+  - You can state the conditions under which you would still put a 110M-parameter encoder into a biomedical
+    classification pipeline in 2026 rather than prompting a large decoder, including at least one condition
+    that is about latency or cost per 1000 abstracts rather than accuracy.
+  - You can predict, then check, how a biomedical checkpoint and `bert-base-uncased` differ on `The patient
+    was treated with [MASK].`, and explain the gap from what each one saw in pretraining.
+  tasks:
+  - text: 'Read the BERT paper: abstract, section 1, section 3.1 (Pre-training BERT), section 3.2 (Fine-tuning
+      BERT), Figure 1, and Table 1. Skim section 4''s result tables rather than studying them - the numbers
+      are eight years stale, the recipe is not.'
+    minutes: 55
+  - text: Read SLP3 Chapter 10 (Masked Language Models) end to end, and write the MLM objective next to
+      the causal-LM objective from Chapter 7 in the same notation, on one page.
+    minutes: 60
+  - text: Run `pipeline('fill-mask')` on at least ten clinical and biomedical sentences you write yourself,
+      through both `bert-base-uncased` and a biomedical checkpoint, printing top-5 predictions side by
+      side. Include two where the right answer is a drug class and two where it is a study design.
+    minutes: 40
+  - text: Write a 150-word note in your log titled 'when I would still reach for an encoder', ending in
+      the decision rule you will apply to Day 33's task. Commit to it - you are choosing the Day 34 model
+      with it.
+    minutes: 35
+  resources:
+  - label: BERT - Pre-training of Deep Bidirectional Transformers
+    url: https://arxiv.org/abs/1810.04805
+    kind: paper
+  - label: SLP3 Ch10 - Masked Language Models
+    url: https://web.stanford.edu/~jurafsky/slp3/10.pdf
+    kind: textbook
+  - label: SLP3 Ch7 - Large Language Models (for the causal-LM objective you are comparing against)
+    url: https://web.stanford.edu/~jurafsky/slp3/7.pdf
+    kind: textbook
+  - label: Hugging Face Transformers docs
+    url: https://huggingface.co/docs/transformers
+    kind: docs
+  - label: PubMed
+    url: https://pubmed.ncbi.nlm.nih.gov/
+    kind: tool
+  deliverable: '`day31_mlm.ipynb` with ten or more `[MASK]` probes run through two checkpoints and their
+    top-5 predictions side by side, plus the 150-word encoder decision note in your log.'
+  checkpoint: BERT masks 15% of tokens, and of those replaces 80% with `[MASK]`, 10% with a random token,
+    and leaves 10% unchanged. What goes wrong if you use `[MASK]` for all 15%, and at which point in the
+    workflow does that bite?
+  prep_for_tomorrow:
+  - Open HF chapter2/5 and read just the first code block - the one where a sentence gets a different
+    result once it is batched with a shorter one. Do not read the explanation yet.
+  - Run the PubMed query you intend to use for the project once in the web UI and write down the hit count.
+    If it is under 5,000 or over 200,000, widen or narrow it tonight.
+  - Confirm `from datasets import Dataset` imports without error.
+- day: 32
+  date: '2026-08-24'
+  weekday: Monday
+  week: 5
+  phase: Pretrained models
+  kind: study
+  title: 'Padding, masks, and truncation: the bugs that never raise'
+  hours: 3-4 h
+  why: A wrong attention mask does not throw an exception; it quietly lets the model attend to padding
+    and hands you a model two points worse for no visible reason, which is why this gets a whole day instead
+    of a footnote.
+  objectives:
+  - You can show, with numbers from your own run, that padding a short sequence without passing its attention
+    mask changes that sequence's logits, and say by how much.
+  - You can write a `Dataset.map(..., batched=True)` call over 20,000 abstracts and explain why setting
+    `padding='max_length'` inside it defeats the point of `DataCollatorWithPadding`.
+  - You can name the `max_length` you will use for the project, taken from your own token-length distribution,
+    and the percentage of abstracts it truncates.
+  tasks:
+  - text: 'Work chapter2/5 (Handling multiple sequences) and chapter2/6 (Putting it all together), reproducing
+      the padding experiment yourself: run one sentence alone, then the same sentence padded in a batch
+      with and then without `attention_mask`, and print all three logit vectors.'
+    minutes: 55
+  - text: Read chapter2/7 and chapter2/8 (Optimized Inference Deployment), then take the chapter2/9 quiz.
+      Section 8 is the one that tells you what your Day 35 latency numbers will be made of, so read it
+      as preparation rather than trivia.
+    minutes: 40
+  - text: 'Read chapter3/1 and chapter3/2 (Processing the data) and write the pipeline you will reuse
+      for the rest of the bootcamp: load a JSONL into a `Dataset`, `map` a tokenise function with `batched=True`
+      and no padding, then hand `DataCollatorWithPadding` to the loader. Save it as `project/data_pipeline.py`,
+      not as loose notebook cells.'
+    minutes: 60
+  - text: Tokenise your abstract sample (extend it to 2,000 if the export is quick), plot the token-length
+      histogram, mark the 95th and 99th percentiles, and pick your `max_length` from the plot rather than
+      defaulting to 512. Record the truncation rate at your choice.
+    minutes: 45
+  resources:
+  - label: HF LLM Course ch2 §5 - Handling multiple sequences
+    url: https://huggingface.co/learn/llm-course/en/chapter2/5
+    kind: course
+  - label: HF LLM Course ch2 §6 - Putting it all together
+    url: https://huggingface.co/learn/llm-course/en/chapter2/6
+    kind: course
+  - label: HF LLM Course ch2 §7 - Basic usage completed
+    url: https://huggingface.co/learn/llm-course/en/chapter2/7
+    kind: course
+  - label: HF LLM Course ch2 §8 - Optimized Inference Deployment
+    url: https://huggingface.co/learn/llm-course/en/chapter2/8
+    kind: course
+  - label: HF LLM Course ch2 §9 - Quiz
+    url: https://huggingface.co/learn/llm-course/en/chapter2/9
+    kind: course
+  - label: HF LLM Course ch3 §1 - Introduction
+    url: https://huggingface.co/learn/llm-course/en/chapter3/1
+    kind: course
+  - label: HF LLM Course ch3 §2 - Processing the data
+    url: https://huggingface.co/learn/llm-course/en/chapter3/2
+    kind: course
+  - label: Hugging Face Datasets docs
+    url: https://huggingface.co/docs/datasets
+    kind: docs
+  - label: Hugging Face Transformers docs
+    url: https://huggingface.co/docs/transformers
+    kind: docs
+  deliverable: '`day32_plumbing.ipynb` with the three-way padding experiment printed as numbers, `project/data_pipeline.py`
+    with a working `map` plus `DataCollatorWithPadding` chain you can import tomorrow, and a token-length
+    histogram with your chosen `max_length` drawn as a vertical line and the truncation rate stated in
+    the title.'
+  checkpoint: You tokenise with `padding='max_length', max_length=512` inside `Dataset.map` and also pass
+    `DataCollatorWithPadding` to the Trainer. Nothing errors and the metrics look fine. What did that
+    cost you, and roughly how much, given the histogram you just plotted?
+  prep_for_tomorrow:
+  - Register for a free NCBI API key (Account -> Settings -> API Key Management). It takes three minutes
+    and raises E-utilities from 3 to 10 requests per second.
+  - Read only the ESearch and EFetch examples in the E-utilities Quick Start (NBK25501) - skip the rest
+    of the chapter.
+  - Paste the PubMed query you settled on into `project/query.txt`, so tomorrow opens with a script to
+    run rather than a decision to make.
+- day: 33
+  date: '2026-08-25'
+  weekday: Tuesday
+  week: 5
+  phase: Pretrained models
+  kind: study
+  title: 'Project start: corpus, labels, split, metrics, baseline'
+  hours: 3-4 h
+  why: Every modelling decision between here and Day 50 gets compared against what you fix this morning,
+    so the split and the metrics are chosen before you have seen a single model output - the same reason
+    you write the analysis plan before unblinding.
+  objectives:
+  - You have `splits/{train,val,test}.pmids` frozen with a recorded SHA-256 for each file, and you will
+    not regenerate them before Day 50.
+  - You can name your primary metric, say what it scores for a majority-class-always classifier on your
+    actual label distribution, and defend why it and not raw accuracy is primary.
+  - You have a prompting baseline number on a validation subsample from a model you did not train, with
+    the exact prompt text, per-abstract latency, and token counts saved to disk.
+  tasks:
+  - text: 'Pull the corpus with E-utilities: ESearch with `usehistory=y` to get WebEnv and query_key,
+      then EFetch in batches of 200 PMIDs with `retmode=xml`, sleeping to stay under your rate limit.
+      Target 8,000-10,000 abstracts. Parse PMID, title, abstract, journal, year, `PublicationTypeList`,
+      and `MeshHeadingList` into `data/abstracts.jsonl`. Watch for structured abstracts - they carry several
+      `<AbstractText Label=...>` elements, and taking only the first gives you the Background section
+      instead of the paper.'
+    minutes: 60
+  - text: 'Pick the task and write `TASK.md`. Default: five-way study design - RCT, cohort, case-control,
+      review or meta-analysis, other. The alternative, if you have a live review protocol: binary first-pass
+      screening, does this abstract report primary outcome data from a human study on your topic, yes
+      or no. Take the five-way unless the screening task is something you will genuinely use this year,
+      because its labels are partly recoverable from metadata and the screening task''s are not. Then
+      write the silver-label rules: RCT and review/meta-analysis come from `PublicationType`, but cohort
+      and case-control do not exist as publication types at all and must come from the MeSH headings `Cohort
+      Studies`, `Prospective Studies`, and `Case-Control Studies`. Write an explicit precedence rule for
+      abstracts that match two.'
+    minutes: 45
+  - text: 'Freeze the split and choose metrics before any modelling: deduplicate near-identical abstracts
+      first, then a stratified 70/15/15 split by silver label with a fixed seed, saved as three PMID lists
+      with `sha256sum` recorded in `TASK.md`. Pick a primary metric - macro-F1 is usually the right answer
+      once `other` dominates - and write down what it scores for a majority-class-always classifier.'
+    minutes: 35
+  - text: Hand-label 100 abstracts from the test split yourself, reading only the abstract text, and record
+      your disagreement rate against the silver label. That rate is a ceiling on anything you train later,
+      so it goes in `TASK.md` rather than in a comment.
+    minutes: 35
+  - text: 'Get the prompting baseline: write `baselines/prompt_v1.txt` with your label definitions and
+      one worked example per label, run it over 300 validation abstracts through an instruction-tuned
+      model you have not fine-tuned, and save one row per abstract with prediction, raw output, wall-clock
+      latency, and input/output token counts. Record your provider''s per-token price in `baselines/prompt_v1_meta.json`
+      on the day you run it - Day 35 needs cost per 1000 abstracts, and prices move.'
+    minutes: 50
+  resources:
+  - label: NCBI E-utilities (ESearch, EFetch, rate limits)
+    url: https://www.ncbi.nlm.nih.gov/books/NBK25501/
+    kind: docs
+  - label: PubMed
+    url: https://pubmed.ncbi.nlm.nih.gov/
+    kind: tool
+  - label: Hugging Face Hub datasets - check whether someone already built this before you do
+    url: https://huggingface.co/datasets
+    kind: tool
+  - label: Google Colab
+    url: https://colab.research.google.com/
+    kind: tool
+  deliverable: A `project/` directory holding `TASK.md` (label definitions with one decision rule and
+    two real PMIDs per label, the precedence rule, the primary metric with its majority-class value, and
+    your human-versus-silver disagreement rate), `data/abstracts.jsonl`, `splits/{train,val,test}.pmids`
+    with recorded hashes, `gold_test_100.jsonl`, `baselines/prompt_v1.txt`, and `baselines/prompt_v1_val.jsonl`
+    carrying latency and token counts per row.
+  checkpoint: What does your primary metric score for a classifier that always predicts the majority class,
+    and what did your prompting baseline score? If the gap is small, decide right now whether that is
+    the model's problem or the metric's - you will not get an honest answer to this question once you
+    have a fine-tuned model you like.
+  prep_for_tomorrow:
+  - Open Colab, set Runtime -> Change runtime type -> T4 GPU, and confirm `torch.cuda.is_available()`
+    returns True.
+  - Commit and push `project/` to a private repo tonight, so the split carries a timestamp you can point
+    at when you report these results later.
+  - Skim the section headings of chapter3/3 so `Trainer`'s shape is familiar before you type it.
+- day: 34
+  date: '2026-08-26'
+  weekday: Wednesday
+  week: 5
+  phase: Pretrained models
+  kind: study
+  title: 'Fine-tuning: the Trainer, and the loop it hides'
+  hours: 3-4 h
+  why: '`Trainer.train()` is fifteen lines that do about forty things, and you write the manual loop once
+    so that when it does one of them wrong you can find it in an afternoon instead of a week.'
+  objectives:
+  - You have a fine-tuned checkpoint and know, on the validation split, whether it beats Day 33's prompting
+    baseline on your primary metric and by how much.
+  - You can list four things `Trainer` did that your manual loop needed an explicit line for - at minimum
+    moving the batch to the device, zeroing gradients, stepping the LR schedule, and switching to `model.eval()`.
+  - You can read your own loss curves and say whether the run is underfit, overfit, or stopped early,
+    naming the epoch where validation loss turned.
+  tasks:
+  - text: 'Read chapter3/3 and fine-tune with `Trainer`: a biomedical BERT-family encoder, `AutoModelForSequenceClassification`
+      with `num_labels=5`, the `max_length` you chose on Day 32, three epochs, `eval_strategy=''epoch''`,
+      and a `compute_metrics` returning your Day 33 primary metric plus per-class F1.'
+    minutes: 65
+  - text: Rewrite the identical run as a manual loop from chapter3/4 - `DataLoader` with your collator,
+      `AdamW`, `get_scheduler` with warmup, the forward/backward/step/zero inner loop, and `model.eval()`
+      under `torch.no_grad()` for validation - and land within noise of the `Trainer` validation score.
+      Hold the seed fixed so a gap means something.
+    minutes: 65
+  - text: 'Read chapter3/5 (Understanding Learning Curves) and plot a two-panel figure sharing one x-axis:
+      train and validation loss on top, primary metric below, both runs drawn on both panels.'
+    minutes: 40
+  - text: Retrain on 10%, 30%, and 100% of the training split and plot validation metric against training-set
+      size. Write one sentence under the plot answering 'would more labels help?' - that answer decides
+      whether you spend a day labelling before Day 41.
+    minutes: 35
+  resources:
+  - label: HF LLM Course ch3 §3 - Fine-tuning with the Trainer API
+    url: https://huggingface.co/learn/llm-course/en/chapter3/3
+    kind: course
+  - label: HF LLM Course ch3 §4 - A full training loop
+    url: https://huggingface.co/learn/llm-course/en/chapter3/4
+    kind: course
+  - label: HF LLM Course ch3 §5 - Understanding Learning Curves
+    url: https://huggingface.co/learn/llm-course/en/chapter3/5
+    kind: course
+  - label: Hugging Face Transformers docs
+    url: https://huggingface.co/docs/transformers
+    kind: docs
+  - label: Weights & Biases - run logging, same log you started at Milestone 1
+    url: https://wandb.ai/site
+    kind: tool
+  - label: Google Colab
+    url: https://colab.research.google.com/
+    kind: tool
+  deliverable: '`day34_finetune.ipynb`, plus a `runs/` directory holding the `Trainer` and manual-loop
+    checkpoints with their matching validation scores, the two-panel learning-curve figure, and the three-point
+    data-scaling curve with your one-sentence answer on whether more labels would help.'
+  checkpoint: Your manual loop lands 0.03 below `Trainer` on the same data and the same seed. Name the
+    first two things you check, and say what each one would look like in the loss curve if it were the
+    cause.
+  prep_for_tomorrow:
+  - Check that `runs/` holds both checkpoints and that `baselines/prompt_v1_val.jsonl` still carries its
+    latency and token-count columns - tomorrow's report is built out of them.
+  - Confirm `from sklearn.calibration import calibration_curve` imports cleanly.
+  - 'Write one number in your log tonight: the test accuracy you expect the fine-tune to reach. You are
+    grading that prediction tomorrow, and a miss tells you more than a hit.'
+- day: 35
+  date: '2026-08-27'
+  weekday: Thursday
+  week: 5
+  phase: Pretrained models
+  kind: milestone
+  title: 'Milestone 2: fine-tuned against prompted, on five axes'
+  hours: 3 h
+  why: A single accuracy number lets you pick the wrong model with confidence, so today you build the
+    comparison you would defend in a lab meeting - including reading fifty errors by hand, which is the
+    only part that tells you what to fix next. No new material today; the report is the whole day.
+  objectives:
+  - You can say, for each of the five axes, which model wins and by how much, having scored the test split
+    exactly once.
+  - You can produce a reliability curve and an ECE for both models and say which one is overconfident,
+    and in which probability band.
+  - You have a failure taxonomy built by reading errors rather than by reading the confusion matrix, with
+    counts, and at least one category that only one of the two models has.
+  tasks:
+  - text: Score both models on the frozen test split, once. Report accuracy, macro-F1, per-class F1, and
+      a confusion matrix for each. Then compare against the number you wrote down last night and note
+      the direction of your miss.
+    minutes: 35
+  - text: Build reliability curves with 10 bins and compute ECE for both models. The fine-tune gives you
+      softmax probabilities directly; for the prompted model use token logprobs if your provider returns
+      them, and if it does not, use a verbalised confidence and state plainly in the report that it is
+      a worse probability estimate, because it is.
+    minutes: 35
+  - text: 'Measure latency and cost: median and p95 seconds per abstract for each model, then cost per
+      1000 abstracts - token price times tokens for the prompted model, and for the fine-tune the GPU-hours
+      you actually spent training, amortised over a stated volume, plus inference. State the volume you
+      amortised over; the ranking changes completely between 1,000 and 1,000,000 abstracts.'
+    minutes: 25
+  - text: Read 50 errors by hand, 25 from each model, inventing the categories as you go rather than deciding
+      them in advance. Expect things like 'secondary analysis of an RCT', 'protocol paper', 'design never
+      named in the abstract', 'pooled cohort written up as a trial'. Count each category and mark which
+      model it hits.
+    minutes: 45
+  - text: 'Write `MILESTONE2.md`. Spend the first ten minutes on the HELM Capabilities leaderboard and
+      steal its layout: one row per metric, models as columns, and no aggregate score sitting at the top
+      pretending to summarise them.'
+    minutes: 35
+  resources:
+  - label: HELM - Holistic Evaluation of Language Models
+    url: https://crfm.stanford.edu/helm/
+    kind: tool
+  - label: HELM Capabilities leaderboard - the layout to copy
+    url: https://crfm.stanford.edu/helm/capabilities/latest/
+    kind: tool
+  - label: MedHELM - the medical/clinical version
+    url: https://crfm.stanford.edu/helm/medhelm/latest/
+    kind: tool
+  - label: HELM paper - why one number is the wrong report
+    url: https://arxiv.org/abs/2211.09110
+    kind: paper
+  - label: GPT-3, Language Models are Few-Shot Learners (Week 6)
+    url: https://arxiv.org/abs/2005.14165
+    kind: paper
+  - label: Scaling Laws for Neural Language Models (Week 6)
+    url: https://arxiv.org/abs/2001.08361
+    kind: paper
+  - label: Training Compute-Optimal LLMs / Chinchilla (Week 6)
+    url: https://arxiv.org/abs/2203.15556
+    kind: paper
+  - label: InstructGPT (Week 6)
+    url: https://arxiv.org/abs/2203.02155
+    kind: paper
+  - label: LoRA (Week 6)
+    url: https://arxiv.org/abs/2106.09685
+    kind: paper
+  deliverable: '`MILESTONE2.md` with a five-row comparison table (accuracy and macro-F1, ECE, median and
+    p95 latency, cost per 1000 abstracts at a stated volume, failure-taxonomy summary), the reliability-curve
+    figure, the confusion matrix for whichever model you would deploy, the taxonomy with counts, and a
+    closing paragraph naming which model you would use for which job and the one condition that would
+    flip the choice.'
+  checkpoint: Which model goes behind a screening tool where a missed RCT means re-running the whole search,
+    and which goes behind a one-off pass over 200,000 abstracts? If your answer is the same model twice,
+    you have not actually weighed recall against cost per 1000.
+  prep_for_tomorrow:
+  - 'Download next week''s five PDFs into one folder tonight: GPT-3 (2005.14165), Scaling Laws (2001.08361),
+    Chinchilla (2203.15556), InstructGPT (2203.02155), LoRA (2106.09685). Week 6 is paper-heavy and you
+    do not want to spend Friday morning on arXiv.'
+  - Read the GPT-3 abstract and look at its first figure. Five minutes, nothing else.
+  - Write one sentence predicting what 'compute-optimal' will turn out to mean, before Chinchilla tells
+    you.
+- day: 36
+  date: '2026-08-28'
+  weekday: Friday
+  week: 6
+  phase: Scaling and post-training
+  kind: study
+  title: GPT-3 and in-context learning
+  hours: 3-4 h
+  why: Few-shot prompting is the cheapest thing you can do to a frozen model, and GPT-3 is where the claim
+    that it works at all comes from. You read the claim in the morning and test it on your own PubMed
+    task in the afternoon.
+  objectives:
+  - State what changes inside the model during a few-shot prompt, and why the paper still calls it learning.
+  - Report accuracy on your Day 33 held-out set at k = 0, 1, 5 and 20 demonstrations, with the spread
+    across three different draws of the demonstration examples.
+  - Name two task families in Section 3 where few-shot GPT-3 was still beaten by a smaller fine-tuned
+    model.
+  tasks:
+  - text: Read Sections 1 and 2 of GPT-3 (arXiv:2005.14165), including Table 2.1 (the eight model sizes
+      from 125M to 175B) and Table 2.2 (the training mix). Write down the context window and the total
+      training tokens - both come back on Sunday.
+    minutes: 50
+  - text: Skim Sections 3.1-3.8 at the level of the figures and the fine-tuned-SOTA comparison only, then
+      read Section 3.9.1 (arithmetic), Section 4 (benchmark contamination, including the bug they admit
+      to) and Section 5 (limitations) properly. Skip every appendix.
+    minutes: 45
+  - text: 'Extend your Day 33 prompting script into `few_shot.py`: sample k demonstrations from the training
+      split for k in {0, 1, 5, 20}, three independent draws each, and score all twelve runs on the same
+      held-out set and the same metric you used on Day 33.'
+    minutes: 75
+  - text: Plot accuracy against k with the three draws shown as separate points rather than a mean, and
+      write five sentences on where the spread came from - example choice, example order, or class balance
+      in the sampled demonstrations.
+    minutes: 30
+  resources:
+  - label: GPT-3 - Language Models are Few-Shot Learners
+    url: https://arxiv.org/abs/2005.14165
+    kind: paper
+  - label: Hugging Face Transformers docs
+    url: https://huggingface.co/docs/transformers
+    kind: docs
+  deliverable: '`few_shot.py`, a plot of accuracy against k with all three demonstration draws plotted
+    separately, and a five-sentence note on the spread.'
+  checkpoint: Your k = 20 run beats your k = 0 run. Without rerunning anything, how would you tell whether
+    that gain came from the model inferring the task from the examples or from the examples merely pinning
+    down the label set and the output format?
+  prep_for_tomorrow:
+  - Download the Scaling Laws PDF (arXiv:2001.08361) so it is on disk before you start.
+  - Type Table 2.1 into a small CSV - eight rows, parameters, layers, d_model, heads. You will plot against
+    it tomorrow.
+  - 'Write one line, dated, guessing how validation loss scales with parameter count: linear, logarithmic,
+    power law, or something else. Do it before you read tomorrow''s paper.'
+- day: 37
+  date: '2026-08-29'
+  weekday: Saturday
+  week: 6
+  phase: Scaling and post-training
+  kind: study
+  title: Scaling laws, and how far you can trust a fitted line
+  hours: 3-4 h
+  why: Kaplan et al. claim loss falls as a power law in parameters, data and compute across seven orders
+    of magnitude of compute. You fit curves for a living, so read this one the way you would read a manuscript
+    you were asked to referee.
+  objectives:
+  - Write down the three power laws with their exponents and say what each one holds fixed.
+  - Explain why a bare power law with no additive constant must be wrong at large N, and name the term
+    Chinchilla adds tomorrow to fix it.
+  - State how Kaplan counts N, and what the paper shows happens to the trend when embedding parameters
+    are put back in.
+  tasks:
+  - text: Read Section 1 - especially 1.2, the summary of scaling laws - and Section 2 for the notation
+      and the derivation of C = 6ND. Copy the three exponents into your notes; you should find alpha_N
+      around 0.076, alpha_D around 0.095 and alpha_C around 0.050, each with the range of N, D or C over
+      which it was fitted.
+    minutes: 50
+  - text: 'Read Section 3 (the basic power laws, and why N excludes embedding parameters), move quickly
+      through Sections 4 and 5, then read Section 6 properly: 6.1 gives the compute-optimal allocation
+      N proportional to C^0.73 and D proportional to C^0.27, and 6.3 admits the trends must break somewhere.'
+    minutes: 45
+  - text: Plot the fitted L(N) curve over the range Kaplan actually trained, then extrapolate it out to
+      N = 1e15 and mark the point where the predicted loss crosses 1 nat per token. Write one sentence
+      on what that crossing tells you about the functional form, given that text has nonzero entropy.
+    minutes: 55
+  - text: 'Write half a page as a referee: name the estimator (what is regressed on what, and in which
+      space), list what is not reported (standard errors, residual structure, runs per point, sensitivity
+      to the fitting range), and name the single claim you would ask the authors to weaken.'
+    minutes: 40
+  resources:
+  - label: Scaling Laws for Neural Language Models
+    url: https://arxiv.org/abs/2001.08361
+    kind: paper
+  deliverable: A notebook with L(N) plotted over its fitted range and extrapolated well past it, the 1-nat
+    crossing marked, and a half-page referee note on the fitting and the extrapolation.
+  checkpoint: alpha_N is about 0.076. If you increase N tenfold and change nothing else, by what factor
+    does the fitted L(N) say the loss falls, and is that a large effect or a small one?
+  prep_for_tomorrow:
+  - Download the Chinchilla PDF (arXiv:2203.15556).
+  - 'Write today''s numbers on one line where you can see them tomorrow: alpha_N, alpha_D, and the N proportional
+    to C^0.73 allocation. Tomorrow''s paper contradicts the last one.'
+  - Open a blank notebook and put C = 6ND at the top. That single line is tomorrow's entire arithmetic.
+- day: 38
+  date: '2026-08-30'
+  weekday: Sunday
+  week: 6
+  phase: Scaling and post-training
+  kind: study
+  title: 'Chinchilla: doing the compute arithmetic yourself'
+  hours: 3-4 h
+  why: Kaplan's allocation pushed the field toward ever-larger, under-trained models. Chinchilla redid
+    the experiment and got a different answer, and the only way to own that disagreement is to do the
+    FLOP arithmetic on paper instead of quoting the 20-tokens-per-parameter rule.
+  objectives:
+  - Derive, from C = 6ND and a target of 20 tokens per parameter, the model size and token count that
+    Gopher's budget of 5.76e23 FLOPs should have bought, and check that you land on Chinchilla's 70B and
+    1.4T.
+  - Compute how much too large GPT-3 was at its own compute budget under Chinchilla's rule, and state
+    the factor.
+  - Name the reasons Chinchilla gives for why Kaplan's exponent came out wrong, and say which one you
+    find most convincing.
+  tasks:
+  - text: 'Read Section 1 and Section 3 of Chinchilla (arXiv:2203.15556): the training-curve envelope
+      (3.1), the IsoFLOP profiles (3.2), and the parametric fit L(N,D) = E + A/N^alpha + B/D^beta (3.3).
+      For each of the three, write one sentence on what would have to be true for it to give the wrong
+      answer.'
+    minutes: 60
+  - text: Do the arithmetic on paper, not in the paper. (a) With C = 6ND and D = 20N, solve for N at C
+      = 5.76e23 FLOPs and check both N and D against the paper. (b) Repeat at GPT-3's own budget, C =
+      6 x 1.75e11 x 3e11, and report how many times too large and how many times under-trained GPT-3 was
+      under this rule.
+    minutes: 45
+  - text: 'Write the reconciliation with yesterday: the two allocation exponent sets side by side (Kaplan
+      N ~ C^0.73 and D ~ C^0.27; Chinchilla roughly N ~ C^0.5 and D ~ C^0.5), then the reasons Chinchilla
+      gives - the learning-rate schedule length held fixed regardless of token count, and the exclusion
+      of embedding parameters from N. Add one line on whether the parametric fit in 3.3 carries the uncertainty
+      quantification you asked for yesterday; a later replication attempt could not reproduce that fit
+      from the paper''s own numbers.'
+    minutes: 45
+  - text: 'Write four sentences on what the objective actually is: training FLOPs to reach a given loss,
+      with inference cost nowhere in it. State what a 20-tokens-per-parameter model costs you if you intend
+      to serve it a million times, and what that argues for instead.'
+    minutes: 30
+  resources:
+  - label: Training Compute-Optimal Large Language Models (Chinchilla)
+    url: https://arxiv.org/abs/2203.15556
+    kind: paper
+  - label: Scaling Laws for Neural Language Models
+    url: https://arxiv.org/abs/2001.08361
+    kind: paper
+  deliverable: 'One page of hand-done arithmetic: N and D at Gopher''s budget, the same at GPT-3''s budget
+    with the over-sizing factor, the two allocation exponent sets side by side, and the reasons for the
+    disagreement.'
+  checkpoint: You have 1e22 FLOPs. Someone offers you a 4B-parameter model trained on 420B tokens or a
+    30B-parameter model trained on 56B tokens - both fit the budget. Which do you take, and what would
+    change your answer?
+  prep_for_tomorrow:
+  - Download SLP3 Chapter 9 (9.pdf). It is 18 pages, so it is a read-in-one-sitting chapter.
+  - Write one sentence on what you think separates a base model from a chat model, before the textbook
+    tells you.
+  - Open your Day 35 failure taxonomy. You rerun the worst cases from it tomorrow afternoon.
+- day: 39
+  date: '2026-08-31'
+  weekday: Monday
+  week: 6
+  phase: Scaling and post-training
+  kind: study
+  title: 'Post-training: how a next-token predictor becomes an assistant'
+  hours: 3-4 h
+  why: A pretrained model completes text; it does not answer you. Jurafsky and Martin lay out the whole
+    post-training pipeline in 18 calm pages, so you meet SFT, reward models and DPO once as textbook material
+    today and once as an argumentative paper tomorrow.
+  objectives:
+  - Explain, without notes, what instruction tuning changes about a model and what it leaves untouched.
+  - Write the Bradley-Terry preference model from 9.2.2 and say why it is the same paired-comparison likelihood
+    you would fit for ranked outcomes anywhere else.
+  - State the difference between PPO (9.3.1) and DPO (9.3.2) in terms of what each one actually trains.
+  tasks:
+  - text: Read 9.1 Instruction Tuning, including 9.1.1 on where instruction data comes from and 9.1.2
+      on why honest evaluation of an instruction-tuned model requires leaving out whole task clusters
+      rather than held-out examples within a task.
+    minutes: 45
+  - text: Read 9.2 Learning from Preferences carefully - 9.2.1 on preference data, 9.2.2 on modelling
+      preferences, 9.2.3 on learning to score them. Derive the pairwise loss -log sigmoid(r(x, y_w) -
+      r(x, y_l)) from the Bradley-Terry model yourself before checking it against the chapter.
+    minutes: 45
+  - text: Read 9.3 (PPO, DPO, evaluation, and 9.3.4 on what preference-based learning cannot fix) and
+      9.4 on test-time compute, including 9.4.1 on chain-of-thought prompting.
+    minutes: 40
+  - text: Take 20 cases from your Day 35 failure taxonomy - the ones your Day 33 prompt got wrong - and
+      rerun them with a chain-of-thought prompt in the style of 9.4.1. Record how many flip to correct,
+      how many flip the other way, and the added latency per generation.
+    minutes: 60
+  resources:
+  - label: 'SLP3 Ch9 - Post-training: Instruction Tuning, Alignment, Test-Time Compute'
+    url: https://web.stanford.edu/~jurafsky/slp3/9.pdf
+    kind: textbook
+  deliverable: A one-page diagram of pretraining to SFT to preference data to reward model to policy optimization,
+    annotated with what data each arrow needs and who produces it, plus your chain-of-thought results
+    on the 20 failure cases with flips counted in both directions and the latency cost.
+  checkpoint: Preference learning needs pairs. Where do the two candidate responses in a pair come from,
+    and why does it matter whether they come from the model you are about to train or from a different
+    one?
+  prep_for_tomorrow:
+  - Download InstructGPT (arXiv:2203.02155). It is long, but you only read Sections 1, 3, 4 and 5.
+  - Write down your guess at how many people OpenAI hired to produce the demonstration and preference
+    data. You check it tomorrow.
+  - Flag which of today's chain-of-thought flips went the wrong way - those cases come back tomorrow when
+    you think about who would label clinical preference data.
+- day: 40
+  date: '2026-09-01'
+  weekday: Tuesday
+  week: 6
+  phase: Scaling and post-training
+  kind: study
+  title: 'InstructGPT: three stages, forty labelers'
+  hours: 3-4 h
+  why: 'This is the paper that turned GPT-3 into something you could talk to, and its machinery - SFT,
+    a Bradley-Terry reward model, PPO on a KL leash - is still roughly what chat models are built from.
+    Read it for the parts people skip: what the labelling cost, and whose preferences the model was aligned
+    to.'
+  objectives:
+  - Write the loss function for each of the three stages, and say which one you already knew under a different
+    name.
+  - State what the RLHF stages cost in petaflop/s-days against GPT-3 175B's pretraining, using the paper's
+    own numbers.
+  - Describe the alignment tax concretely - which evaluations regressed, and what the pretraining-mix
+    term in PPO-ptx did about it.
+  tasks:
+  - text: 'Read Section 1 and all of Section 3: 3.2 dataset sizes, 3.3 tasks, 3.4 human data collection,
+      3.5 models, 3.6 evaluation. Write the three losses out as you go - cross-entropy on demonstrations,
+      the pairwise ranking loss over the K sampled outputs, and the PPO objective with its KL penalty
+      and pretraining term.'
+    minutes: 65
+  - text: 'Read Section 4 (results) and Section 5 (discussion), particularly 5.2 on who the model is aligned
+      to and 5.3 on limitations. Pull out three numbers: the labeler count, the inter-annotator agreement
+      rate, and the petaflop/s-days for the 175B PPO-ptx model against the 3,640 for GPT-3 175B pretraining.'
+    minutes: 45
+  - text: 'Reconcile the paper against yesterday''s chapter: the reward model here is the Bradley-Terry
+      model from SLP3 9.2.2. Write down why they train it on all K-choose-2 comparisons from a single
+      prompt inside one batch, and what goes wrong if you scatter those pairs across separate batches.'
+    minutes: 30
+  - text: 'Write 250 words on preference data in your own domain: who is qualified to judge which of two
+      clinical abstract summaries is better, where those raters would disagree systematically rather than
+      randomly, what a reward model trained on non-expert raters would learn to reward instead of correctness,
+      and what PHI and IRB constraints do to the hire-forty-contractors plan.'
+    minutes: 45
+  resources:
+  - label: InstructGPT - Training language models to follow instructions with human feedback
+    url: https://arxiv.org/abs/2203.02155
+    kind: paper
+  - label: SLP3 Ch9 - Post-training
+    url: https://web.stanford.edu/~jurafsky/slp3/9.pdf
+    kind: textbook
+  deliverable: The three loss functions written out by hand, the labeler count / agreement rate / compute
+    numbers with their section references, and a 250-word note on what a clinical preference-labelling
+    protocol would have to look like.
+  checkpoint: What does the policy do to the reward model if you remove the KL penalty from the PPO objective?
+  prep_for_tomorrow:
+  - Download LoRA (arXiv:2106.09685).
+  - Run `pip install peft` and confirm `from peft import LoraConfig, get_peft_model` imports cleanly.
+  - Dig out your Day 34 run and write its peak GPU memory, wall-clock and final metrics somewhere visible.
+    Tomorrow is a comparison, and the baseline column has to be filled in before you start.
+- day: 41
+  date: '2026-09-02'
+  weekday: Wednesday
+  week: 6
+  phase: Scaling and post-training
+  kind: study
+  title: 'LoRA: fine-tuning without the optimizer state'
+  hours: 3-4 h
+  why: On Day 34 you updated every weight in the model. Today you update a fraction of a percent of them
+    and measure what that costs in task metrics and what it buys in memory. The paper's claim is that
+    the update you need is low-rank; your job is to check whether it holds on your task.
+  objectives:
+  - Predict, before you run anything, the ratio of peak GPU memory between the Day 34 full fine-tune and
+    a LoRA run, and justify the prediction in terms of Adam's optimizer state rather than the weights
+    themselves.
+  - State what r and alpha each control, and why the update is scaled by alpha/r.
+  - Report trainable parameter count, peak memory, wall-clock and your Day 35 metrics at r = 2, 8 and
+    32 against the Day 34 baseline.
+  tasks:
+  - text: Read LoRA Section 1, Section 4 (the W0 + BA parametrization, B initialized to zero and A Gaussian,
+      the alpha/r scaling, and which Transformer matrices they adapt), and Section 7 - 7.1 on which matrices
+      matter, 7.2 on how small r can get away with being, 7.3 on what the update amplifies. Skip the GLUE
+      tables in Section 5.
+    minutes: 55
+  - text: 'Write your predictions down before touching the GPU: peak memory ratio, wall-clock ratio, and
+      the accuracy delta on your held-out set. Date them. You will be wrong about at least one and the
+      point is to know which.'
+    minutes: 15
+  - text: Wrap the Day 34 training script with PEFT - `LoraConfig(r=8, lora_alpha=16, target_modules=[...])`,
+      `get_peft_model`, then `print_trainable_parameters()` - keeping the same base model, same split
+      and same seed as Day 34. Run r = 2, 8 and 32 with lora_alpha fixed at 16, recording `torch.cuda.max_memory_allocated()`
+      and wall-clock for each.
+    minutes: 80
+  - text: Fill in a four-row table - Day 34 full fine-tune, r = 2, r = 8, r = 32 - with trainable parameters,
+      trainable fraction, peak memory, wall-clock, saved checkpoint size on disk, and your Day 35 metrics.
+      Write three sentences naming which prediction was wrong and why.
+    minutes: 40
+  resources:
+  - label: LoRA - Low-Rank Adaptation of Large Language Models
+    url: https://arxiv.org/abs/2106.09685
+    kind: paper
+  - label: PEFT docs
+    url: https://huggingface.co/docs/peft
+    kind: docs
+  - label: Hugging Face Transformers docs
+    url: https://huggingface.co/docs/transformers
+    kind: docs
+  deliverable: '`train_lora.py`, the four-row comparison table including checkpoint size on disk, and
+    your written predictions sitting next to the measured values.'
+  checkpoint: Your LoRA run trains roughly a thousandth as many parameters as Day 34, so why does peak
+    memory not fall by anything close to a factor of a thousand?
+  prep_for_tomorrow:
+  - 'Collect the numbers from Days 33, 34 and 41 into one scratch file: accuracy, calibration, wall-clock,
+    peak memory, cost per thousand abstracts. Hunting for them is not how to spend a light day.'
+  - Skim the abstract of the RAG paper (arXiv:2005.11401). You do not build it until Day 47, but you need
+    enough to fill one row of tomorrow's table as a prediction.
+  - Decide now whether tomorrow is a catch-up day or a day off. Both are allowed.
+- day: 42
+  date: '2026-09-03'
+  weekday: Thursday
+  week: 6
+  phase: Scaling and post-training
+  kind: catchup
+  title: 'Decision table: prompt, few-shot, LoRA, fine-tune, retrieve'
+  hours: 2-3 h
+  why: Week 6 was five papers, one textbook chapter and one GPU run. If you are on track, today is yours
+    to spend or skip. If you spend it, turn the week into one table you would actually consult before
+    starting a project, filled with your numbers from Days 33, 34 and 41 rather than the papers'.
+  objectives:
+  - Produce a decision table whose cells are your own measurements wherever a measurement exists, with
+    every predicted cell marked as a prediction and dated.
+  - State the labeled-example count at which fine-tuning started to beat few-shot prompting on your task
+    - or say plainly that you do not know it yet and name the one run that would settle it.
+  tasks:
+  - text: Close out anything still open from Days 36-41. The r-sweep from yesterday and the chain-of-thought
+      flips on your Day 35 failure cases are the two most likely to be half-finished.
+    minutes: 40
+  - text: 'Draft the table from memory with every paper and notebook closed: rows for zero-shot prompting,
+      few-shot prompting, LoRA, full fine-tuning and retrieval; columns for labeled examples needed, compute
+      to a first result, wall-clock, storage per additional task, and what breaks it. Only once the grid
+      is drafted may you open anything.'
+    minutes: 45
+  - text: Fill the cells with your own measurements from Days 33, 34 and 41. Mark the retrieval row as
+      a dated prediction - Day 47 checks it against a system you will have actually built.
+    minutes: 30
+  - text: 'Write 200 words: a new biomedical text task lands with 200 labeled abstracts and one GPU for
+      an afternoon. Which row do you pick, which of your own numbers justifies it, and what would have
+      to change to move you to a different row?'
+    minutes: 25
+  resources:
+  - label: Direct Preference Optimization
+    url: https://arxiv.org/abs/2305.18290
+    kind: paper
+  - label: TRL docs (SFT, DPO, reward modelling)
+    url: https://huggingface.co/docs/trl
+    kind: docs
+  - label: nanochat
+    url: https://github.com/karpathy/nanochat
+    kind: repo
+  - label: Retrieval-Augmented Generation
+    url: https://arxiv.org/abs/2005.11401
+    kind: paper
+  deliverable: One decision table, five rows, filled from your own runs, with the retrieval row flagged
+    as a prediction to be checked on Day 47.
+  checkpoint: Someone hands you 50 labeled examples and wants a classifier by Friday. Which row do you
+    pick, and which number from your own week justifies it?
+  prep_for_tomorrow:
+  - Download the DPO paper (arXiv:2305.18290). Week 7 opens on it.
+  - Run `pip install trl` and confirm `from trl import SFTTrainer` imports cleanly.
+  - Skim the nanochat README and `runs/speedrun.sh` - just far enough to see which scripts run, in what
+    order, and what the speedrun costs.
+- day: 43
+  date: '2026-09-04'
+  weekday: Friday
+  week: 7
+  phase: Pipeline, RAG, evaluation
+  kind: study
+  title: 'DPO: preference learning as a classification loss'
+  hours: 3-4 h
+  why: InstructGPT needed a reward model and a PPO loop; DPO shows both were an artifact of how the problem
+    was written down, and the algebra that removes them is short enough to do on one sheet of paper.
+  objectives:
+  - You can write the DPO loss from memory and say exactly where the partition function Z(x) goes and
+    why it cancels.
+  - You can state what the frozen reference policy is doing in the loss, and predict what generations
+    look like as beta goes to zero.
+  - You can read TRL's rewards/margins and rewards/accuracies curves and say whether a run learned the
+    preference or just drifted away from the reference.
+  tasks:
+  - text: Read the DPO paper (arXiv 2305.18290) Sections 1-3, stopping at the end of the preliminaries.
+      You already know the RLHF pipeline from InstructGPT in Week 6 - read Section 3 as a restatement
+      of it in notation you will need next.
+    minutes: 45
+  - text: Work Section 4 on paper without reading it first. Start from the KL-constrained reward objective,
+      get the closed-form optimal policy, invert it to write the reward as beta*log(pi/pi_ref) + beta*log
+      Z(x), substitute into Bradley-Terry, and watch Z(x) disappear from the difference. This is the same
+      move as a stratum intercept dropping out of a conditional logistic likelihood for matched pairs
+      - and what is left is a binary logistic regression on the difference of two log-ratios.
+    minutes: 45
+  - text: Run a DPOTrainer job in TRL on 200-400 preference pairs, using a model small enough to hold
+      twice in memory since the frozen reference is a second copy. Log rewards/chosen, rewards/rejected,
+      rewards/margins and rewards/accuracies, and plot all four against step.
+    minutes: 75
+  - text: Rerun with beta at 0.01 and at 0.5, sample 10 generations from each checkpoint, and write down
+      what actually changed in the text - not just what the loss curve did.
+    minutes: 35
+  resources:
+  - label: Direct Preference Optimization (Rafailov et al.)
+    url: https://arxiv.org/abs/2305.18290
+    kind: paper
+  - label: InstructGPT - the pipeline DPO replaces
+    url: https://arxiv.org/abs/2203.02155
+    kind: paper
+  - label: TRL docs - DPOTrainer
+    url: https://huggingface.co/docs/trl
+    kind: docs
+  - label: 'SLP3 Ch9 - Post-training: Instruction Tuning, Alignment, Test-Time Compute'
+    url: https://web.stanford.edu/~jurafsky/slp3/9.pdf
+    kind: textbook
+  - label: Google Colab
+    url: https://colab.research.google.com/
+    kind: tool
+  deliverable: A half-page handwritten derivation from the KL-constrained objective to the DPO loss, plus
+    a notebook with four logged curves and ten sampled generations at each of two beta values.
+  checkpoint: 'Write the DPO loss on a blank sheet, then answer: what does RLHF get from sampling on-policy
+    during training that DPO never gets, and when would that difference matter?'
+  prep_for_tomorrow:
+  - Clone https://github.com/karpathy/nanochat and confirm runs/speedrun.sh is present.
+  - Skim the nanochat README and copy its wall-clock and dollar figures into a scratch file.
+  - 'Open discussion #1 and discussion #481 in tabs so tomorrow starts with reading, not searching.'
+- day: 44
+  date: '2026-09-05'
+  weekday: Saturday
+  week: 7
+  phase: Pipeline, RAG, evaluation
+  kind: study
+  title: 'nanochat, part 1: tokenizer, base training, base eval'
+  hours: 3-4 h
+  why: Every piece you built in Weeks 1-4 exists somewhere in this repo, wired to the piece before and
+    after it - today you find each one and see what a production ordering of them looks like.
+  objectives:
+  - You can list the stages in runs/speedrun.sh in order and, for each, name the script it runs, what
+    it writes to disk, and roughly what share of the ~1.5 h and ~$48 it consumes.
+  - For each of tok_train.py, base_train.py and base_eval.py you can point at the piece of your own Week
+    1-4 code that does the same job, and name one thing nanochat does differently and why.
+  tasks:
+  - text: Read runs/speedrun.sh top to bottom without opening any script it calls. Write the ordered stage
+      list, and for each stage record the input artifact, the output artifact, and the wall-clock and
+      cost from the README.
+    minutes: 40
+  - text: Read tok_train.py against your own BPE from Week 3. Note the vocab size, the special tokens
+      and what each one is for, the corpus it trains on, and where the merge loop actually runs. Write
+      one paragraph on what your minbpe-style implementation would have to change to be usable here.
+    minutes: 40
+  - text: Read base_train.py. Find the model definition, the parameter groups and which optimizer is applied
+      to which group, the data loader, and the token budget - then check that budget against the Chinchilla
+      ratio you worked through in Week 6 and say whether it is compute-optimal or deliberately not.
+    minutes: 55
+  - text: Read base_eval.py. Identify the metric it reports and how it is normalized, and decide whether
+      it is comparable to the perplexity you computed on your own GPT in Week 4. If it is not, write down
+      why not.
+    minutes: 30
+  - text: 'Read the launch writeup (discussion #1) and ''Beating GPT-2 for <<$100'' (discussion #481),
+      and note every place the author says a stage is cheap, expensive, or the bottleneck.'
+    minutes: 40
+  resources:
+  - label: nanochat
+    url: https://github.com/karpathy/nanochat
+    kind: repo
+  - label: 'nanochat launch writeup (discussion #1)'
+    url: https://github.com/karpathy/nanochat/discussions/1
+    kind: discussion
+  - label: 'Beating GPT-2 for <<$100 (discussion #481)'
+    url: https://github.com/karpathy/nanochat/discussions/481
+    kind: discussion
+  - label: minbpe - your Week 3 reference
+    url: https://github.com/karpathy/minbpe
+    kind: repo
+  - label: nanoGPT - your Week 4 reference
+    url: https://github.com/karpathy/nanoGPT
+    kind: repo
+  deliverable: 'A one-page stage table: stage, script, input, output, time, cost, and the Week 1-4 day
+    where you built the same thing yourself.'
+  checkpoint: 'Without reopening the repo: what does base_train.py produce, what consumes it next, and
+    what breaks downstream if you change the tokenizer vocab size after base training has finished?'
+  prep_for_tomorrow:
+  - Open chat_sft.py, chat_rl.py, chat_eval.py, chat_cli.py and infer_bench.py so tomorrow is reading,
+    not file-hunting.
+  - 'Skim the nanochat miniseries thread (discussion #420) for the mid-training explanation.'
+  - Decide tonight whether you are renting a GPU node tomorrow - if yes, create the account and check
+    quota now; if no, drop it and stop thinking about it.
+- day: 45
+  date: '2026-09-06'
+  weekday: Sunday
+  week: 7
+  phase: Pipeline, RAG, evaluation
+  kind: milestone
+  title: 'Milestone 3 - nanochat, part 2: SFT, RL, eval, serving'
+  hours: 3-4 h
+  why: This is the one repo that shows raw text becoming a served chat model with nothing hidden, and
+    today you write the trace that proves you can follow it. Renting an 8xH100 node and running runs/speedrun.sh
+    yourself is optional - about 1.5 h and roughly $48 on-demand or $15 spot. Reading the code carefully
+    gets you the whole picture; running it mostly buys you the experience of watching it happen.
+  objectives:
+  - You can follow one training example from raw web text through tokenization, base pretraining, mid-training,
+    SFT and RL, saying what changes about it at each hop.
+  - You can explain what the KV cache stores, why decode is cheap relative to prefill once it exists,
+    and what it costs in memory as context grows.
+  - You can attach a wall-clock figure and a dollar figure to every stage of the speedrun.
+  tasks:
+  - text: Read chat_sft.py. Work out the conversation format, which special tokens delimit turns, and
+      exactly which token positions contribute to the loss. Then find where mid-training happens relative
+      to SFT and write two sentences on what mid-training is for that SFT is not.
+    minutes: 45
+  - text: Read chat_rl.py. Identify the task it optimizes, where the reward comes from, and how the update
+      rule differs from both the DPO loss you derived on Day 43 and the PPO setup in InstructGPT. Note
+      why this stage is applied to a narrow task rather than to chat in general.
+    minutes: 40
+  - text: Read chat_eval.py and the leaderboard file in dev/. List the tasks it scores and how each is
+      scored, then put that list next to your Milestone 2 report from Day 35 and mark which of your metrics
+      have no counterpart here and which of theirs have no counterpart in yours.
+    minutes: 35
+  - text: Read chat_cli.py and infer_bench.py. Find where the KV cache is allocated and updated, separate
+      the prefill path from the decode path, and write down the tokens/sec numbers infer_bench.py reports
+      along with what would make each of them worse.
+    minutes: 40
+  - text: 'Write nanochat_pipeline.md: the full trace from raw text to served model, one section per stage,
+      each with input, output, time, cost, and one sentence naming the day in Weeks 1-6 where you built
+      the same component yourself.'
+    minutes: 45
+  resources:
+  - label: nanochat
+    url: https://github.com/karpathy/nanochat
+    kind: repo
+  - label: 'nanochat miniseries v1 (discussion #420)'
+    url: https://github.com/karpathy/nanochat/discussions/420
+    kind: discussion
+  - label: 'Adding abilities - the strawberry guide (discussion #164)'
+    url: https://github.com/karpathy/nanochat/discussions/164
+    kind: discussion
+  - label: nanochat leaderboard
+    url: https://github.com/karpathy/nanochat/blob/master/dev/LEADERBOARD.md
+    kind: leaderboard
+  - label: 'Beating GPT-2 for <<$100 (discussion #481)'
+    url: https://github.com/karpathy/nanochat/discussions/481
+    kind: discussion
+  deliverable: nanochat_pipeline.md - the end-to-end trace, with a cost and time column that sums to the
+    README's headline figure, and a mapping from each stage back to the day you built it yourself.
+  checkpoint: In chat_sft.py, which token positions contribute to the loss and which are masked out -
+    and what specifically goes wrong if you train on all of them?
+  prep_for_tomorrow:
+  - Download SLP3 Chapter 11 (11.pdf) and put it where you read PDFs.
+  - Read the RAG paper abstract (arXiv 2005.11401) - just the abstract.
+  - Run pip install sentence-transformers faiss-cpu and confirm both import cleanly.
+- day: 46
+  date: '2026-09-07'
+  weekday: Monday
+  week: 7
+  phase: Pipeline, RAG, evaluation
+  kind: study
+  title: 'Retrieval: BM25, bi-encoders, and when RAG is the wrong answer'
+  hours: 3-4 h
+  why: Retrieval is the default fix for anything a model does not know, and half the time it works while
+    the other half it moves the failure somewhere you stopped measuring - today is the theory plus the
+    decision rule for telling those apart.
+  objectives:
+  - You can write the BM25 score for a single query term by hand and say what k1 and b each control.
+  - You can state the difference between a bi-encoder and a cross-encoder, and why only one of them can
+    be precomputed into a FAISS index.
+  - You can name two conditions under which fine-tuning beats retrieval on your abstract task, and two
+    under which retrieval wins.
+  tasks:
+  - text: 'Read SLP3 Ch11 through the classical IR material: tf-idf, the BM25 scoring function, inverted
+      indexes, and the standard IR metrics. Pay attention to how BM25 saturates term frequency - it is
+      a fixed nonlinearity someone chose, not something estimated, and that is worth noticing.'
+    minutes: 55
+  - text: 'Read the rest of Ch11: dense retrieval with bi-encoders, approximate nearest-neighbour search,
+      chunking, and the RAG section. Write down every design choice the chapter treats as free that you
+      think is actually load-bearing for a corpus of 250-word abstracts.'
+    minutes: 45
+  - text: Read the RAG paper (arXiv 2005.11401). Separate RAG-Sequence from RAG-Token, and be precise
+      about which components were trained and which were frozen - the document encoder and the index stay
+      fixed while the query encoder and generator are fine-tuned, and that asymmetry is the whole engineering
+      story.
+    minutes: 45
+  - text: Implement BM25 in about 20 lines of numpy over 200 of your PubMed abstracts. Query it with five
+      real questions, then sweep k1 over {0.5, 1.2, 2.0} and b over {0, 0.75, 1.0} and record how the
+      top-5 changes.
+    minutes: 30
+  - text: 'Write a one-page decision note for your abstract task: what fine-tuning can do that retrieval
+      cannot, what retrieval can do that fine-tuning cannot, and two concrete failure modes where adding
+      retrieval makes a knowledge problem look solved without solving it.'
+    minutes: 25
+  resources:
+  - label: SLP3 Ch11 - Information Retrieval and RAG
+    url: https://web.stanford.edu/~jurafsky/slp3/11.pdf
+    kind: textbook
+  - label: Retrieval-Augmented Generation (Lewis et al.)
+    url: https://arxiv.org/abs/2005.11401
+    kind: paper
+  - label: sentence-transformers
+    url: https://www.sbert.net/
+    kind: docs
+  - label: FAISS
+    url: https://github.com/facebookresearch/faiss
+    kind: repo
+  - label: PubMed
+    url: https://pubmed.ncbi.nlm.nih.gov/
+    kind: tool
+  deliverable: A working BM25 scorer over 200 abstracts with a k1/b sweep table, and a one-page fine-tune-versus-retrieve
+    decision note for your own task.
+  checkpoint: Your RAG variant answers a question correctly and your fine-tuned model does not - what
+    are the explanations other than 'retrieval supplied the missing fact', and which ablation separates
+    them?
+  prep_for_tomorrow:
+  - Put your PubMed abstract corpus in one directory with stable IDs, and check the file count.
+  - Download a sentence-transformers bi-encoder checkpoint now so tomorrow does not start with a download.
+  - Write five query-to-abstract pairs where you already know the right answer - just five, the rest is
+    tomorrow's work.
+- day: 47
+  date: '2026-09-08'
+  weekday: Tuesday
+  week: 7
+  phase: Pipeline, RAG, evaluation
+  kind: milestone
+  title: Milestone 4 - RAG over your abstract corpus, measured in two halves
+  hours: 3-4 h
+  why: Building the retriever takes an hour; the reason this is a milestone is that you will measure retrieval
+    and generation separately, which is the step most published RAG evaluations skip and the reason many
+    of their numbers do not mean what they appear to.
+  objectives:
+  - You can report recall@1, recall@5 and MRR for your retriever with no reference to any generated answer.
+  - You can report a gold-context ceiling and a no-context floor on the same questions, and say what fraction
+    of the gap between them your retriever actually closes.
+  - You can split your end-to-end errors into retrieval failures and generation failures with counts,
+    and defend the assignment of any single case.
+  tasks:
+  - text: Chunk and embed the corpus. Decide explicitly between whole-abstract chunks and sentence windows
+      and write down why - for 250-word abstracts this is a real choice, not a default. Embed with your
+      bi-encoder, L2-normalize, and build a FAISS IndexFlatIP so that inner product is cosine and the
+      search is exact; save the ID mapping alongside the index.
+    minutes: 55
+  - text: 'Build a 30-query evaluation set with known relevant abstract IDs. Check for the leak that ruins
+      this kind of eval: if a query was written by paraphrasing one abstract, that abstract is trivially
+      retrievable and your recall is inflated. Mark any such query and keep them in a separate bucket.'
+    minutes: 35
+  - text: Evaluate the retriever alone. Compute recall@1, recall@5, recall@20 and MRR for the dense index
+      and for yesterday's BM25 baseline over the same 30 queries. Report both, and note where they disagree
+      - the queries where BM25 wins usually contain an exact gene or drug symbol.
+    minutes: 45
+  - text: Wire retrieval into the generator and evaluate end to end using the Milestone 2 metrics from
+      Day 35. Report the retrieval table and the end-to-end table as two separate tables with no combined
+      score anywhere in the document.
+    minutes: 50
+  - text: 'Run the two ablations that make the end-to-end number interpretable: feed the correct abstract
+      directly with no retriever (the ceiling), and feed no context at all (the floor). Record both.'
+    minutes: 25
+  resources:
+  - label: sentence-transformers
+    url: https://www.sbert.net/
+    kind: docs
+  - label: FAISS
+    url: https://github.com/facebookresearch/faiss
+    kind: repo
+  - label: SLP3 Ch11 - Information Retrieval and RAG
+    url: https://web.stanford.edu/~jurafsky/slp3/11.pdf
+    kind: textbook
+  - label: Retrieval-Augmented Generation (Lewis et al.)
+    url: https://arxiv.org/abs/2005.11401
+    kind: paper
+  - label: NCBI E-utilities - programmatic PubMed access
+    url: https://www.ncbi.nlm.nih.gov/books/NBK25501/
+    kind: docs
+  deliverable: A FAISS index over the abstract corpus plus rag_eval.md containing a retrieval-only table
+    (dense vs BM25, recall@k and MRR), a separate end-to-end table with the gold-context ceiling and no-context
+    floor, and error counts split into retrieval failures and generation failures.
+  checkpoint: End-to-end accuracy rose from 0.61 to 0.72 when you added retrieval, and recall@5 is 0.55
+    - what is the highest end-to-end accuracy this retriever can support, and which of your numbers tells
+    you that?
+  prep_for_tomorrow:
+  - Open the MedHELM leaderboard and scroll the full scenario list once without reading details.
+  - Skim the HELM paper abstract (arXiv 2211.09110) and find the figure showing the scenario-by-metric
+    grid.
+  - Note in your log that HELM entered maintenance mode on 2026-06-01, so leaderboard coverage stops at
+    models released before then.
+- day: 48
+  date: '2026-09-09'
+  weekday: Wednesday
+  week: 7
+  phase: Pipeline, RAG, evaluation
+  kind: study
+  title: HELM, MedHELM, and the distinctions a single score erases
+  hours: 3-4 h
+  why: 'For clinical work the evaluation is the deliverable, and HELM''s contribution was structural rather
+    than numerical: it insists that every model be scored on every scenario across several metrics at
+    once, which makes visible the trade-offs a leaderboard column hides.'
+  objectives:
+  - You can name the metric categories HELM measures for every scenario and say which of them your Day
+    35 report already covers.
+  - You can point at two MedHELM scenarios and say precisely what a high score there does and does not
+    predict about a clinician's actual workflow.
+  - You can classify a given failure as a model failure, a retrieval failure, an interface failure or
+    a workflow failure, and name the evidence that settles it.
+  tasks:
+  - text: 'Read the HELM paper (arXiv 2211.09110) Sections 1-3: the scenario-by-metric taxonomy, the argument
+      for dense coverage over cherry-picked benchmarks, and the seven metric categories measured for each
+      scenario - accuracy, calibration, robustness, fairness, bias, toxicity, efficiency. Write down which
+      of the seven you have ever measured on your own task.'
+    minutes: 55
+  - text: Open HELM Capabilities and HELM Lite. Pick one model and read across its metrics instead of
+      down the ranking, then find a pair of models whose order flips depending on which metric you sort
+      by. Record the pair and the two metrics.
+    minutes: 35
+  - text: Work through MedHELM. Count how many of its scenarios are built from real clinical records or
+      clinician-authored workflows versus how many are exam-style multiple choice, then pick the two scenarios
+      closest to your PubMed abstract task and write down what each actually asks the model to do.
+    minutes: 50
+  - text: 'Write eval_principles.md: six distinctions - capability vs reliability, average vs worst case,
+      knowledge vs reasoning, correctness vs persuasiveness, benchmark score vs real-world utility, and
+      model failure vs retrieval/interface/workflow failure. For each, one line on which side your current
+      evaluation measures, and one line on what you would have to build to measure the other.'
+    minutes: 45
+  - text: 'Record what maintenance mode since 2026-06-01 means for using HELM going forward: which parts
+      stay useful indefinitely (the taxonomy, the scenario definitions, the released code) and which decay
+      (leaderboard coverage of anything released after that date).'
+    minutes: 20
+  resources:
+  - label: Holistic Evaluation of Language Models (HELM)
+    url: https://arxiv.org/abs/2211.09110
+    kind: paper
+  - label: MedHELM leaderboard
+    url: https://crfm.stanford.edu/helm/medhelm/latest/
+    kind: leaderboard
+  - label: HELM Capabilities
+    url: https://crfm.stanford.edu/helm/capabilities/latest/
+    kind: leaderboard
+  - label: HELM Lite
+    url: https://crfm.stanford.edu/helm/lite/latest/
+    kind: leaderboard
+  - label: HELM docs
+    url: https://crfm-helm.readthedocs.io/en/latest/
+    kind: docs
+  - label: HELM source
+    url: https://github.com/stanford-crfm/helm
+    kind: repo
+  deliverable: eval_principles.md - six distinctions, each with the side your evaluation currently measures
+    and the concrete thing you would build to measure the other - plus the model pair whose ranking flips
+    between two metrics.
+  checkpoint: A model scores 0.89 on a MedHELM scenario named after a clinical workflow - what are two
+    reasons that number can be true while the model is still unsafe to deploy in that workflow?
+  prep_for_tomorrow:
+  - Name the two or three models you will evaluate tomorrow and confirm each one loads.
+  - Locate your held-out split and verify from your logs that no prompt, threshold or checkpoint was ever
+    selected using it.
+  - Reread your Day 35 failure taxonomy so tomorrow's version extends it instead of restarting it.
+- day: 49
+  date: '2026-09-10'
+  weekday: Thursday
+  week: 7
+  phase: Pipeline, RAG, evaluation
+  kind: catchup
+  title: Catch-up, and an evaluation harness for your own task
+  hours: 2.5-3 h
+  why: 'Anything unfinished from Days 43-48 gets closed today and the rest of the day is yours to spend
+    or skip - with one exception: tomorrow''s capstone report is generated from the harness you write
+    today, so the harness happens either way.'
+  objectives:
+  - eval_harness.py runs end to end on a model named at the command line and writes both a metric summary
+    and per-example predictions to disk.
+  - Your held-out split has never been used for prompt iteration, threshold selection or checkpoint selection,
+    and you can say from your logs why you are sure.
+  - Your error taxonomy has counts, was built by reading real outputs rather than summaries, and includes
+    a category for cases where the gold label is wrong.
+  tasks:
+  - text: Pick the single most incomplete thing from Days 43-48 and finish that one. Not all of them -
+      one. If everything is done, skip straight to the harness.
+    minutes: 30
+  - text: 'Write eval_harness.py taking (model, split) and returning at least three metrics: one accuracy-type,
+      one calibration-type such as ECE or Brier score, and one cost-type such as median latency or tokens
+      per example. Reuse the metric code from Day 35 rather than rewriting it, and dump per-example predictions
+      with IDs so errors are traceable.'
+    minutes: 60
+  - text: Run the harness across your prompted baseline, your fine-tuned model, and one of your LoRA or
+      RAG variants on the held-out split. Put the three metric rows in one table and resist adding a combined
+      score.
+    minutes: 35
+  - text: Read 30 actual wrong outputs - the text, not the summary statistics - and build the error taxonomy
+      by hand. Give every category a count and a verbatim example, and keep the count of cases where the
+      model was right and the label was wrong.
+    minutes: 35
+  resources:
+  - label: HELM source - metric implementations worth copying
+    url: https://github.com/stanford-crfm/helm
+    kind: repo
+  - label: Hugging Face Transformers docs
+    url: https://huggingface.co/docs/transformers
+    kind: docs
+  - label: Weights & Biases
+    url: https://wandb.ai/site
+    kind: tool
+  - label: MedHELM leaderboard
+    url: https://crfm.stanford.edu/helm/medhelm/latest/
+    kind: leaderboard
+  deliverable: eval_harness.py plus a results directory holding per-model metric tables, per-example predictions,
+    and an error taxonomy with counts and verbatim examples.
+  checkpoint: Which of your three metrics moves if a model becomes better calibrated without becoming
+    more accurate, and which decision about deployment would that change?
+  prep_for_tomorrow:
+  - 'Collect every artifact from Days 33-49 into one folder: baseline, fine-tune, evaluation, LoRA run,
+    RAG index, harness output.'
+  - Reread your Day 35 Milestone 2 report so tomorrow's report can extend its tables rather than duplicate
+    them.
+  - Block four uninterrupted hours and put your notes physically out of reach for the self-assessment.
+- day: 50
+  date: '2026-09-11'
+  weekday: Friday
+  week: 7
+  phase: Pipeline, RAG, evaluation
+  kind: capstone
+  title: Capstone - the final report, the closed-book self-assessment, and what comes next
+  hours: 3-4 h
+  why: Fifty days produced four approaches to one biomedical task and a set of ideas you either hold or
+    do not; today you write the report that compares the approaches honestly and then find out, without
+    notes, which ideas you actually hold.
+  objectives:
+  - Your report states one recommendation for the abstract task and names the specific result that would
+    reverse it.
+  - You answered all eight self-assessment questions closed-book, then checked each against the source
+    and marked the ones that were thin.
+  - Your roadmap names a dated next commitment - CS336 assignment 1 with a start date - rather than an
+    intention to keep learning.
+  tasks:
+  - text: 'Write final_report.md from the Day 49 harness output: one table with every approach - prompted,
+      fine-tuned, LoRA, RAG - crossed with every metric, the error taxonomy with counts, and a recommendation
+      stated as a decision plus the condition that would reverse it. Carry the RAG results as two tables,
+      retrieval and end-to-end, exactly as on Day 47.'
+    minutes: 70
+  - text: 'Sit the self-assessment closed-book. Write roughly five minutes on each: what a token is; why
+      models are trained to predict the next token; what an embedding represents; why attention uses queries,
+      keys and values rather than one vector per position; what causal masking does and what breaks without
+      it; why a transformer needs positional information at all; how pretraining differs from post-training;
+      and why perplexity is useful but insufficient. Then check every answer against the source and mark
+      the thin ones - the marks are the point.'
+    minutes: 60
+  - text: 'Write the limitations section of the report and tie each limitation to a specific analysis
+      rather than to research in general: which split it came from, how many examples, what the metric
+      cannot distinguish, and which claim you would withdraw if one number moved.'
+    minutes: 30
+  - text: 'Write roadmap.md with three parts. CS336: open the site, the lecture playlist and assignment1-basics,
+      and put a start date on assignment 1 - it rebuilds the tokenizer, transformer and optimizer from
+      scratch, which is where your thin marks get fixed. Agents: write down what an agent that ran a literature
+      search and drafted an MR analysis plan would need that you cannot yet build. Medical LLM literature:
+      run one PubMed search on clinical LLM evaluation, save ten papers, and read the abstracts.'
+    minutes: 35
+  resources:
+  - label: Stanford CS336 - Language Modeling from Scratch
+    url: https://cs336.stanford.edu
+    kind: course
+  - label: CS336 lecture videos
+    url: https://www.youtube.com/playlist?list=PLoROMvodv4rMqXOcazWaTUHhq-yembLCV
+    kind: video
+  - label: CS336 Assignment 1 - tokenizer, Transformer LM, optimizer from scratch
+    url: https://github.com/stanford-cs336/assignment1-basics
+    kind: repo
+  - label: SLP3 - full book PDF, for checking your self-assessment answers
+    url: https://web.stanford.edu/~jurafsky/slp3/ed3book_jan26.pdf
+    kind: textbook
+  - label: MedHELM leaderboard
+    url: https://crfm.stanford.edu/helm/medhelm/latest/
+    kind: leaderboard
+  - label: PubMed
+    url: https://pubmed.ncbi.nlm.nih.gov/
+    kind: tool
+  deliverable: final_report.md with the full approach-by-metric comparison, the error taxonomy, a reversible
+    recommendation and specific limitations; self_assessment.md with eight closed-book answers and the
+    thin ones marked; roadmap.md with a dated CS336 assignment 1 start.
+  checkpoint: 'Closed-book and in one continuous answer: what happens to the string ''ADH4 is protective
+    for intracranial aneurysm'' between you typing it and the model emitting the next token, naming tokenization,
+    embedding, positional information, queries/keys/values, causal masking, and the softmax over the vocabulary?'
+  prep_for_tomorrow: []

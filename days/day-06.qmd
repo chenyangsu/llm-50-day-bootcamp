@@ -1,0 +1,72 @@
+---
+title: "Day 6 — Backprop through a 2-layer MLP, by hand"
+subtitle: "Wednesday, 29 July 2026 · Week 1 · Foundations · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 5](day-05.qmd) · [All 50 days](../timeline.qmd) · [Day 7 →](day-07.qmd)
+:::
+
+::: {.why}
+D2L 5.3 turns the chain rule into a specific list of matrix expressions, and writing that backward pass yourself is what makes the vanishing-gradient argument in 5.4 a measurement instead of a warning.
+:::
+
+## What you should be able to do tonight
+
+- Write dL/dW1 and dL/dW2 for a 2-layer MLP as matrix expressions with every shape checked, and match them against `torch.autograd.grad` to 1e-5.
+- State the maximum value of the sigmoid derivative and compute what it does to a gradient after 10 stacked layers.
+- State what variance Xavier initialization targets and which two numbers it depends on.
+
+## Tasks <span class='task-total'>225 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Read D2L 5.1 Multilayer Perceptrons - the ReLU, sigmoid and tanh sections and the universal-approximation note. Move quickly; a hidden layer is a learned basis expansion and you already know what those buy you.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Read D2L 5.3 Forward Propagation, Backward Propagation, and Computational Graphs slowly, then redraw its computational graph on paper with your own shape annotations on every edge.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Read D2L 5.4 Numerical Stability and Initialization, then reproduce its vanishing-gradient point numerically: compute the sigmoid derivative over x in [-8, 8], read off the maximum (0.25, at x = 0), and raise it to the 10th power. That number, around 9.5e-7, is the whole argument.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [75 min]{.task-min} Implement a 2-layer MLP on FashionMNIST with a hand-written backward pass - no autograd, no `nn.Module`. Compute dL/dO = (softmax(O) - Y)/n, then dW2, db2, dH, dZ1 (masked by the ReLU), dW1, db1 yourself. Then rebuild the same forward pass a second time with `requires_grad=True` and assert every one of your gradients matches `torch.autograd.grad` to 1e-5 before you let it train.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Train a deeper net twice - 4 hidden layers with sigmoid activations, deeper than task 4 on purpose because the effect needs depth to show up - once with W ~ N(0, 1) and once with Xavier. Plot the mean absolute gradient of the first layer over the first 200 steps for both on one axis.
+:::
+:::
+
+## Resources
+
+- [D2L 5.1 - Multilayer Perceptrons](https://d2l.ai/chapter_multilayer-perceptrons/mlp.html) [textbook]{.res-kind}
+- [D2L 5.3 - Forward Propagation, Backward Propagation, and Computational Graphs](https://d2l.ai/chapter_multilayer-perceptrons/backprop.html) [textbook]{.res-kind}
+- [D2L 5.4 - Numerical Stability and Initialization](https://d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html) [textbook]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`day06_mlp_manual_backward.py` - a 2-layer MLP whose backward pass you wrote, with an assertion that every gradient matches `torch.autograd.grad` to 1e-5, plus one figure comparing first-layer gradient magnitude under N(0, 1) versus Xavier initialization.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+In your backward pass, `dZ1 = dH * (Z1 > 0)`. Why is that elementwise mask there, and what term replaces it if you swap ReLU for sigmoid?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 7, Thursday, 30 July 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Put a blank sheet of paper somewhere visible and close your Day 6 code. Tomorrow you re-derive that backward pass from memory before you are allowed to reopen it.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Write the list of things from Days 1 to 6 you left half-finished or half-understood. Tomorrow's first task is closing that list.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Check that `mygrad.py` from Day 4 still runs, so tomorrow's clean-interpreter check is not a surprise.
+:::
+:::

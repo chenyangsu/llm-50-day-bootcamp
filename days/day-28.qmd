@@ -1,0 +1,73 @@
+---
+title: "Day 28 — Milestone 1 - My GPT from scratch"
+subtitle: "Thursday, 20 August 2026 · Week 4 · Build a GPT · Milestone · 3-4 h"
+---
+
+::: {.day-nav .kind-milestone}
+[← Day 27](day-27.qmd) · [All 50 days](../timeline.qmd) · [Day 29 →](day-29.qmd)
+:::
+
+::: {.why}
+Milestone 1: a parameter count you cannot rederive on paper is a model you do not really have, and a week of results you never wrote down is a week you will not be able to reconstruct in September.
+:::
+
+## What you should be able to do tonight
+
+- You can derive the parameter count of a decoder-only transformer from n_layer, n_embd, block_size and vocabulary size, and match `sum(p.numel() for p in model.parameters())` exactly rather than approximately.
+- You can narrate the path of one token from an integer in `idx` to a sampled next token, with shapes, without the code in front of you.
+- You have a document a colleague can read that states what you built, what you measured, and what you have not verified.
+
+## Tasks <span class='task-total'>190 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Derive the parameter count by hand before running anything: token embedding V*E, position embedding T*E, then per block 4E^2 for attention (three projections plus the output projection) and 8E^2 for the feed-forward, plus biases and two LayerNorms, then the final LayerNorm and the LM head. Notice what the 4 to 8 ratio means - the feed-forward holds twice the parameters attention does, in every block.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [25 min]{.task-min} Check the derivation against the number you wrote down last night. For n_layer=6, n_head=6, n_embd=384, block_size=256 on a 65-character vocabulary the video's script prints about 10.79 M, and your algebra should land on the same figure to the digit. Any mismatch names the term you forgot: a bias, the second LayerNorm, the position table. Do not move on until they agree.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [60 min]{.task-min} Assemble `milestone-1.md`: the architecture drawn with tensor shapes on every arrow from (B,T) to (B,T,vocab_size), the parameter table broken down by component with each component's share as a percentage, the Day 25 sweep table, the decoding table including top-p, three annotated samples, and your val loss beside nanoGPT's ~1.47 on the same data.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Write the 'what surprised me' section with at least four specific items, each with its evidence attached. Candidates from this week, to be replaced with your own: the feed-forward outweighs attention two to one in parameters; removing residuals cost more than removing LayerNorm; the whole model is roughly 200 lines; top-k=1 collapses into a repeating loop inside 100 tokens.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Reread the whole thing as a hostile reviewer. Every claim needs a number or a file line behind it, every plot axis needs units, every rounded figure needs consistent precision. Anything you believe but did not test goes into a closing 'not verified' section. Then send it to someone.
+:::
+:::
+
+## Resources
+
+- [nanoGPT (for the val-loss comparison)](https://github.com/karpathy/nanoGPT) [repo]{.res-kind}
+- [Hugging Face LLM Course - Chapter 1.1](https://huggingface.co/learn/llm-course/en/chapter1/1) [course]{.res-kind}
+- [Hugging Face Transformers docs](https://huggingface.co/docs/transformers) [docs]{.res-kind}
+- [Hugging Face Datasets docs](https://huggingface.co/docs/datasets) [docs]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`milestone-1.md`, 'My GPT from scratch': architecture with shapes, hand-derived parameter count checked against the code, the sweep and decoding tables, three annotated samples, four things that surprised you with evidence, and an explicit list of what you have not verified. Real enough to hand to a colleague without a preamble.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Where do a transformer's parameters actually live? Give the split between embeddings, attention and feed-forward for your config as percentages, and say how that split moves as n_layer grows with everything else fixed.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 29, Friday, 21 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Create a Hugging Face account and a read token if you do not have one, then run `huggingface-cli login` and confirm it stores the token.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Run `pip install transformers datasets` and check that `from transformers import pipeline` imports without error.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Open Chapter 1 of the Hugging Face LLM course at https://huggingface.co/learn/llm-course/en/chapter1/1 and read section 1 only. Five minutes - tomorrow the bootcamp stops writing models and starts using ones that were trained for you.
+:::
+:::

@@ -1,0 +1,71 @@
+---
+title: "Day 5 — Softmax regression is multinomial logistic regression"
+subtitle: "Tuesday, 28 July 2026 · Week 1 · Foundations · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 4](day-04.qmd) · [All 50 days](../timeline.qmd) · [Day 6 →](day-06.qmd)
+:::
+
+::: {.why}
+You have fit this model before under a different name, so the work today is translating your likelihood notation into D2L's loss notation and then implementing it in a form that does not overflow.
+:::
+
+## What you should be able to do tonight
+
+- Show that minimizing cross-entropy against one-hot labels is exactly maximizing the multinomial log-likelihood, in three lines of algebra.
+- Explain why `exp(o)` returns `inf` above roughly 88.7 in float32 and roughly 709.8 in float64, and prove that subtracting max(o) leaves softmax(o) unchanged.
+- Derive dL/do = yhat - y for softmax plus cross-entropy and verify it numerically against autograd.
+
+## Tasks <span class='task-total'>220 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [50 min]{.task-min} Read D2L 4.1 Softmax Regression in full, including the Log-Likelihood subsection, the Softmax and Cross-Entropy Loss subsection, and the information theory section. Where D2L writes cross-entropy, write NLL in the margin - they are the same object and you should stop translating between them by the end of today.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Write `softmax(X)` twice: the naive version `exp(X) / exp(X).sum(1, keepdim=True)`, and the stable version that subtracts `X.max(1, keepdim=True).values` first. Feed both a float32 logit row containing 100.0 and record exactly what each returns.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Implement cross-entropy directly from logits as `logsumexp(o) - o[y]`, never forming probabilities first, and check it agrees with `torch.nn.functional.cross_entropy` to 1e-6 on a random batch of shape (64, 10).
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [60 min]{.task-min} Train softmax regression on FashionMNIST from scratch - your softmax, your loss, manual SGD on W of shape (784, 10) and b of shape (10,) - for 10 epochs, and print test accuracy. Low-to-mid 80s is the expected number. If you are sitting at 10% you have a sign error, not a learning-rate problem.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Derive dL/do = softmax(o) - onehot(y) on paper for a single example, then check it: build a random logit vector with `requires_grad=True`, compute your loss, call `backward()`, and compare `o.grad` against `softmax(o) - onehot(y)`.
+:::
+:::
+
+## Resources
+
+- [D2L 4.1 - Softmax Regression](https://d2l.ai/chapter_linear-classification/softmax-regression.html) [textbook]{.res-kind}
+- [D2L 4.1 - Softmax and Cross-Entropy Loss (subsection)](https://d2l.ai/chapter_linear-classification/softmax-regression.html#softmax-and-cross-entropy-loss) [textbook]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`day05_softmax.py` with your stable `softmax`, a logit-space cross-entropy matching `F.cross_entropy` to 1e-6, a trained FashionMNIST classifier with test accuracy printed, and the numerical confirmation that `o.grad` equals `softmax(o) - onehot(y)`.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Your naive softmax returns `nan` on a logit row containing 100.0, and subtracting the row max fixes it. Prove in one line that the subtraction changes nothing mathematically, and say which float type breaks first and at roughly what logit value.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 6, Wednesday, 29 July 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Open D2L 5.1, 5.3, and 5.4 in three tabs. Tomorrow is all three and it is the heaviest reading day of the week.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Sketch on one sheet the forward pass of a 2-layer MLP: X to Z1 = XW1 + b1 to H = relu(Z1) to O = HW2 + b2 to loss. Annotate every shape. You differentiate this tomorrow.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Skim only the section headings of D2L 5.3 so tomorrow's densest read does not start cold.
+:::
+:::

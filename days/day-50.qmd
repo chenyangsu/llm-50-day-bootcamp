@@ -1,0 +1,56 @@
+---
+title: "Day 50 — Capstone - the final report, the closed-book self-assessment, and what comes next"
+subtitle: "Friday, 11 September 2026 · Week 7 · Pipeline, RAG, evaluation · Capstone · 3-4 h"
+---
+
+::: {.day-nav .kind-capstone}
+[← Day 49](day-49.qmd) · [All 50 days](../timeline.qmd) · [Milestones →](../milestones.qmd)
+:::
+
+::: {.why}
+Fifty days produced four approaches to one biomedical task and a set of ideas you either hold or do not; today you write the report that compares the approaches honestly and then find out, without notes, which ideas you actually hold.
+:::
+
+## What you should be able to do tonight
+
+- Your report states one recommendation for the abstract task and names the specific result that would reverse it.
+- You answered all eight self-assessment questions closed-book, then checked each against the source and marked the ones that were thin.
+- Your roadmap names a dated next commitment - CS336 assignment 1 with a start date - rather than an intention to keep learning.
+
+## Tasks <span class='task-total'>195 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [70 min]{.task-min} Write final_report.md from the Day 49 harness output: one table with every approach - prompted, fine-tuned, LoRA, RAG - crossed with every metric, the error taxonomy with counts, and a recommendation stated as a decision plus the condition that would reverse it. Carry the RAG results as two tables, retrieval and end-to-end, exactly as on Day 47.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [60 min]{.task-min} Sit the self-assessment closed-book. Write roughly five minutes on each: what a token is; why models are trained to predict the next token; what an embedding represents; why attention uses queries, keys and values rather than one vector per position; what causal masking does and what breaks without it; why a transformer needs positional information at all; how pretraining differs from post-training; and why perplexity is useful but insufficient. Then check every answer against the source and mark the thin ones - the marks are the point.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Write the limitations section of the report and tie each limitation to a specific analysis rather than to research in general: which split it came from, how many examples, what the metric cannot distinguish, and which claim you would withdraw if one number moved.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Write roadmap.md with three parts. CS336: open the site, the lecture playlist and assignment1-basics, and put a start date on assignment 1 - it rebuilds the tokenizer, transformer and optimizer from scratch, which is where your thin marks get fixed. Agents: write down what an agent that ran a literature search and drafted an MR analysis plan would need that you cannot yet build. Medical LLM literature: run one PubMed search on clinical LLM evaluation, save ten papers, and read the abstracts.
+:::
+:::
+
+## Resources
+
+- [Stanford CS336 - Language Modeling from Scratch](https://cs336.stanford.edu) [course]{.res-kind}
+- [CS336 lecture videos](https://www.youtube.com/playlist?list=PLoROMvodv4rMqXOcazWaTUHhq-yembLCV) [video]{.res-kind}
+- [CS336 Assignment 1 - tokenizer, Transformer LM, optimizer from scratch](https://github.com/stanford-cs336/assignment1-basics) [repo]{.res-kind}
+- [SLP3 - full book PDF, for checking your self-assessment answers](https://web.stanford.edu/~jurafsky/slp3/ed3book_jan26.pdf) [textbook]{.res-kind}
+- [MedHELM leaderboard](https://crfm.stanford.edu/helm/medhelm/latest/) [leaderboard]{.res-kind}
+- [PubMed](https://pubmed.ncbi.nlm.nih.gov/) [tool]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+final_report.md with the full approach-by-metric comparison, the error taxonomy, a reversible recommendation and specific limitations; self_assessment.md with eight closed-book answers and the thin ones marked; roadmap.md with a dated CS336 assignment 1 start.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Closed-book and in one continuous answer: what happens to the string 'ADH4 is protective for intracranial aneurysm' between you typing it and the model emitting the next token, naming tokenization, embedding, positional information, queries/keys/values, causal masking, and the softmax over the vocabulary?
+:::

@@ -1,0 +1,72 @@
+---
+title: "Day 2 — What backward() actually does"
+subtitle: "Saturday, 25 July 2026 · Week 1 · Foundations · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 1](day-01.qmd) · [All 50 days](../timeline.qmd) · [Day 3 →](day-03.qmd)
+:::
+
+::: {.why}
+Yesterday you differentiated by hand; today you find out what PyTorch records during the forward pass in order to do it for you, and what its failure modes look like when you get it wrong.
+:::
+
+## What you should be able to do tonight
+
+- Say what is in `x.grad` after two consecutive `backward()` calls with no `zero_()` between them, and why PyTorch chose accumulation over overwriting.
+- Explain what `detach()` cuts out of the recorded graph and name one situation where you want exactly that.
+- Explain why a function containing a `while` loop and an `if` branch still differentiates correctly.
+
+## Tasks <span class='task-total'>200 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Read D2L 2.5 Automatic Differentiation end to end, typing the cells. Slow down on `requires_grad_(True)`, on `x.grad.zero_()`, and on the subsection about calling `backward()` on a non-scalar.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Read the PyTorch autograd mechanics note, specifically how autograd encodes the history and how to locally disable gradient computation (`no_grad`, `inference_mode`, `detach`). This is the reference page you will come back to in Week 4 when something silently stops training.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Run the control-flow example from 2.5: `f(a)` with a `while b.norm() < 1000` loop and an `if b.sum() > 0` branch. Call `backward()` and confirm `a.grad == d / a`. Then write two sentences explaining why that identity holds - for any fixed `a`, `f` is linear in `a` with some constant k, so d = k*a.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Build the accumulation bug on purpose: take a scalar parameter, run `backward()` twice without `zero_()`, and print `.grad` after each call. Write down the number you would have expected if gradients overwrote instead of accumulated. Keep this cell - you will hit this for real on Day 4.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [25 min]{.task-min} Call `backward()` twice on the same graph, read the RuntimeError about backward through the graph a second time, then fix it with `retain_graph=True` and write one line on what that costs you in memory.
+:::
+:::
+
+## Resources
+
+- [D2L 2.5 - Automatic Differentiation](https://d2l.ai/chapter_preliminaries/autograd.html) [textbook]{.res-kind}
+- [PyTorch autograd mechanics](https://pytorch.org/docs/stable/notes/autograd.html) [docs]{.res-kind}
+- [PyTorch docs (index)](https://pytorch.org/docs/stable/index.html) [docs]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`day02_autograd.ipynb` with the 2.5 cells, the control-flow check that passes, a cell that deliberately raises the freed-graph RuntimeError with your one-line explanation under it, and the accumulate-without-zeroing demo.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Why does PyTorch accumulate into `.grad` rather than overwriting it, and what does that design decision force you to write in every training loop you will ever author?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 3, Sunday, 26 July 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Clone `github.com/karpathy/nn-zero-to-hero`. Tomorrow you work inside `lectures/micrograd/`.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Clone `github.com/karpathy/micrograd` as well, but do not open `engine.py`. You write that yourself on Day 4.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Open the micrograd lecture and confirm it plays. It runs 2h25m total and tomorrow you watch the first 1h15m.
+:::
+:::

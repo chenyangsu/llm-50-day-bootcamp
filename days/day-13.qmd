@@ -1,0 +1,72 @@
+---
+title: "Day 13 — Reading the histograms when training goes wrong"
+subtitle: "Wednesday, 5 August 2026 · Week 2 · Language models · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 12](day-12.qmd) · [All 50 days](../timeline.qmd) · [Day 14 →](day-14.qmd)
+:::
+
+::: {.why}
+Networks rarely fail loudly - they train slowly and plateau at a mediocre loss - so today you learn to diagnose from activation and gradient statistics instead of guessing at hyperparameters.
+:::
+
+## What you should be able to do tonight
+
+- Explain why the initial loss should be about 3.30 and what a starting loss of 20 tells you about the output layer's initialization.
+- Read the four diagnostic plots - activation distribution, gradient distribution, weight-gradient ratio, update-to-data ratio - and say what each looks like on a healthy run.
+- State the Kaiming scaling for a tanh layer and where the gain of 5/3 comes from.
+
+## Tasks <span class='task-total'>235 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [115 min]{.task-min} Watch makemore part 3 (1h55m), pausing at each histogram to say out loud what is wrong with it before Karpathy tells you.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Break your Day 11 MLP on purpose: initialize W2 and b2 large so training starts near a loss of 20 instead of 3.30, plot the loss curve, and mark the wasted early steps where the network is only shrinking logits.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Fix tanh saturation: plot the histogram of the hidden activations h and the fraction with |h| > 0.99, before and after scaling W1 by (5/3)/sqrt(fan_in).
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Insert a BatchNorm layer before the tanh, retrain, and report dev loss with and without it - plus what happens to b1 once BatchNorm sits in front of it, and why.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [20 min]{.task-min} Skim D2L 5.4 on numerical stability and initialization, then write down which failure mode your broken run actually had: vanishing gradients, exploding gradients, or neither.
+:::
+:::
+
+## Resources
+
+- [Karpathy L4 - makemore part 3, activations, gradients, BatchNorm (1h55m)](https://www.youtube.com/watch?v=P6sfmUTpUmc) [video]{.res-kind}
+- [nn-zero-to-hero repo (lectures/makemore/makemore_part3_bn.ipynb)](https://github.com/karpathy/nn-zero-to-hero) [repo]{.res-kind}
+- [D2L 5.4 - Numerical Stability and Initialization](https://d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html) [textbook]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+A notebook showing the broken run and the fixed run side by side - loss curves and activation histograms for each - plus dev loss for three configurations: broken init, Kaiming init, Kaiming with BatchNorm.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Without looking: you plot the ratio of update magnitude to parameter magnitude per layer and one layer sits near 1e-1 while another sits near 1e-5. What is wrong with each, and what do you change?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 14, Thursday, 6 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Gather the saved losses from Days 8, 9, 10 and 11 into one file - tomorrow they all go into a single table.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Check whether the n-gram work used your 90/10 split while the MLP used the 80/10/10 split; if so, note the mismatch now, because tomorrow you fix it.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Confirm every saved model loads: the count matrix N, the trained W, and the MLP parameters.
+:::
+:::

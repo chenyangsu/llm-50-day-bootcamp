@@ -1,0 +1,67 @@
+---
+title: "Day 14 — One table, one held-out split"
+subtitle: "Thursday, 6 August 2026 · Week 2 · Language models · Catch-up day · 2-3 h"
+---
+
+::: {.day-nav .kind-catchup}
+[← Day 13](day-13.qmd) · [All 50 days](../timeline.qmd) · [Day 15 →](day-15.qmd)
+:::
+
+::: {.why}
+Nothing new today: finish whatever is outstanding from Days 8-13, then put every model this week on one honest scoreboard - and if you are already on track, the day is yours to spend or skip.
+:::
+
+## What you should be able to do tonight
+
+- Produce one table giving held-out perplexity for the unsmoothed count bigram, the smoothed count bigram, the bigram network and the MLP, all scored on an identical held-out file.
+- Explain in writing why the two bigram models agree to about 0.01 while the MLP comes in meaningfully lower.
+
+## Tasks <span class='task-total'>150 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Finish anything still open from Days 8-13 - most likely the interpolation sweep or the BatchNorm run.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Write one evaluation function and re-score all four models with it on a single held-out file, so no model gets a different split or a different treatment of the boundary '.' token.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Build the comparison table with columns: model, parameter count, train NLL, held-out NLL, held-out perplexity - and verify that perplexity equals exp(NLL) in every row.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Write 200-300 words in week2_summary.md answering three things: why the two bigram models agree, why the MLP is better, and what you would have to change about the count model to close the gap.
+:::
+:::
+
+## Resources
+
+- [SLP3 Ch3 - N-gram Language Models](https://web.stanford.edu/~jurafsky/slp3/3.pdf) [textbook]{.res-kind}
+- [nn-zero-to-hero repo](https://github.com/karpathy/nn-zero-to-hero) [repo]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+week2_summary.md containing the four-row perplexity table and the written explanation, together with the single evaluation script that produced every number in it.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Without looking at the table: rank the four models by held-out perplexity and give the approximate gap between the bigram network and the MLP. If you cannot recall your own numbers, you have not absorbed them.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 15, Friday, 7 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Open lectures/makemore/makemore_part4_backprop.ipynb from nn-zero-to-hero and run the setup cell so the data is loaded and ready.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Re-read your Day 6 hand-written backward pass for the 2-layer MLP - tomorrow you write one of those for every intermediate tensor, BatchNorm included.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Queue makemore part 4, Backprop Ninja (1h55m), and block the time for it.
+:::
+:::

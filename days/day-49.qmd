@@ -1,0 +1,70 @@
+---
+title: "Day 49 — Catch-up, and an evaluation harness for your own task"
+subtitle: "Thursday, 10 September 2026 · Week 7 · Pipeline, RAG, evaluation · Catch-up day · 2.5-3 h"
+---
+
+::: {.day-nav .kind-catchup}
+[← Day 48](day-48.qmd) · [All 50 days](../timeline.qmd) · [Day 50 →](day-50.qmd)
+:::
+
+::: {.why}
+Anything unfinished from Days 43-48 gets closed today and the rest of the day is yours to spend or skip - with one exception: tomorrow's capstone report is generated from the harness you write today, so the harness happens either way.
+:::
+
+## What you should be able to do tonight
+
+- eval_harness.py runs end to end on a model named at the command line and writes both a metric summary and per-example predictions to disk.
+- Your held-out split has never been used for prompt iteration, threshold selection or checkpoint selection, and you can say from your logs why you are sure.
+- Your error taxonomy has counts, was built by reading real outputs rather than summaries, and includes a category for cases where the gold label is wrong.
+
+## Tasks <span class='task-total'>160 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Pick the single most incomplete thing from Days 43-48 and finish that one. Not all of them - one. If everything is done, skip straight to the harness.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [60 min]{.task-min} Write eval_harness.py taking (model, split) and returning at least three metrics: one accuracy-type, one calibration-type such as ECE or Brier score, and one cost-type such as median latency or tokens per example. Reuse the metric code from Day 35 rather than rewriting it, and dump per-example predictions with IDs so errors are traceable.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Run the harness across your prompted baseline, your fine-tuned model, and one of your LoRA or RAG variants on the held-out split. Put the three metric rows in one table and resist adding a combined score.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Read 30 actual wrong outputs - the text, not the summary statistics - and build the error taxonomy by hand. Give every category a count and a verbatim example, and keep the count of cases where the model was right and the label was wrong.
+:::
+:::
+
+## Resources
+
+- [HELM source - metric implementations worth copying](https://github.com/stanford-crfm/helm) [repo]{.res-kind}
+- [Hugging Face Transformers docs](https://huggingface.co/docs/transformers) [docs]{.res-kind}
+- [Weights & Biases](https://wandb.ai/site) [tool]{.res-kind}
+- [MedHELM leaderboard](https://crfm.stanford.edu/helm/medhelm/latest/) [leaderboard]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+eval_harness.py plus a results directory holding per-model metric tables, per-example predictions, and an error taxonomy with counts and verbatim examples.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Which of your three metrics moves if a model becomes better calibrated without becoming more accurate, and which decision about deployment would that change?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 50, Friday, 11 September 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Collect every artifact from Days 33-49 into one folder: baseline, fine-tune, evaluation, LoRA run, RAG index, harness output.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Reread your Day 35 Milestone 2 report so tomorrow's report can extend its tables rather than duplicate them.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Block four uninterrupted hours and put your notes physically out of reach for the self-assessment.
+:::
+:::

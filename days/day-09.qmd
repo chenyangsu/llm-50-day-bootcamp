@@ -1,0 +1,71 @@
+---
+title: "Day 9 — Perplexity, and what smoothing is actually for"
+subtitle: "Saturday, 1 August 2026 · Week 2 · Language models · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 8](day-08.qmd) · [All 50 days](../timeline.qmd) · [Day 10 →](day-10.qmd)
+:::
+
+::: {.why}
+Perplexity is the number every paper reports and few define carefully, so today you define it as exp of the mean NLL and then watch smoothing decide whether your held-out number is finite at all.
+:::
+
+## What you should be able to do tonight
+
+- Show numerically that the perplexity of your Day 8 model equals exp of the mean cross-entropy loss you wrote from scratch on Day 5.
+- Explain why an unsmoothed bigram model returns infinite perplexity on held-out text, and what add-k does to the zero cells.
+- Compare add-k against linear interpolation on the same held-out split and say which bigrams each one moves most.
+
+## Tasks <span class='task-total'>220 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [70 min]{.task-min} Read SLP3 3.5-3.8. At the perplexity definition, rewrite it in exp(mean NLL) form before reading on, and note that add-k is a Dirichlet pseudocount - the same device you already use for low-count allele frequencies.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Compute mean negative log-likelihood per character for the Day 8 model on the train file and on the held-out file, convert both to perplexity, and find at least one held-out bigram with zero count that sends the held-out figure to inf.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Add add-k smoothing as (N + k) for k in {0.01, 0.1, 1, 10}, recompute held-out perplexity for each, plot perplexity against k on a log-x axis, and read the minimum off the plot.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Implement linear interpolation between the bigram and unigram distributions, sweep lambda over {0.1, ..., 0.9}, and compare the best interpolated held-out perplexity against the best add-k perplexity.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [20 min]{.task-min} Write a paragraph in smoothing_notes.md on which of the two is doing more work on a 27-symbol character vocabulary, and why Kneser-Ney's continuation counts matter far more for words than for characters.
+:::
+:::
+
+## Resources
+
+- [SLP3 Ch3 - N-gram Language Models](https://web.stanford.edu/~jurafsky/slp3/3.pdf) [textbook]{.res-kind}
+- [D2L 4.1 - Softmax and cross-entropy loss](https://d2l.ai/chapter_linear-classification/softmax-regression.html#softmax-and-cross-entropy-loss) [textbook]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+A table of held-out perplexity for unsmoothed, add-k at four values of k, and best interpolation; the perplexity-vs-k plot saved as ppl_vs_k.png; and smoothing_notes.md.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Without looking: your held-out perplexity is some number P. State what P means operationally - an equivalent uniform choice among how many characters - and why train perplexity comes out below held-out perplexity.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 10, Sunday, 2 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Queue makemore part 1 and block the time: it is 1h57m, not a background video.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Clone github.com/karpathy/nn-zero-to-hero and open lectures/makemore/makemore_part1_bigrams.ipynb next to your own Day 8 script.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Write your best held-out perplexity and its NLL somewhere visible - tomorrow you check whether a trained network can beat it.
+:::
+:::

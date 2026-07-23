@@ -1,0 +1,78 @@
+---
+title: "Day 35 — Milestone 2: fine-tuned against prompted, on five axes"
+subtitle: "Thursday, 27 August 2026 · Week 5 · Pretrained models · Milestone · 3 h"
+---
+
+::: {.day-nav .kind-milestone}
+[← Day 34](day-34.qmd) · [All 50 days](../timeline.qmd) · [Day 36 →](day-36.qmd)
+:::
+
+::: {.why}
+A single accuracy number lets you pick the wrong model with confidence, so today you build the comparison you would defend in a lab meeting - including reading fifty errors by hand, which is the only part that tells you what to fix next. No new material today; the report is the whole day.
+:::
+
+## What you should be able to do tonight
+
+- You can say, for each of the five axes, which model wins and by how much, having scored the test split exactly once.
+- You can produce a reliability curve and an ECE for both models and say which one is overconfident, and in which probability band.
+- You have a failure taxonomy built by reading errors rather than by reading the confusion matrix, with counts, and at least one category that only one of the two models has.
+
+## Tasks <span class='task-total'>175 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Score both models on the frozen test split, once. Report accuracy, macro-F1, per-class F1, and a confusion matrix for each. Then compare against the number you wrote down last night and note the direction of your miss.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Build reliability curves with 10 bins and compute ECE for both models. The fine-tune gives you softmax probabilities directly; for the prompted model use token logprobs if your provider returns them, and if it does not, use a verbalised confidence and state plainly in the report that it is a worse probability estimate, because it is.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [25 min]{.task-min} Measure latency and cost: median and p95 seconds per abstract for each model, then cost per 1000 abstracts - token price times tokens for the prompted model, and for the fine-tune the GPU-hours you actually spent training, amortised over a stated volume, plus inference. State the volume you amortised over; the ranking changes completely between 1,000 and 1,000,000 abstracts.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Read 50 errors by hand, 25 from each model, inventing the categories as you go rather than deciding them in advance. Expect things like 'secondary analysis of an RCT', 'protocol paper', 'design never named in the abstract', 'pooled cohort written up as a trial'. Count each category and mark which model it hits.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Write `MILESTONE2.md`. Spend the first ten minutes on the HELM Capabilities leaderboard and steal its layout: one row per metric, models as columns, and no aggregate score sitting at the top pretending to summarise them.
+:::
+:::
+
+## Resources
+
+- [HELM - Holistic Evaluation of Language Models](https://crfm.stanford.edu/helm/) [tool]{.res-kind}
+- [HELM Capabilities leaderboard - the layout to copy](https://crfm.stanford.edu/helm/capabilities/latest/) [tool]{.res-kind}
+- [MedHELM - the medical/clinical version](https://crfm.stanford.edu/helm/medhelm/latest/) [tool]{.res-kind}
+- [HELM paper - why one number is the wrong report](https://arxiv.org/abs/2211.09110) [paper]{.res-kind}
+- [GPT-3, Language Models are Few-Shot Learners (Week 6)](https://arxiv.org/abs/2005.14165) [paper]{.res-kind}
+- [Scaling Laws for Neural Language Models (Week 6)](https://arxiv.org/abs/2001.08361) [paper]{.res-kind}
+- [Training Compute-Optimal LLMs / Chinchilla (Week 6)](https://arxiv.org/abs/2203.15556) [paper]{.res-kind}
+- [InstructGPT (Week 6)](https://arxiv.org/abs/2203.02155) [paper]{.res-kind}
+- [LoRA (Week 6)](https://arxiv.org/abs/2106.09685) [paper]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`MILESTONE2.md` with a five-row comparison table (accuracy and macro-F1, ECE, median and p95 latency, cost per 1000 abstracts at a stated volume, failure-taxonomy summary), the reliability-curve figure, the confusion matrix for whichever model you would deploy, the taxonomy with counts, and a closing paragraph naming which model you would use for which job and the one condition that would flip the choice.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Which model goes behind a screening tool where a missed RCT means re-running the whole search, and which goes behind a one-off pass over 200,000 abstracts? If your answer is the same model twice, you have not actually weighed recall against cost per 1000.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 36, Friday, 28 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Download next week's five PDFs into one folder tonight: GPT-3 (2005.14165), Scaling Laws (2001.08361), Chinchilla (2203.15556), InstructGPT (2203.02155), LoRA (2106.09685). Week 6 is paper-heavy and you do not want to spend Friday morning on arXiv.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Read the GPT-3 abstract and look at its first figure. Five minutes, nothing else.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Write one sentence predicting what 'compute-optimal' will turn out to mean, before Chinchilla tells you.
+:::
+:::

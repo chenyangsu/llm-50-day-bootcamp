@@ -1,0 +1,69 @@
+---
+title: "Day 42 — Decision table: prompt, few-shot, LoRA, fine-tune, retrieve"
+subtitle: "Thursday, 3 September 2026 · Week 6 · Scaling and post-training · Catch-up day · 2-3 h"
+---
+
+::: {.day-nav .kind-catchup}
+[← Day 41](day-41.qmd) · [All 50 days](../timeline.qmd) · [Day 43 →](day-43.qmd)
+:::
+
+::: {.why}
+Week 6 was five papers, one textbook chapter and one GPU run. If you are on track, today is yours to spend or skip. If you spend it, turn the week into one table you would actually consult before starting a project, filled with your numbers from Days 33, 34 and 41 rather than the papers'.
+:::
+
+## What you should be able to do tonight
+
+- Produce a decision table whose cells are your own measurements wherever a measurement exists, with every predicted cell marked as a prediction and dated.
+- State the labeled-example count at which fine-tuning started to beat few-shot prompting on your task - or say plainly that you do not know it yet and name the one run that would settle it.
+
+## Tasks <span class='task-total'>140 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Close out anything still open from Days 36-41. The r-sweep from yesterday and the chain-of-thought flips on your Day 35 failure cases are the two most likely to be half-finished.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Draft the table from memory with every paper and notebook closed: rows for zero-shot prompting, few-shot prompting, LoRA, full fine-tuning and retrieval; columns for labeled examples needed, compute to a first result, wall-clock, storage per additional task, and what breaks it. Only once the grid is drafted may you open anything.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Fill the cells with your own measurements from Days 33, 34 and 41. Mark the retrieval row as a dated prediction - Day 47 checks it against a system you will have actually built.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [25 min]{.task-min} Write 200 words: a new biomedical text task lands with 200 labeled abstracts and one GPU for an afternoon. Which row do you pick, which of your own numbers justifies it, and what would have to change to move you to a different row?
+:::
+:::
+
+## Resources
+
+- [Direct Preference Optimization](https://arxiv.org/abs/2305.18290) [paper]{.res-kind}
+- [TRL docs (SFT, DPO, reward modelling)](https://huggingface.co/docs/trl) [docs]{.res-kind}
+- [nanochat](https://github.com/karpathy/nanochat) [repo]{.res-kind}
+- [Retrieval-Augmented Generation](https://arxiv.org/abs/2005.11401) [paper]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+One decision table, five rows, filled from your own runs, with the retrieval row flagged as a prediction to be checked on Day 47.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Someone hands you 50 labeled examples and wants a classifier by Friday. Which row do you pick, and which number from your own week justifies it?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 43, Friday, 4 September 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Download the DPO paper (arXiv:2305.18290). Week 7 opens on it.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Run `pip install trl` and confirm `from trl import SFTTrainer` imports cleanly.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Skim the nanochat README and `runs/speedrun.sh` - just far enough to see which scripts run, in what order, and what the speedrun costs.
+:::
+:::

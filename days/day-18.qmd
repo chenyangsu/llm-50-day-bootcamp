@@ -1,0 +1,74 @@
+---
+title: "Day 18 — Build the tokenizer, train it on PubMed"
+subtitle: "Monday, 10 August 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 17](day-17.qmd) · [All 50 days](../timeline.qmd) · [Day 19 →](day-19.qmd)
+:::
+
+::: {.why}
+You write a byte pair encoder that trains, encodes and decodes, then train it on biomedical abstracts and see how far its vocabulary drifts from cl100k_base on the same text. The corpus you pull today is the one the applied project runs on from Day 33 through the capstone, so give it a permanent path and a reproducible fetch script rather than a throwaway cell.
+:::
+
+## What you should be able to do tonight
+
+- Your BasicTokenizer satisfies decode(encode(s)) == s for arbitrary UTF-8, including a Greek mu, an em dash, and a degree sign.
+- You can explain why decode needs errors='replace' and construct a token id sequence that triggers it.
+- You can quote your tokens-per-abstract ratio against cl100k_base on held-out abstracts, say which direction it goes, and name the merges that account for most of the difference.
+
+## Tasks <span class='task-total'>228 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [75 min]{.task-min} Watch the tokenizer lecture to roughly 1:15 - UTF-8 encoding to raw bytes, get_stats, merge, the training loop, then encode and decode. The whole BasicTokenizer lives in that stretch.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Write BasicTokenizer yourself following step 1 of minbpe's exercise.md: train(text, vocab_size), encode(text) -> ids, decode(ids) -> text. Assert decode(encode(s)) == s on a real abstract containing a Greek letter, an em dash and a superscript.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [58 min]{.task-min} Watch the rest: the regex split pattern and why GPT-2 and GPT-4 differ on it, special tokens, sentencepiece, and the closing section that walks back through the odd model behaviours you catalogued yesterday.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [25 min]{.task-min} Pull roughly 1,000 abstracts for your chosen query with E-utilities - esearch with usehistory to get the PMIDs, then efetch with db=pubmed and retmode=xml in batches of 200 - and write them to data/pubmed_abstracts.jsonl with pmid, title and abstract per line. Respect the rate limit and keep the fetch script in version control.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Train your tokenizer on that corpus at vocab_size=2000 and compare it against cl100k_base on 20 held-out abstracts: mean tokens per abstract for each, and side-by-side splits for 'immunohistochemistry', 'rs4988235', 'p = 3.2e-8', 'NOTCH2' and 'odds ratio'. Note which merges your tokenizer learned that OpenAI's never would.
+:::
+:::
+
+## Resources
+
+- [Karpathy L8 - Let's build the GPT Tokenizer (2h13m)](https://www.youtube.com/watch?v=zduSFxRajkE) [video]{.res-kind}
+- [minbpe - BasicTokenizer, RegexTokenizer, GPT4Tokenizer, lecture.md, exercise.md](https://github.com/karpathy/minbpe) [repo]{.res-kind}
+- [NCBI E-utilities - programmatic PubMed access](https://www.ncbi.nlm.nih.gov/books/NBK25501/) [docs]{.res-kind}
+- [PubMed](https://pubmed.ncbi.nlm.nih.gov/) [tool]{.res-kind}
+- [tiktoken](https://github.com/openai/tiktoken) [repo]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+bpe.py with a BasicTokenizer that round-trips arbitrary UTF-8, data/pubmed_abstracts.jsonl with about 1,000 abstracts and the script that fetched them, a merge table trained at vocab_size=2000, and a comparison table against cl100k_base on 20 held-out abstracts.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Your decode maps ids to bytes and calls .decode('utf-8'). Build a token id sequence that makes that call raise, say which UTF-8 rule the byte string violates, and say what errors='replace' substitutes instead of raising.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 19, Tuesday, 11 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Download SLP3 Ch8 (8.pdf) - it is the longest chapter you have read so far, so have it open before you start.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Write down the three questions you most want answered about attention, so you can check them off tomorrow.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Skim Ch8's figures only, no text, so the shapes are not a cold start.
+:::
+:::

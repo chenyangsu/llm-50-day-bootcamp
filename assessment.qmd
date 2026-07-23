@@ -1,0 +1,111 @@
+---
+title: "Self-check"
+subtitle: "The questions that distinguish having watched something from having learned it. Answer out loud, without notes."
+---
+
+Use the phase blocks as you go — each one belongs on that phase's catch-up day. The final list is day 50.
+
+The rule is the same throughout: **say the answer out loud before you look**. Recognising a correct
+explanation is easy and feels identical to knowing it, which is exactly why it's a bad test.
+
+---
+
+## After week 1 — Foundations {#w1}
+
+1. Write the chain rule for a scalar composed of three functions, then say what reverse-mode
+   differentiation computes that forward-mode doesn't, and why that ordering matters when there are a
+   million parameters and one loss.
+2. What does `loss.backward()` actually do to the graph, and why do you have to zero gradients between
+   steps? What goes wrong if you forget?
+3. Softmax regression is a model you already know under a different name. Which one, and what is
+   cross-entropy in that language?
+4. Why does a naive `exp(logits)` overflow, and what does subtracting the max fix?
+5. Derive the gradient of cross-entropy with respect to the logits. It collapses to something very short —
+   what, and why is that convenient?
+6. Why does initialization matter at all if the network is going to learn the weights anyway?
+
+## After week 2 — Language models {#w2}
+
+1. What exactly is a language model estimating? Write the probability of a sentence under a bigram model.
+2. Perplexity — define it, and state its relationship to cross-entropy loss in one line.
+3. Why is a maximum-likelihood n-gram model useless on held-out text without smoothing? What does
+   smoothing actually trade away?
+4. A bigram count table and a one-layer neural network trained with gradient descent give the same answer.
+   Why? What does the neural version buy you that the table doesn't?
+5. What does the embedding table in an MLP language model represent, and why is it better than one-hot?
+6. Your loss plateaus and the activation histograms are saturated at ±1. What happened, and what are two
+   fixes?
+
+## After week 3 — Tokens and attention {#w3}
+
+1. What is a token? Why is "how many r's in strawberry" hard, and why do numbers behave oddly?
+2. Walk through BPE training: what does one merge step do, and what determines the final vocabulary?
+3. Attention uses queries, keys and values. Say what each one is for, in one sentence each, without
+   using the words "attend" or "attention".
+4. Why is the dot product divided by the square root of the head dimension? What breaks without it?
+5. What does causal masking do, and at what point in the computation is it applied?
+6. Why do transformers need positional information when RNNs don't?
+7. Name three things the 2017 paper does that a modern decoder-only model doesn't.
+
+## After week 4 — Build a GPT {#w4}
+
+1. Trace one forward pass from token ids to logits, naming every tensor shape, for a stated batch size,
+   context length, `d_model` and head count.
+2. Where does the residual stream go, and why does removing the residual connections break training?
+3. What is LayerNorm normalizing over, and why pre-norm rather than post-norm?
+4. Derive your model's parameter count from its hyperparameters. Which component dominates, and when?
+5. What do temperature and top-k each do to the output distribution? At temperature 0, what is the model?
+6. Your training loss falls and validation loss rises. Name three causes and how you'd tell them apart.
+
+## After week 5 — Pretrained models {#w5}
+
+1. Encoder-only, decoder-only, encoder-decoder — what training objective goes with each, and what task
+   shape does each suit?
+2. For classifying 5,000 biomedical abstracts, when is a BERT-family encoder still the right answer?
+3. What is an attention mask for, and what breaks silently if you pad without one?
+4. Why is a prompting baseline worth a whole day before any fine-tuning?
+5. Your fine-tuned model scores better than the prompted one on accuracy but you don't want to ship it.
+   Give two reasons that can be true.
+
+## After week 6 — Scaling and post-training {#w6}
+
+1. State what scaling laws claim, and one thing they explicitly don't predict.
+2. Where do Kaplan and Chinchilla disagree, and what changed in practice as a result?
+3. For a fixed compute budget, how do you split it between parameters and tokens? Show the arithmetic.
+4. Why is a pretrained base model not an assistant? Name the three InstructGPT stages and what each fixes.
+5. What is the alignment tax?
+6. LoRA freezes the base weights and learns a low-rank update. What do rank `r` and `alpha` control, and
+   why does this save so much memory when the parameter saving alone doesn't explain it?
+
+## After week 7 — Pipeline, RAG, evaluation {#w7}
+
+1. DPO removes the reward model and the RL loop. What is the key reparameterization that lets it?
+2. Order the stages of building a chat model from raw text, and say what each contributes.
+3. When does retrieval beat fine-tuning, and when is reaching for retrieval hiding a different problem?
+4. Why must retrieval quality be measured separately from end-to-end answer quality?
+5. Give a case where a model scores well on a benchmark and is still unfit for clinical use.
+6. Distinguish model failure from retrieval failure from interface failure, with an example of each.
+
+---
+
+## Day 50 — the whole thing {#final}
+
+The list the bootcamp was designed around. Eight questions, no notes.
+
+1. What is a token?
+2. Why do models predict the next token?
+3. What do embeddings represent?
+4. Why does attention use queries, keys and values?
+5. What does causal masking do?
+6. Why do transformers need positional information?
+7. How does pretraining differ from post-training?
+8. Why is perplexity useful but insufficient?
+
+And three you should be able to do, not just say:
+
+- Implement a decoder-only transformer from an empty file. You did this on day 24 — do it again.
+- Fine-tune a pretrained model on a task you define, and report more than accuracy.
+- Design an evaluation for a clinical task that would catch a polished, confident, wrong answer.
+
+Anything on this page you can't answer is not a failure. It's your October reading list — and
+[CS336](https://cs336.stanford.edu) is where most of the remaining answers live.

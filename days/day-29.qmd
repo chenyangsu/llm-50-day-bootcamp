@@ -1,0 +1,73 @@
+---
+title: "Day 29 — Pipelines, and the three architecture families"
+subtitle: "Friday, 21 August 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 28](day-28.qmd) · [All 50 days](../timeline.qmd) · [Day 30 →](day-30.qmd)
+:::
+
+::: {.why}
+You have written a decoder-only transformer twice, so from here you stop reimplementing and start using models other people trained — and the first thing to get right is what `pipeline()` is doing on your behalf.
+:::
+
+## What you should be able to do tonight
+
+- Given a task - classifying abstracts by study design, translating a title, summarising a paper, open-ended generation - you can say whether an encoder, decoder, or encoder-decoder is the natural fit, and justify it by what each one's attention mask lets a token see.
+- You can name the three stages `pipeline('text-classification')` runs between your raw string and the printed label, and say which of the three you already wrote yourself on Day 18.
+- You can find, for any pipeline you ran, which checkpoint it silently defaulted to and how many parameters that checkpoint has.
+
+## Tasks <span class='task-total'>205 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [70 min]{.task-min} Work through HF LLM Course chapter1/1 to chapter1/4 in Colab, running every code cell rather than reading past it. When section 3 shows a pipeline, swap its example text for a sentence from an abstract you actually read this week.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Read chapter1/5 (How Transformers solve tasks) and chapter1/6 (Transformer Architectures), building a three-row table as you go: encoder / decoder / encoder-decoder, against what each token can attend to, the pretraining objective, and one task each family is the wrong choice for.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [50 min]{.task-min} Run six pipeline tasks on your own text - at minimum `text-classification`, `fill-mask`, `ner`, `question-answering`, `summarization`, `text-generation` - and for each print `pipe.model.config._name_or_path` and `pipe.model.num_parameters()` so you know what you just downloaded.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Write one paragraph in your log placing the GPT you wrote in Week 4 onto the taxonomy in section 6: which family it belongs to, which objective trained it, and the two changes you would need to turn it into an encoder.
+:::
+:::
+
+## Resources
+
+- [HF LLM Course ch1 §1-2 - Intro, NLP and LLMs](https://huggingface.co/learn/llm-course/en/chapter1/1) [course]{.res-kind}
+- [HF LLM Course ch1 §3 - Transformers, what can they do](https://huggingface.co/learn/llm-course/en/chapter1/3) [course]{.res-kind}
+- [HF LLM Course ch1 §4 - How do Transformers work](https://huggingface.co/learn/llm-course/en/chapter1/4) [course]{.res-kind}
+- [HF LLM Course ch1 §5 - How Transformers solve tasks](https://huggingface.co/learn/llm-course/en/chapter1/5) [course]{.res-kind}
+- [HF LLM Course ch1 §6 - Transformer Architectures](https://huggingface.co/learn/llm-course/en/chapter1/6) [course]{.res-kind}
+- [Hugging Face Transformers docs](https://huggingface.co/docs/transformers) [docs]{.res-kind}
+- [Google Colab](https://colab.research.google.com/) [tool]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`day29_pipelines.ipynb` with six pipeline tasks run on your own text, each printing its default checkpoint and parameter count, plus the three-row architecture table and the paragraph placing your Week 4 GPT inside it.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+`pipeline('sentiment-analysis')('This trial was terminated early for futility.')` returns a label and a score of 0.98. Without looking anything up: name every transformation the string went through to become that number, and say what the 0.98 is the probability of.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 30, Saturday, 22 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Open your Day 18 BPE implementation and leave the file somewhere you can find it - tomorrow you run it head to head against `AutoTokenizer`.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Run `pip install transformers datasets` in tomorrow's environment now, so you are not debugging installs at 9am.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Use PubMed's Send to -> File -> Format: Abstract to export 200 abstracts from any query you like into a local file. You tokenise them tomorrow.
+:::
+:::

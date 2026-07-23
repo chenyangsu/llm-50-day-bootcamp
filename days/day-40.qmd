@@ -1,0 +1,68 @@
+---
+title: "Day 40 — InstructGPT: three stages, forty labelers"
+subtitle: "Tuesday, 1 September 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 39](day-39.qmd) · [All 50 days](../timeline.qmd) · [Day 41 →](day-41.qmd)
+:::
+
+::: {.why}
+This is the paper that turned GPT-3 into something you could talk to, and its machinery - SFT, a Bradley-Terry reward model, PPO on a KL leash - is still roughly what chat models are built from. Read it for the parts people skip: what the labelling cost, and whose preferences the model was aligned to.
+:::
+
+## What you should be able to do tonight
+
+- Write the loss function for each of the three stages, and say which one you already knew under a different name.
+- State what the RLHF stages cost in petaflop/s-days against GPT-3 175B's pretraining, using the paper's own numbers.
+- Describe the alignment tax concretely - which evaluations regressed, and what the pretraining-mix term in PPO-ptx did about it.
+
+## Tasks <span class='task-total'>185 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [65 min]{.task-min} Read Section 1 and all of Section 3: 3.2 dataset sizes, 3.3 tasks, 3.4 human data collection, 3.5 models, 3.6 evaluation. Write the three losses out as you go - cross-entropy on demonstrations, the pairwise ranking loss over the K sampled outputs, and the PPO objective with its KL penalty and pretraining term.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Read Section 4 (results) and Section 5 (discussion), particularly 5.2 on who the model is aligned to and 5.3 on limitations. Pull out three numbers: the labeler count, the inter-annotator agreement rate, and the petaflop/s-days for the 175B PPO-ptx model against the 3,640 for GPT-3 175B pretraining.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Reconcile the paper against yesterday's chapter: the reward model here is the Bradley-Terry model from SLP3 9.2.2. Write down why they train it on all K-choose-2 comparisons from a single prompt inside one batch, and what goes wrong if you scatter those pairs across separate batches.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Write 250 words on preference data in your own domain: who is qualified to judge which of two clinical abstract summaries is better, where those raters would disagree systematically rather than randomly, what a reward model trained on non-expert raters would learn to reward instead of correctness, and what PHI and IRB constraints do to the hire-forty-contractors plan.
+:::
+:::
+
+## Resources
+
+- [InstructGPT - Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155) [paper]{.res-kind}
+- [SLP3 Ch9 - Post-training](https://web.stanford.edu/~jurafsky/slp3/9.pdf) [textbook]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+The three loss functions written out by hand, the labeler count / agreement rate / compute numbers with their section references, and a 250-word note on what a clinical preference-labelling protocol would have to look like.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+What does the policy do to the reward model if you remove the KL penalty from the PPO objective?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 41, Wednesday, 2 September 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Download LoRA (arXiv:2106.09685).
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Run `pip install peft` and confirm `from peft import LoraConfig, get_peft_model` imports cleanly.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Dig out your Day 34 run and write its peak GPU memory, wall-clock and final metrics somewhere visible. Tomorrow is a comparison, and the baseline column has to be filled in before you start.
+:::
+:::

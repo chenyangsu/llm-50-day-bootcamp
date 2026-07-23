@@ -1,0 +1,67 @@
+---
+title: "Day 19 — Attention from the textbook: Q, K, V and the sqrt(d_k)"
+subtitle: "Tuesday, 11 August 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 18](day-18.qmd) · [All 50 days](../timeline.qmd) · [Day 20 →](day-20.qmd)
+:::
+
+::: {.why}
+Attention is a weighted average where the weights are computed from the data itself. Heads, masks, positional embeddings, residuals and layer norm all exist to make that one operation trainable and stackable. Get the whole thing from a chapter that shows the equations and the shapes, before tomorrow's paper compresses it into half a page.
+:::
+
+## What you should be able to do tonight
+
+- You can explain the sqrt(d_k) divisor from the variance of a dot product, and say what breaks at d_k = 64 without it.
+- You can write causal masking in three lines and say why the mask is applied to the scores before the softmax rather than to the weights after it.
+- You can count the parameters in one transformer block at d_model = 384 with 6 heads, and say what fraction sits in the feed-forward sublayer rather than in attention.
+
+## Tasks <span class='task-total'>200 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [70 min]{.task-min} Read SLP3 Ch8 through single-head attention. When you reach the scaling factor, stop and do the algebra yourself: for two independent d_k-vectors with unit-variance entries, the dot product has variance d_k, so dividing by sqrt(d_k) puts the scores back at unit variance. Then write what a variance of 64 does to a softmax.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [50 min]{.task-min} Read multi-head attention and causal masking. Work out on paper why the mask is a lower-triangular fill with negative infinity and not a multiply by zero, and what each row of the attention matrix has to sum to.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Read the input and output ends: token embeddings plus positional embeddings, the residual stream, where layer norm sits, the feed-forward sublayer with its 4x expansion, the unembedding matrix and weight tying.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Write one attention head as five matrix operations with a shape on every intermediate, for batch 32, context 256, d_model 384, 6 heads. Then write out the causal mask explicitly for T = 4 and sanity-check that row 2 attends to exactly three positions.
+:::
+:::
+
+## Resources
+
+- [SLP3 Ch8 - Transformers](https://web.stanford.edu/~jurafsky/slp3/8.pdf) [textbook]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+One page of notes: a single head as five matrix operations with shapes, the causal mask written out for T = 4, the sqrt(d_k) variance argument in your own algebra, and the parameter count of one block split into attention versus feed-forward.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Why sqrt(d_k), and not d_k or d_k squared? Give the variance argument for a dot product of two independent d_k-dimensional vectors with unit-variance entries, then say concretely what happens to the softmax outputs and to the gradients at d_k = 64 if you drop the divisor entirely.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 20, Wednesday, 12 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Download the PDF of arXiv 1706.03762.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Print Figure 1 on its own sheet, or open it in a window you can keep beside the text - you will annotate it tomorrow.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Write down where SLP3 Ch8 put layer norm relative to the residual add, because tomorrow's paper does it differently and you want to catch the discrepancy yourself.
+:::
+:::

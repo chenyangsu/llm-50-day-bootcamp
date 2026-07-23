@@ -1,0 +1,73 @@
+---
+title: "Day 33 — Project start: corpus, labels, split, metrics, baseline"
+subtitle: "Tuesday, 25 August 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 32](day-32.qmd) · [All 50 days](../timeline.qmd) · [Day 34 →](day-34.qmd)
+:::
+
+::: {.why}
+Every modelling decision between here and Day 50 gets compared against what you fix this morning, so the split and the metrics are chosen before you have seen a single model output - the same reason you write the analysis plan before unblinding.
+:::
+
+## What you should be able to do tonight
+
+- You have `splits/{train,val,test}.pmids` frozen with a recorded SHA-256 for each file, and you will not regenerate them before Day 50.
+- You can name your primary metric, say what it scores for a majority-class-always classifier on your actual label distribution, and defend why it and not raw accuracy is primary.
+- You have a prompting baseline number on a validation subsample from a model you did not train, with the exact prompt text, per-abstract latency, and token counts saved to disk.
+
+## Tasks <span class='task-total'>225 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [60 min]{.task-min} Pull the corpus with E-utilities: ESearch with `usehistory=y` to get WebEnv and query_key, then EFetch in batches of 200 PMIDs with `retmode=xml`, sleeping to stay under your rate limit. Target 8,000-10,000 abstracts. Parse PMID, title, abstract, journal, year, `PublicationTypeList`, and `MeshHeadingList` into `data/abstracts.jsonl`. Watch for structured abstracts - they carry several `<AbstractText Label=...>` elements, and taking only the first gives you the Background section instead of the paper.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Pick the task and write `TASK.md`. Default: five-way study design - RCT, cohort, case-control, review or meta-analysis, other. The alternative, if you have a live review protocol: binary first-pass screening, does this abstract report primary outcome data from a human study on your topic, yes or no. Take the five-way unless the screening task is something you will genuinely use this year, because its labels are partly recoverable from metadata and the screening task's are not. Then write the silver-label rules: RCT and review/meta-analysis come from `PublicationType`, but cohort and case-control do not exist as publication types at all and must come from the MeSH headings `Cohort Studies`, `Prospective Studies`, and `Case-Control Studies`. Write an explicit precedence rule for abstracts that match two.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Freeze the split and choose metrics before any modelling: deduplicate near-identical abstracts first, then a stratified 70/15/15 split by silver label with a fixed seed, saved as three PMID lists with `sha256sum` recorded in `TASK.md`. Pick a primary metric - macro-F1 is usually the right answer once `other` dominates - and write down what it scores for a majority-class-always classifier.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Hand-label 100 abstracts from the test split yourself, reading only the abstract text, and record your disagreement rate against the silver label. That rate is a ceiling on anything you train later, so it goes in `TASK.md` rather than in a comment.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [50 min]{.task-min} Get the prompting baseline: write `baselines/prompt_v1.txt` with your label definitions and one worked example per label, run it over 300 validation abstracts through an instruction-tuned model you have not fine-tuned, and save one row per abstract with prediction, raw output, wall-clock latency, and input/output token counts. Record your provider's per-token price in `baselines/prompt_v1_meta.json` on the day you run it - Day 35 needs cost per 1000 abstracts, and prices move.
+:::
+:::
+
+## Resources
+
+- [NCBI E-utilities (ESearch, EFetch, rate limits)](https://www.ncbi.nlm.nih.gov/books/NBK25501/) [docs]{.res-kind}
+- [PubMed](https://pubmed.ncbi.nlm.nih.gov/) [tool]{.res-kind}
+- [Hugging Face Hub datasets - check whether someone already built this before you do](https://huggingface.co/datasets) [tool]{.res-kind}
+- [Google Colab](https://colab.research.google.com/) [tool]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+A `project/` directory holding `TASK.md` (label definitions with one decision rule and two real PMIDs per label, the precedence rule, the primary metric with its majority-class value, and your human-versus-silver disagreement rate), `data/abstracts.jsonl`, `splits/{train,val,test}.pmids` with recorded hashes, `gold_test_100.jsonl`, `baselines/prompt_v1.txt`, and `baselines/prompt_v1_val.jsonl` carrying latency and token counts per row.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+What does your primary metric score for a classifier that always predicts the majority class, and what did your prompting baseline score? If the gap is small, decide right now whether that is the model's problem or the metric's - you will not get an honest answer to this question once you have a fine-tuned model you like.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 34, Wednesday, 26 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Open Colab, set Runtime -> Change runtime type -> T4 GPU, and confirm `torch.cuda.is_available()` returns True.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Commit and push `project/` to a private repo tonight, so the split carries a timestamp you can point at when you report these results later.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Skim the section headings of chapter3/3 so `Trainer`'s shape is familiar before you type it.
+:::
+:::

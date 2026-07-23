@@ -1,0 +1,132 @@
+---
+title: "Every resource"
+subtitle: "Every link the bootcamp uses, grouped by what it is."
+---
+
+99 distinct resources across the 50 days. The day numbers after each entry tell you where it is used.
+
+## Textbooks
+
+- [D2L 2.3 - Linear Algebra](https://d2l.ai/chapter_preliminaries/linear-algebra.html) — day [1](days/day-01.qmd)
+- [D2L 2.4 - Calculus](https://d2l.ai/chapter_preliminaries/calculus.html) — day [1](days/day-01.qmd)
+- [D2L landing page](https://d2l.ai/) — day [1](days/day-01.qmd)
+- [D2L 2.5 - Automatic Differentiation](https://d2l.ai/chapter_preliminaries/autograd.html) — day [2](days/day-02.qmd)
+- [D2L 4.1 - Softmax Regression](https://d2l.ai/chapter_linear-classification/softmax-regression.html) — day [5](days/day-05.qmd)
+- [D2L 4.1 - Softmax and Cross-Entropy Loss (subsection)](https://d2l.ai/chapter_linear-classification/softmax-regression.html#softmax-and-cross-entropy-loss) — days [5](days/day-05.qmd), [9](days/day-09.qmd)
+- [D2L 5.1 - Multilayer Perceptrons](https://d2l.ai/chapter_multilayer-perceptrons/mlp.html) — days [6](days/day-06.qmd), [11](days/day-11.qmd)
+- [D2L 5.3 - Forward Propagation, Backward Propagation, and Computational Graphs](https://d2l.ai/chapter_multilayer-perceptrons/backprop.html) — days [6](days/day-06.qmd), [15](days/day-15.qmd)
+- [D2L 5.4 - Numerical Stability and Initialization](https://d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html) — days [6](days/day-06.qmd), [13](days/day-13.qmd)
+- [SLP3 Ch3 - N-gram Language Models (Week 2 starts here)](https://web.stanford.edu/~jurafsky/slp3/3.pdf) — days [7](days/day-07.qmd), [8](days/day-08.qmd), [9](days/day-09.qmd), [14](days/day-14.qmd), [27](days/day-27.qmd)
+- [SLP3 landing page](https://web.stanford.edu/~jurafsky/slp3/) — days [7](days/day-07.qmd), [27](days/day-27.qmd)
+- [SLP3 Ch5 - Embeddings](https://web.stanford.edu/~jurafsky/slp3/5.pdf) — day [12](days/day-12.qmd)
+- [SLP3 Ch6 - Neural Networks](https://web.stanford.edu/~jurafsky/slp3/6.pdf) — day [16](days/day-16.qmd)
+- [SLP3 Ch2 - Words and Tokens](https://web.stanford.edu/~jurafsky/slp3/2.pdf) — day [17](days/day-17.qmd)
+- [SLP3 Ch8 - Transformers](https://web.stanford.edu/~jurafsky/slp3/8.pdf) — days [19](days/day-19.qmd), [20](days/day-20.qmd), [21](days/day-21.qmd), [22](days/day-22.qmd)
+- [SLP3 Ch7 - Large Language Models](https://web.stanford.edu/~jurafsky/slp3/7.pdf) — days [27](days/day-27.qmd), [31](days/day-31.qmd)
+- [SLP3 Ch10 - Masked Language Models](https://web.stanford.edu/~jurafsky/slp3/10.pdf) — day [31](days/day-31.qmd)
+- [SLP3 Ch9 - Post-training: Instruction Tuning, Alignment, Test-Time Compute](https://web.stanford.edu/~jurafsky/slp3/9.pdf) — days [39](days/day-39.qmd), [40](days/day-40.qmd), [43](days/day-43.qmd)
+- [SLP3 Ch11 - Information Retrieval and RAG](https://web.stanford.edu/~jurafsky/slp3/11.pdf) — days [46](days/day-46.qmd), [47](days/day-47.qmd)
+- [SLP3 - full book PDF, for checking your self-assessment answers](https://web.stanford.edu/~jurafsky/slp3/ed3book_jan26.pdf) — day [50](days/day-50.qmd)
+
+## Lectures and videos
+
+- [Karpathy L1 - micrograd, the spelled-out intro to backpropagation (2h25m)](https://www.youtube.com/watch?v=VMj-3S1tku0) — days [3](days/day-03.qmd), [4](days/day-04.qmd)
+- [Neural Networks: Zero to Hero course page](https://karpathy.ai/zero-to-hero.html) — day [3](days/day-03.qmd)
+- [Karpathy L2 - makemore part 1, bigrams (1h57m)](https://www.youtube.com/watch?v=PaCmpygFfXo) — day [10](days/day-10.qmd)
+- [Karpathy L3 - makemore part 2, MLP (1h15m)](https://www.youtube.com/watch?v=TCH_1BHY58I) — day [11](days/day-11.qmd)
+- [Karpathy L4 - makemore part 3, activations, gradients, BatchNorm (1h55m)](https://www.youtube.com/watch?v=P6sfmUTpUmc) — day [13](days/day-13.qmd)
+- [Karpathy L5 - makemore part 4, Becoming a Backprop Ninja (1h55m)](https://www.youtube.com/watch?v=q8SA3rM6ckI) — day [15](days/day-15.qmd)
+- [Karpathy L6 - makemore part 5, WaveNet (56m)](https://www.youtube.com/watch?v=t3YJ5hKiMQ0) — day [16](days/day-16.qmd)
+- [Karpathy L8 - Let's build the GPT Tokenizer (2h13m)](https://www.youtube.com/watch?v=zduSFxRajkE) — day [18](days/day-18.qmd)
+- [Karpathy L7 - Let's build GPT from scratch (1h56m)](https://www.youtube.com/watch?v=kCc8FmEb1nY) — days [22](days/day-22.qmd), [23](days/day-23.qmd), [24](days/day-24.qmd), [26](days/day-26.qmd)
+- [CS336 lecture videos](https://www.youtube.com/playlist?list=PLoROMvodv4rMqXOcazWaTUHhq-yembLCV) — day [50](days/day-50.qmd)
+
+## Papers
+
+- [Attention Is All You Need (Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762) — days [20](days/day-20.qmd), [21](days/day-21.qmd), [22](days/day-22.qmd)
+- [BERT - Pre-training of Deep Bidirectional Transformers](https://arxiv.org/abs/1810.04805) — day [31](days/day-31.qmd)
+- [HELM paper - why one number is the wrong report](https://arxiv.org/abs/2211.09110) — days [35](days/day-35.qmd), [48](days/day-48.qmd)
+- [GPT-3, Language Models are Few-Shot Learners (Week 6)](https://arxiv.org/abs/2005.14165) — days [35](days/day-35.qmd), [36](days/day-36.qmd)
+- [Scaling Laws for Neural Language Models (Week 6)](https://arxiv.org/abs/2001.08361) — days [35](days/day-35.qmd), [37](days/day-37.qmd), [38](days/day-38.qmd)
+- [Training Compute-Optimal LLMs / Chinchilla (Week 6)](https://arxiv.org/abs/2203.15556) — days [35](days/day-35.qmd), [38](days/day-38.qmd)
+- [InstructGPT (Week 6)](https://arxiv.org/abs/2203.02155) — days [35](days/day-35.qmd), [40](days/day-40.qmd), [43](days/day-43.qmd)
+- [LoRA (Week 6)](https://arxiv.org/abs/2106.09685) — days [35](days/day-35.qmd), [41](days/day-41.qmd)
+- [Direct Preference Optimization](https://arxiv.org/abs/2305.18290) — days [42](days/day-42.qmd), [43](days/day-43.qmd)
+- [Retrieval-Augmented Generation](https://arxiv.org/abs/2005.11401) — days [42](days/day-42.qmd), [46](days/day-46.qmd), [47](days/day-47.qmd)
+
+## Courses
+
+- [Hugging Face LLM Course - Chapter 1.1](https://huggingface.co/learn/llm-course/en/chapter1/1) — days [28](days/day-28.qmd), [29](days/day-29.qmd)
+- [HF LLM Course ch1 §3 - Transformers, what can they do](https://huggingface.co/learn/llm-course/en/chapter1/3) — day [29](days/day-29.qmd)
+- [HF LLM Course ch1 §4 - How do Transformers work](https://huggingface.co/learn/llm-course/en/chapter1/4) — day [29](days/day-29.qmd)
+- [HF LLM Course ch1 §5 - How Transformers solve tasks](https://huggingface.co/learn/llm-course/en/chapter1/5) — day [29](days/day-29.qmd)
+- [HF LLM Course ch1 §6 - Transformer Architectures](https://huggingface.co/learn/llm-course/en/chapter1/6) — day [29](days/day-29.qmd)
+- [HF LLM Course ch1 §7 - Quiz](https://huggingface.co/learn/llm-course/en/chapter1/7) — day [30](days/day-30.qmd)
+- [HF LLM Course ch1 §8 - Inference with LLMs / TGI deep dive](https://huggingface.co/learn/llm-course/en/chapter1/8) — day [30](days/day-30.qmd)
+- [HF LLM Course ch1 §9 - Bias and limitations](https://huggingface.co/learn/llm-course/en/chapter1/9) — day [30](days/day-30.qmd)
+- [HF LLM Course ch1 §10 - Summary](https://huggingface.co/learn/llm-course/en/chapter1/10) — day [30](days/day-30.qmd)
+- [HF LLM Course ch1 §11 - Certification exam (optional)](https://huggingface.co/learn/llm-course/en/chapter1/11) — day [30](days/day-30.qmd)
+- [HF LLM Course ch2 §1 - Introduction](https://huggingface.co/learn/llm-course/en/chapter2/1) — day [30](days/day-30.qmd)
+- [HF LLM Course ch2 §2 - Behind the pipeline](https://huggingface.co/learn/llm-course/en/chapter2/2) — day [30](days/day-30.qmd)
+- [HF LLM Course ch2 §3 - Models](https://huggingface.co/learn/llm-course/en/chapter2/3) — day [30](days/day-30.qmd)
+- [HF LLM Course ch2 §4 - Tokenizers](https://huggingface.co/learn/llm-course/en/chapter2/4) — day [30](days/day-30.qmd)
+- [HF LLM Course ch2 §5 - Handling multiple sequences](https://huggingface.co/learn/llm-course/en/chapter2/5) — day [32](days/day-32.qmd)
+- [HF LLM Course ch2 §6 - Putting it all together](https://huggingface.co/learn/llm-course/en/chapter2/6) — day [32](days/day-32.qmd)
+- [HF LLM Course ch2 §7 - Basic usage completed](https://huggingface.co/learn/llm-course/en/chapter2/7) — day [32](days/day-32.qmd)
+- [HF LLM Course ch2 §8 - Optimized Inference Deployment](https://huggingface.co/learn/llm-course/en/chapter2/8) — day [32](days/day-32.qmd)
+- [HF LLM Course ch2 §9 - Quiz](https://huggingface.co/learn/llm-course/en/chapter2/9) — day [32](days/day-32.qmd)
+- [HF LLM Course ch3 §1 - Introduction](https://huggingface.co/learn/llm-course/en/chapter3/1) — day [32](days/day-32.qmd)
+- [HF LLM Course ch3 §2 - Processing the data](https://huggingface.co/learn/llm-course/en/chapter3/2) — day [32](days/day-32.qmd)
+- [HF LLM Course ch3 §3 - Fine-tuning with the Trainer API](https://huggingface.co/learn/llm-course/en/chapter3/3) — day [34](days/day-34.qmd)
+- [HF LLM Course ch3 §4 - A full training loop](https://huggingface.co/learn/llm-course/en/chapter3/4) — day [34](days/day-34.qmd)
+- [HF LLM Course ch3 §5 - Understanding Learning Curves](https://huggingface.co/learn/llm-course/en/chapter3/5) — day [34](days/day-34.qmd)
+- [Stanford CS336 - Language Modeling from Scratch](https://cs336.stanford.edu) — day [50](days/day-50.qmd)
+
+## Code repositories
+
+- [nn-zero-to-hero repo (lectures/micrograd/)](https://github.com/karpathy/nn-zero-to-hero) — days [3](days/day-03.qmd), [4](days/day-04.qmd), [10](days/day-10.qmd), [11](days/day-11.qmd), [12](days/day-12.qmd), [13](days/day-13.qmd), [14](days/day-14.qmd), [15](days/day-15.qmd), [16](days/day-16.qmd), [22](days/day-22.qmd), [23](days/day-23.qmd), [24](days/day-24.qmd)
+- [micrograd - the ~100-line autograd engine](https://github.com/karpathy/micrograd) — days [3](days/day-03.qmd), [4](days/day-04.qmd)
+- [makemore - single makemore.py plus names.txt](https://github.com/karpathy/makemore) — days [7](days/day-07.qmd), [8](days/day-08.qmd)
+- [tiktoken](https://github.com/openai/tiktoken) — days [17](days/day-17.qmd), [18](days/day-18.qmd)
+- [minbpe - BasicTokenizer, RegexTokenizer, GPT4Tokenizer, lecture.md, exercise.md](https://github.com/karpathy/minbpe) — days [18](days/day-18.qmd), [30](days/day-30.qmd), [44](days/day-44.qmd)
+- [nanoGPT - model.py and train.py, about 300 lines each](https://github.com/karpathy/nanoGPT) — days [21](days/day-21.qmd), [26](days/day-26.qmd), [28](days/day-28.qmd), [44](days/day-44.qmd)
+- [nanochat](https://github.com/karpathy/nanochat) — days [42](days/day-42.qmd), [44](days/day-44.qmd), [45](days/day-45.qmd)
+- [FAISS](https://github.com/facebookresearch/faiss) — days [46](days/day-46.qmd), [47](days/day-47.qmd)
+- [HELM source](https://github.com/stanford-crfm/helm) — days [48](days/day-48.qmd), [49](days/day-49.qmd)
+- [CS336 Assignment 1 - tokenizer, Transformer LM, optimizer from scratch](https://github.com/stanford-cs336/assignment1-basics) — day [50](days/day-50.qmd)
+
+## Tools and documentation
+
+- [PubMed](https://pubmed.ncbi.nlm.nih.gov/) — days [18](days/day-18.qmd), [31](days/day-31.qmd), [33](days/day-33.qmd), [46](days/day-46.qmd), [50](days/day-50.qmd)
+- [Google Colab](https://colab.research.google.com/) — days [23](days/day-23.qmd), [25](days/day-25.qmd), [29](days/day-29.qmd), [33](days/day-33.qmd), [34](days/day-34.qmd), [43](days/day-43.qmd)
+- [Weights & Biases](https://wandb.ai/site) — days [25](days/day-25.qmd), [34](days/day-34.qmd), [49](days/day-49.qmd)
+- [Hugging Face Hub datasets - check whether someone already built this before you do](https://huggingface.co/datasets) — day [33](days/day-33.qmd)
+- [HELM - Holistic Evaluation of Language Models](https://crfm.stanford.edu/helm/) — day [35](days/day-35.qmd)
+- [HELM Capabilities leaderboard - the layout to copy](https://crfm.stanford.edu/helm/capabilities/latest/) — days [35](days/day-35.qmd), [48](days/day-48.qmd)
+- [MedHELM - the medical/clinical version](https://crfm.stanford.edu/helm/medhelm/latest/) — days [35](days/day-35.qmd), [48](days/day-48.qmd), [49](days/day-49.qmd), [50](days/day-50.qmd)
+
+## Discussion
+
+- [nanochat launch writeup (discussion #1)](https://github.com/karpathy/nanochat/discussions/1) — day [44](days/day-44.qmd)
+- [Beating GPT-2 for <<$100 (discussion #481)](https://github.com/karpathy/nanochat/discussions/481) — days [44](days/day-44.qmd), [45](days/day-45.qmd)
+- [nanochat miniseries v1 (discussion #420)](https://github.com/karpathy/nanochat/discussions/420) — day [45](days/day-45.qmd)
+- [Adding abilities - the strawberry guide (discussion #164)](https://github.com/karpathy/nanochat/discussions/164) — day [45](days/day-45.qmd)
+
+## Docs
+
+- [PyTorch autograd mechanics](https://pytorch.org/docs/stable/notes/autograd.html) — day [2](days/day-02.qmd)
+- [PyTorch docs (index)](https://pytorch.org/docs/stable/index.html) — days [2](days/day-02.qmd), [16](days/day-16.qmd), [24](days/day-24.qmd)
+- [Hugging Face - Summary of the tokenizers](https://huggingface.co/docs/transformers/tokenizer_summary) — day [17](days/day-17.qmd)
+- [NCBI E-utilities - programmatic PubMed access](https://www.ncbi.nlm.nih.gov/books/NBK25501/) — days [18](days/day-18.qmd), [33](days/day-33.qmd), [47](days/day-47.qmd)
+- [Hugging Face Transformers docs](https://huggingface.co/docs/transformers) — days [26](days/day-26.qmd), [28](days/day-28.qmd), [29](days/day-29.qmd), [31](days/day-31.qmd), [32](days/day-32.qmd), [34](days/day-34.qmd), [36](days/day-36.qmd), [41](days/day-41.qmd), [49](days/day-49.qmd)
+- [Hugging Face Datasets docs](https://huggingface.co/docs/datasets) — days [28](days/day-28.qmd), [32](days/day-32.qmd)
+- [Hugging Face Tokenizers library docs](https://huggingface.co/docs/tokenizers/main/en/index) — day [30](days/day-30.qmd)
+- [PEFT docs](https://huggingface.co/docs/peft) — day [41](days/day-41.qmd)
+- [TRL docs (SFT, DPO, reward modelling)](https://huggingface.co/docs/trl) — days [42](days/day-42.qmd), [43](days/day-43.qmd)
+- [sentence-transformers](https://www.sbert.net/) — days [46](days/day-46.qmd), [47](days/day-47.qmd)
+- [HELM docs](https://crfm-helm.readthedocs.io/en/latest/) — day [48](days/day-48.qmd)
+
+## Leaderboard
+
+- [nanochat leaderboard](https://github.com/karpathy/nanochat/blob/master/dev/LEADERBOARD.md) — day [45](days/day-45.qmd)
+- [HELM Lite](https://crfm.stanford.edu/helm/lite/latest/) — day [48](days/day-48.qmd)

@@ -1,0 +1,77 @@
+---
+title: "Day 30 — Behind the pipeline, and your BPE against theirs"
+subtitle: "Saturday, 22 August 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 29](day-29.qmd) · [All 50 days](../timeline.qmd) · [Day 31 →](day-31.qmd)
+:::
+
+::: {.why}
+Chapter 2 takes `pipeline()` apart into tokenizer, model, and post-processing - the same three-stage chain you built by hand - so today is where you find out what the production version of each stage does that yours did not.
+:::
+
+## What you should be able to do tonight
+
+- You can take a raw abstract to logits without touching `pipeline()`, using `AutoTokenizer` and `AutoModelForSequenceClassification`, and match the pipeline's output to four decimal places.
+- You can account for the token-count difference between your Day 18 BPE and `bert-base-uncased` on the same abstract with reasons that are not 'different vocabulary size'.
+- You can name two failure modes from section 9 that would actually show up in biomedical text, not just the textbook gender-occupation example.
+
+## Tasks <span class='task-total'>210 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Take the chapter1/7 quiz cold, before rereading anything, and note which questions you miss. Then read chapter1/8 (inference and TGI) and chapter1/9 (Bias and limitations), and skim chapter1/10. Chapter1/11 is the certification exam and is optional.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Work chapter2/1 and chapter2/2 (Behind the pipeline) by rebuilding the chain yourself: `tokenizer(text, return_tensors='pt')` -> `model(**inputs).logits` -> `torch.nn.functional.softmax` -> `model.config.id2label`. Do not move on until your numbers match `pipeline()`.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Read chapter2/3 (Models) and chapter2/4 (Tokenizers), and do a `save_pretrained` / `from_pretrained` round trip into a local directory so you know exactly which files a checkpoint actually is.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Run the tokenizer bake-off on your 200 abstracts across four tokenizers: your Day 18 BPE, `bert-base-uncased`, `gpt2`, and one biomedical checkpoint from the Hub (search PubMedBERT or BioBERT and take the most-downloaded). Report median tokens per abstract for each, then print how each one splits `pharmacokinetics`, `immunohistochemistry`, `SGLT2`, and `IL-6`.
+:::
+:::
+
+## Resources
+
+- [HF LLM Course ch1 §7 - Quiz](https://huggingface.co/learn/llm-course/en/chapter1/7) [course]{.res-kind}
+- [HF LLM Course ch1 §8 - Inference with LLMs / TGI deep dive](https://huggingface.co/learn/llm-course/en/chapter1/8) [course]{.res-kind}
+- [HF LLM Course ch1 §9 - Bias and limitations](https://huggingface.co/learn/llm-course/en/chapter1/9) [course]{.res-kind}
+- [HF LLM Course ch1 §10 - Summary](https://huggingface.co/learn/llm-course/en/chapter1/10) [course]{.res-kind}
+- [HF LLM Course ch1 §11 - Certification exam (optional)](https://huggingface.co/learn/llm-course/en/chapter1/11) [course]{.res-kind}
+- [HF LLM Course ch2 §1 - Introduction](https://huggingface.co/learn/llm-course/en/chapter2/1) [course]{.res-kind}
+- [HF LLM Course ch2 §2 - Behind the pipeline](https://huggingface.co/learn/llm-course/en/chapter2/2) [course]{.res-kind}
+- [HF LLM Course ch2 §3 - Models](https://huggingface.co/learn/llm-course/en/chapter2/3) [course]{.res-kind}
+- [HF LLM Course ch2 §4 - Tokenizers](https://huggingface.co/learn/llm-course/en/chapter2/4) [course]{.res-kind}
+- [Hugging Face Tokenizers library docs](https://huggingface.co/docs/tokenizers/main/en/index) [docs]{.res-kind}
+- [karpathy/minbpe - your Day 18 reference](https://github.com/karpathy/minbpe) [repo]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`day30_behind_the_pipeline.ipynb` holding the manual tokenizer -> model -> softmax chain that reproduces `pipeline()` to four decimals, and a token-count table over the same 200 abstracts for four tokenizers, with the four word-splitting examples printed underneath it.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Your Day 18 BPE and `bert-base-uncased` produce different token counts for the same abstract. Give two reasons that have nothing to do with vocabulary size.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 31, Sunday, 23 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Download the BERT paper (arXiv 1810.04805) and SLP3 Chapter 10 as PDFs tonight.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Read only BERT's abstract and Figure 1. Five minutes, then stop.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Write one sentence in your log predicting what 'masked language model' means, before you read anything. You grade it tomorrow.
+:::
+:::

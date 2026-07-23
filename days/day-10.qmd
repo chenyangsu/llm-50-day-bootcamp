@@ -1,0 +1,68 @@
+---
+title: "Day 10 — The same bigram model, built twice"
+subtitle: "Sunday, 2 August 2026 · Week 2 · Language models · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 9](day-09.qmd) · [All 50 days](../timeline.qmd) · [Day 11 →](day-11.qmd)
+:::
+
+::: {.why}
+Karpathy builds one bigram model by counting and another by gradient descent, and the whole value of today is watching two very different procedures land on the same distribution.
+:::
+
+## What you should be able to do tonight
+
+- Train a 27x27 weight matrix by gradient descent and show its final NLL sits within about 0.01 of the count model's NLL from Day 8.
+- Explain what W[x] does when x is a one-hot row vector, and why that matrix multiply is an embedding lookup in disguise.
+- Predict the output shape of counts / counts.sum(1, keepdim=True) before running it, and say what silently goes wrong with keepdim=False.
+
+## Tasks <span class='task-total'>212 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [117 min]{.task-min} Watch makemore part 1 (1h57m) with makemore_part1_bigrams.ipynb open, typing along rather than watching. At the broadcasting section, pause and state each output shape before he does.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Rebuild the one-hot to logits to softmax to NLL path in your own file and train the 27x27 W with gradient descent until the loss plateaus near 2.45-2.47.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Compare softmax(W) row by row against the P matrix from Day 8: print the maximum absolute difference, then re-run with the W**2 regularization term at two different strengths and report how that difference moves.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [20 min]{.task-min} Break the broadcast on purpose - use counts.sum(1) instead of counts.sum(1, keepdim=True) - inspect the resulting shape, and write one sentence explaining which axis got normalized and why no error was raised.
+:::
+:::
+
+## Resources
+
+- [Karpathy L2 - makemore part 1, bigrams (1h57m)](https://www.youtube.com/watch?v=PaCmpygFfXo) [video]{.res-kind}
+- [nn-zero-to-hero repo (lectures/makemore/makemore_part1_bigrams.ipynb)](https://github.com/karpathy/nn-zero-to-hero) [repo]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+One file holding both computations - the Day 8 count table and the trained 27x27 W - printing the two negative log-likelihoods side by side and the max absolute difference between P and softmax(W).
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Without looking: why does gradient descent on the NLL of a linear model with one-hot inputs converge to exactly the count-based MLE table? Answer in terms of what the gradient with respect to a single row of W is.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 11, Monday, 3 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Queue makemore part 2 (1h15m) and open lectures/makemore/makemore_part2_mlp.ipynb.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Skim the architecture figure reproduced in the first cells of that notebook so the embedding table is not new to you at 8am.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Add your bigram network's final NLL to the results file you started on Day 9 - the MLP row goes in tomorrow.
+:::
+:::

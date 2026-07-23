@@ -1,0 +1,72 @@
+---
+title: "Day 26 — nanoGPT: the same model with four days of GPU time in mind"
+subtitle: "Tuesday, 18 August 2026 · Week 4 · Build a GPT · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 25](day-25.qmd) · [All 50 days](../timeline.qmd) · [Day 27 →](day-27.qmd)
+:::
+
+::: {.why}
+Your file and nanoGPT compute nearly the same function, and the gap between them is precisely what people add when a model has to train for four days on eight GPUs rather than fifteen minutes on one.
+:::
+
+## What you should be able to do tonight
+
+- You can list the differences between `gpt_mine.py` and nanoGPT's `model.py` and say for each whether it would change your results or only your wall-clock time.
+- You can compute nanoGPT's default effective batch size in tokens from `batch_size`, `block_size` and `gradient_accumulation_steps`, and say what `gradient_accumulation_steps //= ddp_world_size` protects against.
+- You can explain what `F.scaled_dot_product_attention(..., is_causal=True)` changes relative to your hand-written mask, and what it leaves identical.
+
+## Tasks <span class='task-total'>210 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Read `model.py` end to end with `gpt_mine.py` open beside it and mark every place it does something you did not: weight tying (`self.transformer.wte.weight = self.lm_head.weight`), the scaled init `std=0.02/sqrt(2*n_layer)` applied only to residual projections, `F.scaled_dot_product_attention` in place of your explicit mask, and `vocab_size=50304` where GPT-2's real vocabulary is 50257.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Read `configure_optimizers` and work out why parameters with `dim() >= 2` get weight decay while biases and LayerNorm gains do not. Compare against the plain `AdamW(model.parameters(), lr=1e-3)` in your file and decide, with a reason, whether it would matter at your scale.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Read `train.py` and write down the four mechanisms you have no equivalent for: gradient accumulation, the linear warmup plus cosine decay in `get_lr` (`warmup_iters`, `lr_decay_iters`, `min_lr`), gradient clipping at `grad_clip=1.0`, and checkpointing on best val loss. One sentence each on what specifically goes wrong at GPT-2 scale without it.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Run `python train.py config/train_shakespeare_char.py`. On an A100 it reaches val loss around 1.47 in roughly three minutes; on CPU add `--device=cpu --compile=False --block_size=64 --batch_size=12 --n_layer=4 --n_head=4 --n_embd=128 --max_iters=2000`. Then `python sample.py --out_dir=out-shakespeare-char` and put its output next to your Day 23 samples.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Trace `GPT.from_pretrained('gpt2')`: find the four weight names in the `transposed` list and explain why each needs `.t()` - Hugging Face's GPT-2 uses `Conv1D`, which stores its weight in the opposite orientation to `nn.Linear`. Then run `python sample.py --init_from=gpt2 --start='The patient presented with'` and read what 124M parameters trained on the open internet produce.
+:::
+:::
+
+## Resources
+
+- [nanoGPT](https://github.com/karpathy/nanoGPT) [repo]{.res-kind}
+- [Karpathy L7 - nanoGPT walkthrough starts at 01:46:22](https://www.youtube.com/watch?v=kCc8FmEb1nY) [video]{.res-kind}
+- [Hugging Face Transformers docs](https://huggingface.co/docs/transformers) [docs]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`nanogpt_diff.md` - a two-column table of what `gpt_mine.py` does against what nanoGPT does, covering weight tying, initialization, attention kernel, optimizer parameter groups, LR schedule, gradient accumulation, clipping and checkpointing. Plus a trained shakespeare-char checkpoint from nanoGPT and its val loss written next to yours from Day 23.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+nanoGPT ties `wte.weight` to `lm_head.weight`. How many parameters does that save on a 124M-parameter GPT-2 with vocabulary 50257 and n_embd=768, and what does tying assume about the relationship between input and output embeddings?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 27, Wednesday, 19 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Download SLP3 Ch7 from https://web.stanford.edu/~jurafsky/slp3/7.pdf and skim only the section headings, so you know tomorrow's shape.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Open `experiments.md` to the decoding table - tomorrow covers top-p, which you did not implement, and you will want your top-k numbers alongside.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Note at the top of `nanogpt_diff.md` anything you ran out of time to trace today, so it does not silently disappear.
+:::
+:::

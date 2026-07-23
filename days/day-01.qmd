@@ -1,0 +1,69 @@
+---
+title: "Day 1 — Tensors, gradients, and the chain rule"
+subtitle: "Friday, 24 July 2026 · Week 1 · Foundations · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Setup](../setup.qmd) · [All 50 days](../timeline.qmd) · [Day 2 →](day-02.qmd)
+:::
+
+::: {.why}
+Everything in the next 49 days is matrix multiplies and elementwise functions glued together by the chain rule, so today fixes the notation and the tensor mechanics before anything else depends on them.
+:::
+
+## What you should be able to do tonight
+
+- Derive the gradient of ||y - Xb||^2 with respect to b and land on -2X'(y - Xb) using only the identities from D2L 2.4, not memory.
+- Predict the output shape of A.sum(axis=0), A.sum(axis=1), and A.sum(axis=1, keepdims=True) for A of shape (5, 4) before running any of them.
+- Write a central-difference gradient checker and state what value of eps makes it worse rather than better.
+
+## Tasks <span class='task-total'>205 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [65 min]{.task-min} Read D2L 2.3 Linear Algebra in a notebook, typing every code cell instead of reading past it. Stop at every `axis=` argument and say the output shape out loud before you run the cell, especially where `keepdims=True` appears.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Read D2L 2.4 Calculus, including the gradient identities near the end: grad of Ax, of x'A, of x'Ax, and of ||x||^2. Copy those four into your notes by hand. You will use them constantly and you will not want to re-derive them each time.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Derive d/db of ||y - Xb||^2 on paper using only those identities, and confirm you get -2X'(y - Xb). You already know the closed-form OLS solution; the point is that today it falls out of the chain rule rather than out of a textbook box.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Implement `numerical_gradient(f, x, eps=1e-5)` using the central difference (f(x+eps) - f(x-eps)) / (2*eps) and check it against your analytic OLS gradient on a random X of shape (100, 5). Print the max absolute difference: it should sit at 1e-7 or below. Then rerun with eps=1e-12 and watch it get worse.
+:::
+:::
+
+## Resources
+
+- [D2L 2.3 - Linear Algebra](https://d2l.ai/chapter_preliminaries/linear-algebra.html) [textbook]{.res-kind}
+- [D2L 2.4 - Calculus](https://d2l.ai/chapter_preliminaries/calculus.html) [textbook]{.res-kind}
+- [D2L landing page](https://d2l.ai/) [textbook]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`day01_linalg_calculus.ipynb` containing the 2.3 and 2.4 cells you typed yourself, your hand-derived OLS gradient (photo or a LaTeX cell), and the numerical-vs-analytic check with the max absolute difference printed for eps=1e-5 and eps=1e-12.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+For A of shape (5, 4): why does `A / A.sum(axis=1)` either fail or silently give you the wrong thing, while `A / A.sum(axis=1, keepdims=True)` does what you meant?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 2, Saturday, 25 July 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Run `import torch; print(torch.__version__)` and confirm you have a 2.x build. Install it tonight if not, because tomorrow is entirely PyTorch.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Open D2L 2.5 Automatic Differentiation and read only the section headings. Five minutes, no code.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Bookmark the PyTorch autograd mechanics note; it is the second half of tomorrow's reading.
+:::
+:::

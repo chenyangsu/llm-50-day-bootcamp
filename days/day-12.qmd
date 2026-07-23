@@ -1,0 +1,68 @@
+---
+title: "Day 12 — What the embedding space encodes"
+subtitle: "Tuesday, 4 August 2026 · Week 2 · Language models · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 11](day-11.qmd) · [All 50 days](../timeline.qmd) · [Day 13 →](day-13.qmd)
+:::
+
+::: {.why}
+You trained an embedding matrix yesterday without asking what its geometry means; this chapter defines similarity in that space and shows what else gets encoded along with it.
+:::
+
+## What you should be able to do tonight
+
+- Compute cosine similarity between two rows of your own C and justify cosine rather than Euclidean distance.
+- State what PPMI corrects for relative to raw co-occurrence counts, and why the positive clipping is there.
+- Describe the skip-gram objective as logistic regression over (target, context) pairs with negative sampling, including where the negative samples come from.
+
+## Tasks <span class='task-total'>195 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [80 min]{.task-min} Read SLP3 Ch5 through the skip-gram training section. Derive the PPMI expression yourself from the definition of pointwise mutual information before reading the boxed version - it is a log ratio of observed to expected, the same shape as an enrichment statistic.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Load the C matrix saved from Day 11, project it to two dimensions with torch.pca_lowrank or sklearn PCA, scatter it with every character labelled, and check whether the vowels cluster.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Compute the full 27x27 cosine-similarity matrix over C, print each character's three nearest neighbours, and write down two neighbour pairs that make phonetic sense plus one that does not.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Read the bias-and-embeddings section near the end of Ch5, then write a paragraph on the analogous failure for an embedding trained on clinical notes - name the specific variable you would expect it to encode and how you would test for it.
+:::
+:::
+
+## Resources
+
+- [SLP3 Ch5 - Embeddings](https://web.stanford.edu/~jurafsky/slp3/5.pdf) [textbook]{.res-kind}
+- [nn-zero-to-hero repo (lectures/makemore/makemore_part2_mlp.ipynb)](https://github.com/karpathy/nn-zero-to-hero) [repo]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+embedding_inspect.py producing the labelled 2-D scatter of C as embedding_2d.png and the nearest-neighbour listing, plus the written paragraph on embedding bias in clinical text.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Without looking: your character vectors came from an MLP trained to predict the next character; word2vec's come from a classifier trained to say whether a (word, context) pair is real. Why does similarity end up meaningful in both?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 13, Wednesday, 5 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Queue makemore part 3 (1h55m) and open lectures/makemore/makemore_part3_bn.ipynb.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Keep yesterday's MLP training script runnable end to end - tomorrow you break it on purpose and need a working baseline to break.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Compute -log(1/27) tonight and write the number down; it is the loss your network should start at.
+:::
+:::

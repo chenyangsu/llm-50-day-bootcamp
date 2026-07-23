@@ -1,0 +1,75 @@
+---
+title: "Day 23 — Multi-head, feed-forward, residuals, LayerNorm - and it writes Shakespeare"
+subtitle: "Saturday, 15 August 2026 · Week 4 · Build a GPT · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 22](day-22.qmd) · [All 50 days](../timeline.qmd) · [Day 24 →](day-24.qmd)
+:::
+
+::: {.why}
+The rest of the transformer is four cheap ideas stacked around yesterday's expensive one, and by tonight the thing generates text you can read.
+:::
+
+## What you should be able to do tonight
+
+- You can say what each sublayer contributes - multi-head attention, the 4x feed-forward, the residual path, LayerNorm - and predict from your own ablation which removal costs the most val loss at 500 steps.
+- You can explain why the feed-forward acts on each token independently while attention does not, and why a block needs both.
+- You can state your scaled model's final val loss and how far it sits from the ~1.48 the video reaches on the same config.
+
+## Tasks <span class='task-total'>200 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Watch 01:19:11 to 01:32:51 and add `MultiHeadAttention` (4 heads of head_size 8 when n_embd=32), the `FeedForward` sublayer with its 4x inner width, and the residual connections around both. Note where the projection back to n_embd sits in each sublayer - that is what makes the residual addition shape-compatible.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Watch 01:32:51 to 01:42:00, add LayerNorm before each sublayer (pre-norm, which is not what the 2017 paper does) and dropout on each sublayer's output projection. Write in `notes.md` the two differences from the BatchNorm you implemented in makemore part 3: which axis is normalized, and why LayerNorm needs no running statistics and no train/eval switch.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [25 min]{.task-min} Scale to the video's config - n_layer=6, n_head=6, n_embd=384, block_size=256, batch_size=64, dropout=0.2, lr=3e-4, 5000 iterations - and launch the run before you start the next task. Roughly 15 minutes on an A100; budget over an hour on a Colab T4.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Ablate on the small config while the big run trains: 500 steps with residuals removed, 500 with LayerNorm removed, 500 unmodified. Record three val losses, not three impressions.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Generate 500 tokens from the trained model into `samples.md` and annotate what the model got right (speaker labels, line lengths, the shape of a scene) against what is nonsense (most of the actual words). Put a 500-token bigram sample from yesterday underneath for contrast.
+:::
+:::
+
+## Resources
+
+- [Karpathy L7 - Let's build GPT from scratch (1h56m)](https://www.youtube.com/watch?v=kCc8FmEb1nY) [video]{.res-kind}
+- [nn-zero-to-hero repo](https://github.com/karpathy/nn-zero-to-hero) [repo]{.res-kind}
+- [Google Colab](https://colab.research.google.com/) [tool]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+A trained 6-layer, 6-head, 384-dim model with its val loss recorded, `samples.md` with annotated generations from both the full model and the bigram, and a three-row ablation table (baseline / no residual / no LayerNorm) at 500 steps.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Why does removing residual connections hurt a 6-layer model far more than a 1-layer model? Answer in terms of what the gradient encounters on the way back to the embedding table.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 24, Sunday, 16 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Rename today's file to `gpt_karpathy.py` and move it into a different directory - not a background tab, a directory you will not open tomorrow.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Save the checkpoint with `torch.save(m.state_dict(), 'shakespeare_karpathy.pt')` so tomorrow's comparison costs no retraining.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Create an empty `gpt_mine.py` containing nothing but the imports you are sure you will need.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Close the video tab.
+:::
+:::

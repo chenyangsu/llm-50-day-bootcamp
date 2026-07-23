@@ -1,0 +1,68 @@
+---
+title: "Day 36 — GPT-3 and in-context learning"
+subtitle: "Friday, 28 August 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 35](day-35.qmd) · [All 50 days](../timeline.qmd) · [Day 37 →](day-37.qmd)
+:::
+
+::: {.why}
+Few-shot prompting is the cheapest thing you can do to a frozen model, and GPT-3 is where the claim that it works at all comes from. You read the claim in the morning and test it on your own PubMed task in the afternoon.
+:::
+
+## What you should be able to do tonight
+
+- State what changes inside the model during a few-shot prompt, and why the paper still calls it learning.
+- Report accuracy on your Day 33 held-out set at k = 0, 1, 5 and 20 demonstrations, with the spread across three different draws of the demonstration examples.
+- Name two task families in Section 3 where few-shot GPT-3 was still beaten by a smaller fine-tuned model.
+
+## Tasks <span class='task-total'>200 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [50 min]{.task-min} Read Sections 1 and 2 of GPT-3 (arXiv:2005.14165), including Table 2.1 (the eight model sizes from 125M to 175B) and Table 2.2 (the training mix). Write down the context window and the total training tokens - both come back on Sunday.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Skim Sections 3.1-3.8 at the level of the figures and the fine-tuned-SOTA comparison only, then read Section 3.9.1 (arithmetic), Section 4 (benchmark contamination, including the bug they admit to) and Section 5 (limitations) properly. Skip every appendix.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [75 min]{.task-min} Extend your Day 33 prompting script into `few_shot.py`: sample k demonstrations from the training split for k in {0, 1, 5, 20}, three independent draws each, and score all twelve runs on the same held-out set and the same metric you used on Day 33.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Plot accuracy against k with the three draws shown as separate points rather than a mean, and write five sentences on where the spread came from - example choice, example order, or class balance in the sampled demonstrations.
+:::
+:::
+
+## Resources
+
+- [GPT-3 - Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165) [paper]{.res-kind}
+- [Hugging Face Transformers docs](https://huggingface.co/docs/transformers) [docs]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`few_shot.py`, a plot of accuracy against k with all three demonstration draws plotted separately, and a five-sentence note on the spread.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Your k = 20 run beats your k = 0 run. Without rerunning anything, how would you tell whether that gain came from the model inferring the task from the examples or from the examples merely pinning down the label set and the output format?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 37, Saturday, 29 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Download the Scaling Laws PDF (arXiv:2001.08361) so it is on disk before you start.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Type Table 2.1 into a small CSV - eight rows, parameters, layers, d_model, heads. You will plot against it tomorrow.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Write one line, dated, guessing how validation loss scales with parameter count: linear, logarithmic, power law, or something else. Do it before you read tomorrow's paper.
+:::
+:::

@@ -1,0 +1,111 @@
+---
+title: "50-Day LLM Bootcamp"
+subtitle: "From backpropagation to a model you built, fine-tuned, and evaluated honestly. 24 July – 11 September 2026."
+toc: false
+---
+
+::: {#today-banner}
+:::
+
+## What this is
+
+Fifty consecutive days, each sized for three to four focused hours. It follows one rule the whole way
+through: **you do not get to skip backpropagation, tokenization, or attention.** Those three are where
+people who "know LLMs" turn out not to, and they are cheap to learn properly now and expensive to fake later.
+
+The first four weeks you build everything yourself — an autograd engine, a bigram model, a byte-pair
+encoder, a decoder-only transformer. Only after that do you touch Hugging Face, because the library is much
+easier to reason about once you already know what it is hiding. Weeks five through seven cover the
+pretrained ecosystem, scaling laws, post-training, retrieval, and evaluation, carried by one applied
+project on PubMed abstracts that starts on day 33 and is still running on day 50.
+
+## How a day works
+
+Every day page has the same seven parts, in this order:
+
+| Part | What it's for |
+|:--|:--|
+| **Why today** | One sentence on what this day unlocks. Read it before you start. |
+| **What you should be able to do tonight** | Two or three checkable claims. Not "understand attention". |
+| **Tasks** | Three to five items with minute estimates. Tick them off; the page remembers. |
+| **Resources** | Every link the day needs. Nothing you have to go hunting for. |
+| **Deliverable** | The artifact you should have at the end — a file, a notebook, a plot, a paragraph. |
+| **Checkpoint** | One question. If you can't answer it without notes, you are not done. |
+| **Prepare for tomorrow** | Ten minutes tonight. This is what the evening email sends you. |
+
+## The seven phases
+
+::: {.phase-grid}
+::: {.phase-card}
+<span class="phase-days">Days 1–7</span>
+#### Foundations
+Linear algebra, calculus, autograd. Karpathy's micrograd, built twice — the second time from an empty file.
+Softmax regression as multinomial logistic regression. A two-layer MLP with a backward pass you wrote yourself.
+:::
+::: {.phase-card}
+<span class="phase-days">Days 8–14</span>
+#### Language models
+N-grams, perplexity and smoothing before any neural machinery. Then makemore parts 1–3: a bigram count
+table and a one-layer network computing the same thing, then an MLP, then how to debug a network that trains badly.
+:::
+::: {.phase-card}
+<span class="phase-days">Days 15–21</span>
+#### Tokens and attention
+Manual backprop through a whole network. BPE implemented from scratch and trained on your own PubMed corpus.
+Then the transformer on paper — the textbook chapter and the original paper — with no transformer code yet.
+:::
+::: {.phase-card}
+<span class="phase-days">Days 22–28</span>
+#### Build a GPT
+Follow Karpathy through a decoder-only transformer, then rebuild it with the video closed. Sweep the
+hyperparameters and report a table. Read nanoGPT and diff it against yours. Milestone 1.
+:::
+::: {.phase-card}
+<span class="phase-days">Days 29–35</span>
+#### Pretrained models
+The Hugging Face course, chapters 1–3. Encoder versus decoder, and when an encoder is still right.
+The applied project starts: PubMed abstracts, a prompting baseline first, then a fine-tune. Milestone 2.
+:::
+::: {.phase-card}
+<span class="phase-days">Days 36–42</span>
+#### Scaling and post-training
+GPT-3, scaling laws, Chinchilla — read critically, and redo the compute arithmetic yourself.
+InstructGPT for why a base model isn't an assistant. LoRA, with your hands on it.
+:::
+::: {.phase-card}
+<span class="phase-days">Days 43–50</span>
+#### Pipeline, RAG, evaluation
+DPO. nanochat end to end, which is the only place you see all the stages at once. Retrieval over your
+abstracts. Then evaluation, which is the part that matters most for clinical work. Capstone on day 50.
+:::
+:::
+
+## Five rules that make this work
+
+1. **Reproduce, don't watch.** A Karpathy lecture you watched is worth roughly nothing. Type it out, run
+   it, break it. If a day's tasks say "rebuild from an empty file", that instruction is the day.
+2. **Change one thing.** After you reproduce something, change the model width, the context length, the
+   learning rate, or the sampling temperature, and predict what happens before you run it. Being wrong is
+   the useful part.
+3. **Produce the deliverable.** Every day names an artifact. If you finish a day with nothing on disk,
+   the day did not happen.
+4. **Answer the checkpoint out loud.** It takes ninety seconds and it is the only honest signal you have
+   about whether you learned the thing or watched someone else know it.
+5. **Catch-up days are load-bearing.** Days 7, 14, 21, 28, 35, 42 and 49 are deliberately not full. They
+   exist because you will fall behind somewhere, and a plan with no slack is a plan you abandon in week
+   three. If you are on track, take the day off or go deeper. Do not pull work forward into them by default.
+
+## The evening email
+
+Every evening at about 8:10 pm you get one email: what tomorrow is, and the two-to-four things worth doing
+tonight so tomorrow starts clean — download the PDF, clone the repo, start the dataset downloading, confirm
+the GPU is awake. Nothing in that email takes more than ten minutes. It is the same content as the
+**Prepare for tomorrow** block at the bottom of each day page.
+
+## Start here
+
+Tonight: [set up your environment](setup.qmd) — Python, PyTorch, a working GPU or Colab runtime, and two
+accounts. About an hour, and it is the difference between day 1 being a study day and day 1 being an
+afternoon of dependency errors.
+
+Then: [Day 1](days/day-01.qmd), or [the full 50 days](timeline.qmd).

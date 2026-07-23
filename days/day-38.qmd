@@ -1,0 +1,68 @@
+---
+title: "Day 38 — Chinchilla: doing the compute arithmetic yourself"
+subtitle: "Sunday, 30 August 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 37](day-37.qmd) · [All 50 days](../timeline.qmd) · [Day 39 →](day-39.qmd)
+:::
+
+::: {.why}
+Kaplan's allocation pushed the field toward ever-larger, under-trained models. Chinchilla redid the experiment and got a different answer, and the only way to own that disagreement is to do the FLOP arithmetic on paper instead of quoting the 20-tokens-per-parameter rule.
+:::
+
+## What you should be able to do tonight
+
+- Derive, from C = 6ND and a target of 20 tokens per parameter, the model size and token count that Gopher's budget of 5.76e23 FLOPs should have bought, and check that you land on Chinchilla's 70B and 1.4T.
+- Compute how much too large GPT-3 was at its own compute budget under Chinchilla's rule, and state the factor.
+- Name the reasons Chinchilla gives for why Kaplan's exponent came out wrong, and say which one you find most convincing.
+
+## Tasks <span class='task-total'>180 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [60 min]{.task-min} Read Section 1 and Section 3 of Chinchilla (arXiv:2203.15556): the training-curve envelope (3.1), the IsoFLOP profiles (3.2), and the parametric fit L(N,D) = E + A/N^alpha + B/D^beta (3.3). For each of the three, write one sentence on what would have to be true for it to give the wrong answer.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Do the arithmetic on paper, not in the paper. (a) With C = 6ND and D = 20N, solve for N at C = 5.76e23 FLOPs and check both N and D against the paper. (b) Repeat at GPT-3's own budget, C = 6 x 1.75e11 x 3e11, and report how many times too large and how many times under-trained GPT-3 was under this rule.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Write the reconciliation with yesterday: the two allocation exponent sets side by side (Kaplan N ~ C^0.73 and D ~ C^0.27; Chinchilla roughly N ~ C^0.5 and D ~ C^0.5), then the reasons Chinchilla gives - the learning-rate schedule length held fixed regardless of token count, and the exclusion of embedding parameters from N. Add one line on whether the parametric fit in 3.3 carries the uncertainty quantification you asked for yesterday; a later replication attempt could not reproduce that fit from the paper's own numbers.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Write four sentences on what the objective actually is: training FLOPs to reach a given loss, with inference cost nowhere in it. State what a 20-tokens-per-parameter model costs you if you intend to serve it a million times, and what that argues for instead.
+:::
+:::
+
+## Resources
+
+- [Training Compute-Optimal Large Language Models (Chinchilla)](https://arxiv.org/abs/2203.15556) [paper]{.res-kind}
+- [Scaling Laws for Neural Language Models](https://arxiv.org/abs/2001.08361) [paper]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+One page of hand-done arithmetic: N and D at Gopher's budget, the same at GPT-3's budget with the over-sizing factor, the two allocation exponent sets side by side, and the reasons for the disagreement.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+You have 1e22 FLOPs. Someone offers you a 4B-parameter model trained on 420B tokens or a 30B-parameter model trained on 56B tokens - both fit the budget. Which do you take, and what would change your answer?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 39, Monday, 31 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Download SLP3 Chapter 9 (9.pdf). It is 18 pages, so it is a read-in-one-sitting chapter.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Write one sentence on what you think separates a base model from a chat model, before the textbook tells you.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Open your Day 35 failure taxonomy. You rerun the worst cases from it tomorrow afternoon.
+:::
+:::

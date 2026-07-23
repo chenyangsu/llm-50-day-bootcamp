@@ -1,0 +1,74 @@
+---
+title: "Day 47 — Milestone 4 - RAG over your abstract corpus, measured in two halves"
+subtitle: "Tuesday, 8 September 2026 · Week 7 · Pipeline, RAG, evaluation · Milestone · 3-4 h"
+---
+
+::: {.day-nav .kind-milestone}
+[← Day 46](day-46.qmd) · [All 50 days](../timeline.qmd) · [Day 48 →](day-48.qmd)
+:::
+
+::: {.why}
+Building the retriever takes an hour; the reason this is a milestone is that you will measure retrieval and generation separately, which is the step most published RAG evaluations skip and the reason many of their numbers do not mean what they appear to.
+:::
+
+## What you should be able to do tonight
+
+- You can report recall@1, recall@5 and MRR for your retriever with no reference to any generated answer.
+- You can report a gold-context ceiling and a no-context floor on the same questions, and say what fraction of the gap between them your retriever actually closes.
+- You can split your end-to-end errors into retrieval failures and generation failures with counts, and defend the assignment of any single case.
+
+## Tasks <span class='task-total'>210 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Chunk and embed the corpus. Decide explicitly between whole-abstract chunks and sentence windows and write down why - for 250-word abstracts this is a real choice, not a default. Embed with your bi-encoder, L2-normalize, and build a FAISS IndexFlatIP so that inner product is cosine and the search is exact; save the ID mapping alongside the index.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Build a 30-query evaluation set with known relevant abstract IDs. Check for the leak that ruins this kind of eval: if a query was written by paraphrasing one abstract, that abstract is trivially retrievable and your recall is inflated. Mark any such query and keep them in a separate bucket.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Evaluate the retriever alone. Compute recall@1, recall@5, recall@20 and MRR for the dense index and for yesterday's BM25 baseline over the same 30 queries. Report both, and note where they disagree - the queries where BM25 wins usually contain an exact gene or drug symbol.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [50 min]{.task-min} Wire retrieval into the generator and evaluate end to end using the Milestone 2 metrics from Day 35. Report the retrieval table and the end-to-end table as two separate tables with no combined score anywhere in the document.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [25 min]{.task-min} Run the two ablations that make the end-to-end number interpretable: feed the correct abstract directly with no retriever (the ceiling), and feed no context at all (the floor). Record both.
+:::
+:::
+
+## Resources
+
+- [sentence-transformers](https://www.sbert.net/) [docs]{.res-kind}
+- [FAISS](https://github.com/facebookresearch/faiss) [repo]{.res-kind}
+- [SLP3 Ch11 - Information Retrieval and RAG](https://web.stanford.edu/~jurafsky/slp3/11.pdf) [textbook]{.res-kind}
+- [Retrieval-Augmented Generation (Lewis et al.)](https://arxiv.org/abs/2005.11401) [paper]{.res-kind}
+- [NCBI E-utilities - programmatic PubMed access](https://www.ncbi.nlm.nih.gov/books/NBK25501/) [docs]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+A FAISS index over the abstract corpus plus rag_eval.md containing a retrieval-only table (dense vs BM25, recall@k and MRR), a separate end-to-end table with the gold-context ceiling and no-context floor, and error counts split into retrieval failures and generation failures.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+End-to-end accuracy rose from 0.61 to 0.72 when you added retrieval, and recall@5 is 0.55 - what is the highest end-to-end accuracy this retriever can support, and which of your numbers tells you that?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 48, Wednesday, 9 September 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Open the MedHELM leaderboard and scroll the full scenario list once without reading details.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Skim the HELM paper abstract (arXiv 2211.09110) and find the figure showing the scenario-by-metric grid.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Note in your log that HELM entered maintenance mode on 2026-06-01, so leaderboard coverage stops at models released before then.
+:::
+:::

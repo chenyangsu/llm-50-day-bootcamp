@@ -1,0 +1,67 @@
+---
+title: "Day 37 — Scaling laws, and how far you can trust a fitted line"
+subtitle: "Saturday, 29 August 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 36](day-36.qmd) · [All 50 days](../timeline.qmd) · [Day 38 →](day-38.qmd)
+:::
+
+::: {.why}
+Kaplan et al. claim loss falls as a power law in parameters, data and compute across seven orders of magnitude of compute. You fit curves for a living, so read this one the way you would read a manuscript you were asked to referee.
+:::
+
+## What you should be able to do tonight
+
+- Write down the three power laws with their exponents and say what each one holds fixed.
+- Explain why a bare power law with no additive constant must be wrong at large N, and name the term Chinchilla adds tomorrow to fix it.
+- State how Kaplan counts N, and what the paper shows happens to the trend when embedding parameters are put back in.
+
+## Tasks <span class='task-total'>190 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [50 min]{.task-min} Read Section 1 - especially 1.2, the summary of scaling laws - and Section 2 for the notation and the derivation of C = 6ND. Copy the three exponents into your notes; you should find alpha_N around 0.076, alpha_D around 0.095 and alpha_C around 0.050, each with the range of N, D or C over which it was fitted.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Read Section 3 (the basic power laws, and why N excludes embedding parameters), move quickly through Sections 4 and 5, then read Section 6 properly: 6.1 gives the compute-optimal allocation N proportional to C^0.73 and D proportional to C^0.27, and 6.3 admits the trends must break somewhere.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Plot the fitted L(N) curve over the range Kaplan actually trained, then extrapolate it out to N = 1e15 and mark the point where the predicted loss crosses 1 nat per token. Write one sentence on what that crossing tells you about the functional form, given that text has nonzero entropy.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Write half a page as a referee: name the estimator (what is regressed on what, and in which space), list what is not reported (standard errors, residual structure, runs per point, sensitivity to the fitting range), and name the single claim you would ask the authors to weaken.
+:::
+:::
+
+## Resources
+
+- [Scaling Laws for Neural Language Models](https://arxiv.org/abs/2001.08361) [paper]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+A notebook with L(N) plotted over its fitted range and extrapolated well past it, the 1-nat crossing marked, and a half-page referee note on the fitting and the extrapolation.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+alpha_N is about 0.076. If you increase N tenfold and change nothing else, by what factor does the fitted L(N) say the loss falls, and is that a large effect or a small one?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 38, Sunday, 30 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Download the Chinchilla PDF (arXiv:2203.15556).
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Write today's numbers on one line where you can see them tomorrow: alpha_N, alpha_D, and the N proportional to C^0.73 allocation. Tomorrow's paper contradicts the last one.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Open a blank notebook and put C = 6ND at the top. That single line is tomorrow's entire arithmetic.
+:::
+:::

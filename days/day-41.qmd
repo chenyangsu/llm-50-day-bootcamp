@@ -1,0 +1,69 @@
+---
+title: "Day 41 — LoRA: fine-tuning without the optimizer state"
+subtitle: "Wednesday, 2 September 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 40](day-40.qmd) · [All 50 days](../timeline.qmd) · [Day 42 →](day-42.qmd)
+:::
+
+::: {.why}
+On Day 34 you updated every weight in the model. Today you update a fraction of a percent of them and measure what that costs in task metrics and what it buys in memory. The paper's claim is that the update you need is low-rank; your job is to check whether it holds on your task.
+:::
+
+## What you should be able to do tonight
+
+- Predict, before you run anything, the ratio of peak GPU memory between the Day 34 full fine-tune and a LoRA run, and justify the prediction in terms of Adam's optimizer state rather than the weights themselves.
+- State what r and alpha each control, and why the update is scaled by alpha/r.
+- Report trainable parameter count, peak memory, wall-clock and your Day 35 metrics at r = 2, 8 and 32 against the Day 34 baseline.
+
+## Tasks <span class='task-total'>190 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Read LoRA Section 1, Section 4 (the W0 + BA parametrization, B initialized to zero and A Gaussian, the alpha/r scaling, and which Transformer matrices they adapt), and Section 7 - 7.1 on which matrices matter, 7.2 on how small r can get away with being, 7.3 on what the update amplifies. Skip the GLUE tables in Section 5.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [15 min]{.task-min} Write your predictions down before touching the GPU: peak memory ratio, wall-clock ratio, and the accuracy delta on your held-out set. Date them. You will be wrong about at least one and the point is to know which.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [80 min]{.task-min} Wrap the Day 34 training script with PEFT - `LoraConfig(r=8, lora_alpha=16, target_modules=[...])`, `get_peft_model`, then `print_trainable_parameters()` - keeping the same base model, same split and same seed as Day 34. Run r = 2, 8 and 32 with lora_alpha fixed at 16, recording `torch.cuda.max_memory_allocated()` and wall-clock for each.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Fill in a four-row table - Day 34 full fine-tune, r = 2, r = 8, r = 32 - with trainable parameters, trainable fraction, peak memory, wall-clock, saved checkpoint size on disk, and your Day 35 metrics. Write three sentences naming which prediction was wrong and why.
+:::
+:::
+
+## Resources
+
+- [LoRA - Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685) [paper]{.res-kind}
+- [PEFT docs](https://huggingface.co/docs/peft) [docs]{.res-kind}
+- [Hugging Face Transformers docs](https://huggingface.co/docs/transformers) [docs]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`train_lora.py`, the four-row comparison table including checkpoint size on disk, and your written predictions sitting next to the measured values.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Your LoRA run trains roughly a thousandth as many parameters as Day 34, so why does peak memory not fall by anything close to a factor of a thousand?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 42, Thursday, 3 September 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Collect the numbers from Days 33, 34 and 41 into one scratch file: accuracy, calibration, wall-clock, peak memory, cost per thousand abstracts. Hunting for them is not how to spend a light day.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Skim the abstract of the RAG paper (arXiv:2005.11401). You do not build it until Day 47, but you need enough to fill one row of tomorrow's table as a prediction.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Decide now whether tomorrow is a catch-up day or a day off. Both are allowed.
+:::
+:::

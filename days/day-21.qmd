@@ -1,0 +1,72 @@
+---
+title: "Day 21 — Catch-up: the block from memory, with shapes on every arrow"
+subtitle: "Thursday, 13 August 2026 · Week 3 · Tokens and attention · Catch-up day · 2-3 h"
+---
+
+::: {.day-nav .kind-catchup}
+[← Day 20](day-20.qmd) · [All 50 days](../timeline.qmd) · [Day 22 →](day-22.qmd)
+:::
+
+::: {.why}
+No new material today. Week 4 is the build week - you write a GPT from scratch - and the thing that derails people there is not attention, it is losing track of shapes and spending an hour on a transpose. So today you draw the architecture from memory and put a shape on every arrow. If Days 15-20 all landed, the rest of the day is yours to spend or skip.
+:::
+
+## What you should be able to do tonight
+
+- You can draw a decoder-only transformer block from memory with no reference and get the order of layer norm, attention, residual, layer norm, feed-forward, residual right.
+- You can write the shape of every intermediate tensor from idx (64, 256) to logits (64, 256, 65) without running any code.
+- You can total the parameter count of the 6-layer, 384-wide, 6-head model and say which sublayer holds most of it.
+
+## Tasks <span class='task-total'>145 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Clear the one thing still outstanding from Days 15-20. If everything is done, skip straight to the next task - do not invent work.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Draw a complete decoder-only transformer from memory on paper, no notes: token embedding, positional embedding, then the repeated block, then final layer norm and the language modelling head. Only then open SLP3 Ch8 and Figure 1 of the paper, and mark your mistakes in a second colour.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [50 min]{.task-min} Annotate a full forward pass with shapes for B = 64, T = 256, vocab = 65, d_model = 384, 6 heads (so d_k = 64), 6 layers: idx (64, 256), token embedding, position add, q/k/v projection and the reshape to (64, 6, 256, 64), scores (64, 6, 256, 256), mask, softmax, the weighted sum of values, the concat back to (64, 256, 384), output projection, feed-forward through 1536 and back, and logits (64, 256, 65). Write the shape of every weight matrix as you go and total them - you should land near 10.6 M non-embedding parameters.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [20 min]{.task-min} Write half a page naming the three things from this week you would still have to look up if you started writing model.py tomorrow morning. Be specific - 'the reshape before scores' is useful, 'attention' is not.
+:::
+:::
+
+## Resources
+
+- [SLP3 Ch8 - Transformers (to check your drawing against)](https://web.stanford.edu/~jurafsky/slp3/8.pdf) [textbook]{.res-kind}
+- [Attention Is All You Need](https://arxiv.org/abs/1706.03762) [paper]{.res-kind}
+- [nanoGPT - model.py and train.py, about 300 lines each](https://github.com/karpathy/nanoGPT) [repo]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+One page holding the block drawn from memory with corrections marked in a second colour, the shape-annotated forward pass ending in a parameter total, and three specific gaps named.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Without notes: name every tensor between idx of shape (64, 256) and logits of shape (64, 256, 65), in order, with its shape. If you cannot get past the attention scores, reread the multi-head attention section of SLP3 Ch8 tonight rather than starting Week 4 short.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 22, Friday, 14 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Clone nanoGPT and read the README only - tomorrow is the build week and you want the repo already on disk.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Run python data/shakespeare_char/prepare.py inside the clone - it pulls TinyShakespeare down to data/shakespeare_char/input.txt and then writes train.bin and val.bin. Copy input.txt into the folder you will write tomorrow's gpt.py in, and confirm the character vocab comes out at 65.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Confirm your compute actually works: run a tensor on the GPU with torch.cuda.is_available() locally, or open Colab, set the runtime to a GPU, and check nvidia-smi returns a card. Do this tonight, not Friday morning.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Note the parameter count nanoGPT prints when it starts on the shakespeare_char config, and compare it to the number you totalled today.
+:::
+:::

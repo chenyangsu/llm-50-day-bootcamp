@@ -1,0 +1,74 @@
+---
+title: "Day 46 — Retrieval: BM25, bi-encoders, and when RAG is the wrong answer"
+subtitle: "Monday, 7 September 2026 · Week 7 · Pipeline, RAG, evaluation · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 45](day-45.qmd) · [All 50 days](../timeline.qmd) · [Day 47 →](day-47.qmd)
+:::
+
+::: {.why}
+Retrieval is the default fix for anything a model does not know, and half the time it works while the other half it moves the failure somewhere you stopped measuring - today is the theory plus the decision rule for telling those apart.
+:::
+
+## What you should be able to do tonight
+
+- You can write the BM25 score for a single query term by hand and say what k1 and b each control.
+- You can state the difference between a bi-encoder and a cross-encoder, and why only one of them can be precomputed into a FAISS index.
+- You can name two conditions under which fine-tuning beats retrieval on your abstract task, and two under which retrieval wins.
+
+## Tasks <span class='task-total'>200 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Read SLP3 Ch11 through the classical IR material: tf-idf, the BM25 scoring function, inverted indexes, and the standard IR metrics. Pay attention to how BM25 saturates term frequency - it is a fixed nonlinearity someone chose, not something estimated, and that is worth noticing.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Read the rest of Ch11: dense retrieval with bi-encoders, approximate nearest-neighbour search, chunking, and the RAG section. Write down every design choice the chapter treats as free that you think is actually load-bearing for a corpus of 250-word abstracts.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Read the RAG paper (arXiv 2005.11401). Separate RAG-Sequence from RAG-Token, and be precise about which components were trained and which were frozen - the document encoder and the index stay fixed while the query encoder and generator are fine-tuned, and that asymmetry is the whole engineering story.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Implement BM25 in about 20 lines of numpy over 200 of your PubMed abstracts. Query it with five real questions, then sweep k1 over {0.5, 1.2, 2.0} and b over {0, 0.75, 1.0} and record how the top-5 changes.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [25 min]{.task-min} Write a one-page decision note for your abstract task: what fine-tuning can do that retrieval cannot, what retrieval can do that fine-tuning cannot, and two concrete failure modes where adding retrieval makes a knowledge problem look solved without solving it.
+:::
+:::
+
+## Resources
+
+- [SLP3 Ch11 - Information Retrieval and RAG](https://web.stanford.edu/~jurafsky/slp3/11.pdf) [textbook]{.res-kind}
+- [Retrieval-Augmented Generation (Lewis et al.)](https://arxiv.org/abs/2005.11401) [paper]{.res-kind}
+- [sentence-transformers](https://www.sbert.net/) [docs]{.res-kind}
+- [FAISS](https://github.com/facebookresearch/faiss) [repo]{.res-kind}
+- [PubMed](https://pubmed.ncbi.nlm.nih.gov/) [tool]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+A working BM25 scorer over 200 abstracts with a k1/b sweep table, and a one-page fine-tune-versus-retrieve decision note for your own task.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Your RAG variant answers a question correctly and your fine-tuned model does not - what are the explanations other than 'retrieval supplied the missing fact', and which ablation separates them?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 47, Tuesday, 8 September 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Put your PubMed abstract corpus in one directory with stable IDs, and check the file count.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Download a sentence-transformers bi-encoder checkpoint now so tomorrow does not start with a download.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Write five query-to-abstract pairs where you already know the right answer - just five, the rest is tomorrow's work.
+:::
+:::

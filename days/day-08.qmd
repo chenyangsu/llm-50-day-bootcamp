@@ -1,0 +1,71 @@
+---
+title: "Day 8 — A language model you can count by hand"
+subtitle: "Friday, 31 July 2026 · Week 2 · Language models · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 7](day-07.qmd) · [All 50 days](../timeline.qmd) · [Day 9 →](day-09.qmd)
+:::
+
+::: {.why}
+A language model is a conditional probability table before it is anything else, and estimating one by counting gives you a baseline that every neural model this month has to beat.
+:::
+
+## What you should be able to do tonight
+
+- Write the chain rule of probability for a 5-token sentence, then write what the bigram Markov assumption replaces it with, and name what is thrown away.
+- Derive the bigram MLE as count(w_prev, w) / count(w_prev) from the multinomial log-likelihood rather than quoting it as a definition.
+- Sample 10 names from your own bigram model and explain why they are name-shaped but not names.
+
+## Tasks <span class='task-total'>205 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [65 min]{.task-min} Read SLP3 Ch3 sections 3.1-3.4. Before you reach the MLE equation, stop and maximize the multinomial log-likelihood yourself on paper - it is the same estimator you use for allele frequencies, with the same Lagrange-multiplier normalization step.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Clone github.com/karpathy/makemore, confirm names.txt loads and count the entries (32,033), then build a 27x27 integer tensor N of character bigram counts using '.' as index 0 for both start and end of a name.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Normalize N row-wise into P, assert P.sum(dim=1) is all ones to within floating-point tolerance, and sample 10 names with torch.multinomial under a fixed generator seed so the run is reproducible.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [25 min]{.task-min} Compute by hand, from the raw counts, the MLE probability of three specific bigrams - ('.', 'a'), ('q', 'u'), ('n', '.') - and check each against the corresponding entry of P.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [20 min]{.task-min} Write five sentences in bigram_notes.md on what a bigram model cannot represent: name one property of real names that needs more than one character of context.
+:::
+:::
+
+## Resources
+
+- [SLP3 Ch3 - N-gram Language Models](https://web.stanford.edu/~jurafsky/slp3/3.pdf) [textbook]{.res-kind}
+- [makemore repo (names.txt, 32K SSA names)](https://github.com/karpathy/makemore) [repo]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+bigram_counts.py (or a notebook) that builds the 27x27 count matrix from names.txt, prints the 10 most frequent bigrams with their MLE probabilities, samples 10 names, and saves N to disk. Plus bigram_notes.md.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Without looking: show that count(w_prev, w) / count(w_prev) is the maximizer of the multinomial log-likelihood, not just a reasonable-looking ratio.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 9, Saturday, 1 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> torch.save the 27x27 count matrix N so tomorrow starts from it instead of a rebuild.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Split names.txt into 90% train and 10% held-out with a fixed seed, and write both to disk as separate files.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Skim the two pages of SLP3 3.5 that define perplexity - do not work through it, just see the equation once.
+:::
+:::

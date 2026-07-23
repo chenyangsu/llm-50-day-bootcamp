@@ -1,0 +1,72 @@
+---
+title: "Day 11 — Embeddings and a context window"
+subtitle: "Monday, 3 August 2026 · Week 2 · Language models · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 10](day-10.qmd) · [All 50 days](../timeline.qmd) · [Day 12 →](day-12.qmd)
+:::
+
+::: {.why}
+A count table for a 3-character context needs 19,683 rows and most of them are empty; the embedding table from Bengio 2003 is how you buy more context without buying more rows.
+:::
+
+## What you should be able to do tonight
+
+- State what the embedding matrix C gives you that the one-hot bigram W cannot, in terms of how parameter count grows as the context window goes from 1 to 3 characters.
+- Pick a learning rate from a swept loss-vs-exponent plot rather than by feel, and justify the point you picked.
+- Report train, dev and test loss separately and say which of the three you are allowed to look at more than once.
+
+## Tasks <span class='task-total'>215 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [75 min]{.task-min} Watch makemore part 2 (1h15m), building alongside: the C embedding table, block_size=3 context, a tanh hidden layer, and the output logits.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Build the dataset yourself at block_size=3 with an 80/10/10 train/dev/test split, then print X.shape and Y.shape and confirm by hand that row 0 of X is the context you expect for the first name.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Sweep the learning rate over 10**torch.linspace(-3, 0, 1000) across 1000 steps, plot loss against the exponent, and choose the rate from the region where the curve still descends but has started to get noisy.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Train to a dev loss under about 2.2, then raise n_embd or n_hidden once and report whether dev loss followed train loss down or split away from it.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [20 min]{.task-min} Sample 20 names from the MLP, put them beside the Day 10 bigram samples, and write two sentences naming what specifically improved - not 'they look better'.
+:::
+:::
+
+## Resources
+
+- [Karpathy L3 - makemore part 2, MLP (1h15m)](https://www.youtube.com/watch?v=TCH_1BHY58I) [video]{.res-kind}
+- [nn-zero-to-hero repo (lectures/makemore/makemore_part2_mlp.ipynb)](https://github.com/karpathy/nn-zero-to-hero) [repo]{.res-kind}
+- [D2L 5.1 - Multilayer Perceptrons](https://d2l.ai/chapter_multilayer-perceptrons/mlp.html) [textbook]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+makemore_mlp.py with the 80/10/10 split, the learning-rate sweep saved as lr_sweep.png, and train/dev/test losses added to the results file alongside the Day 8 and Day 10 numbers.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Without looking: with 27 characters and a 3-character context, how many rows would a pure count table need? Count the parameters your MLP used instead, and say where the saving comes from.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 12, Tuesday, 4 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> torch.save the trained C matrix so tomorrow you can inspect it without retraining.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Download SLP3 Ch5 and skim the figure showing words projected into two dimensions.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Confirm torch.pca_lowrank or sklearn's PCA imports cleanly - tomorrow's projection needs one of them.
+:::
+:::

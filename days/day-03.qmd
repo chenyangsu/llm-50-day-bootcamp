@@ -1,0 +1,70 @@
+---
+title: "Day 3 — micrograd, first half: the Value object and the expression graph"
+subtitle: "Sunday, 26 July 2026 · Week 1 · Foundations · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 2](day-02.qmd) · [All 50 days](../timeline.qmd) · [Day 4 →](day-04.qmd)
+:::
+
+::: {.why}
+Karpathy builds a working autograd engine in about 100 lines of plain Python, and watching it assembled node by node is what turns `backward()` from a call into a mechanism you could rewrite yourself.
+:::
+
+## What you should be able to do tonight
+
+- Explain why the numerical derivative gets worse rather than better once h drops below roughly 1e-8.
+- Given `c = a * b`, write the two lines that set `a.grad` and `b.grad` from `c.grad` without consulting the video.
+- Say what `_prev` and `_op` are stored for, and which nodes in an expression graph are leaves.
+
+## Tasks <span class='task-total'>205 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [115 min]{.task-min} Watch the micrograd lecture from 0:00 to roughly 1:15, typing along in `lectures/micrograd/micrograd_lecture_first_half_roughly.ipynb`. Budget well over the 75 minutes of runtime - with pauses and typing this is closer to two hours, and that is the correct way to do it.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [30 min]{.task-min} Reproduce the numerical-derivative section yourself: define f(x) = 3x^2 - 4x + 5, compute (f(x+h) - f(x)) / h at x = 3 for h in [1e-1, 1e-3, 1e-6, 1e-12], and plot the absolute error against the analytic value 6x - 4 = 14. Explain in one sentence why h = 1e-12 is worse than h = 1e-6.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Do the tanh neuron by hand before the video shows you: x1 = 2.0, w1 = -3.0, x2 = 0.0, w2 = 1.0, b = 6.8813735870195432, n = x1*w1 + x2*w2 + b, o = tanh(n). Fill in every `.grad` on paper, then check against the video. o comes out at 0.7071, so do/dn = 1 - o^2 = 0.5 exactly - that is the number every other gradient is scaled by.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [20 min]{.task-min} Draw the expression graph for a = 2.0, b = -3.0, c = 10.0, d = a*b + c on paper. Label every node with its `data`, its `_op`, and its `_prev` set, and mark which nodes are leaves. `d.data` should be 4.0.
+:::
+:::
+
+## Resources
+
+- [Karpathy L1 - micrograd, the spelled-out intro to backpropagation (2h25m)](https://www.youtube.com/watch?v=VMj-3S1tku0) [video]{.res-kind}
+- [nn-zero-to-hero repo (lectures/micrograd/)](https://github.com/karpathy/nn-zero-to-hero) [repo]{.res-kind}
+- [micrograd - the ~100-line autograd engine](https://github.com/karpathy/micrograd) [repo]{.res-kind}
+- [Neural Networks: Zero to Hero course page](https://karpathy.ai/zero-to-hero.html) [video]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`micrograd_lecture_first_half_roughly.ipynb` filled in by your own typing up to the 1:15 mark, plus a hand-drawn expression graph for the tanh neuron with every local derivative labelled (a photo in the folder is fine).
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+For `c = a + b`, `a.grad` picks up `1.0 * c.grad`. For `c = a * b`, it picks up `b.data * c.grad`. Where does the multiplier come from in each case - in one sentence, without using the phrase 'chain rule'?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 4, Monday, 27 July 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Queue the micrograd video at 1:15 and open `micrograd_lecture_second_half_roughly.ipynb`.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Create an empty file called `mygrad.py` in your working directory and leave it empty. Tomorrow you write micrograd into it from nothing.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Look at the file listing of `github.com/karpathy/micrograd` and note that `engine.py` is about 100 lines. Still do not open it.
+:::
+:::

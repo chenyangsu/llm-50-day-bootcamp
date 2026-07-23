@@ -1,0 +1,71 @@
+---
+title: "Day 31 — BERT, masked language modelling, and when an encoder still wins"
+subtitle: "Sunday, 23 August 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 30](day-30.qmd) · [All 50 days](../timeline.qmd) · [Day 32 →](day-32.qmd)
+:::
+
+::: {.why}
+Everything you built in Weeks 3 and 4 was left-to-right and autoregressive; BERT throws away the causal mask and trains by filling in blanked tokens, buying a better representation of a whole passage at the cost of not being able to generate one.
+:::
+
+## What you should be able to do tonight
+
+- You can write down BERT's masked-language-modelling loss and say why it does not give you a probability of a sentence the way your causal LM's loss did.
+- You can state the conditions under which you would still put a 110M-parameter encoder into a biomedical classification pipeline in 2026 rather than prompting a large decoder, including at least one condition that is about latency or cost per 1000 abstracts rather than accuracy.
+- You can predict, then check, how a biomedical checkpoint and `bert-base-uncased` differ on `The patient was treated with [MASK].`, and explain the gap from what each one saw in pretraining.
+
+## Tasks <span class='task-total'>190 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [55 min]{.task-min} Read the BERT paper: abstract, section 1, section 3.1 (Pre-training BERT), section 3.2 (Fine-tuning BERT), Figure 1, and Table 1. Skim section 4's result tables rather than studying them - the numbers are eight years stale, the recipe is not.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [60 min]{.task-min} Read SLP3 Chapter 10 (Masked Language Models) end to end, and write the MLM objective next to the causal-LM objective from Chapter 7 in the same notation, on one page.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Run `pipeline('fill-mask')` on at least ten clinical and biomedical sentences you write yourself, through both `bert-base-uncased` and a biomedical checkpoint, printing top-5 predictions side by side. Include two where the right answer is a drug class and two where it is a study design.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Write a 150-word note in your log titled 'when I would still reach for an encoder', ending in the decision rule you will apply to Day 33's task. Commit to it - you are choosing the Day 34 model with it.
+:::
+:::
+
+## Resources
+
+- [BERT - Pre-training of Deep Bidirectional Transformers](https://arxiv.org/abs/1810.04805) [paper]{.res-kind}
+- [SLP3 Ch10 - Masked Language Models](https://web.stanford.edu/~jurafsky/slp3/10.pdf) [textbook]{.res-kind}
+- [SLP3 Ch7 - Large Language Models (for the causal-LM objective you are comparing against)](https://web.stanford.edu/~jurafsky/slp3/7.pdf) [textbook]{.res-kind}
+- [Hugging Face Transformers docs](https://huggingface.co/docs/transformers) [docs]{.res-kind}
+- [PubMed](https://pubmed.ncbi.nlm.nih.gov/) [tool]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`day31_mlm.ipynb` with ten or more `[MASK]` probes run through two checkpoints and their top-5 predictions side by side, plus the 150-word encoder decision note in your log.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+BERT masks 15% of tokens, and of those replaces 80% with `[MASK]`, 10% with a random token, and leaves 10% unchanged. What goes wrong if you use `[MASK]` for all 15%, and at which point in the workflow does that bite?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 32, Monday, 24 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Open HF chapter2/5 and read just the first code block - the one where a sentence gets a different result once it is batched with a shorter one. Do not read the explanation yet.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Run the PubMed query you intend to use for the project once in the web UI and write down the hit count. If it is under 5,000 or over 200,000, widen or narrow it tonight.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Confirm `from datasets import Dataset` imports without error.
+:::
+:::

@@ -1,0 +1,71 @@
+---
+title: "Day 7 — Re-derive backprop from memory"
+subtitle: "Thursday, 30 July 2026 · Week 1 · Foundations · Catch-up day · 2-3 h"
+---
+
+::: {.day-nav .kind-catchup}
+[← Day 6](day-06.qmd) · [All 50 days](../timeline.qmd) · [Day 8 →](day-08.qmd)
+:::
+
+::: {.why}
+Nothing new today: if Days 1 through 6 are done and every gradient check passes, this day is yours to spend or skip, and if they aren't, this is the buffer that keeps Week 2 from starting on a broken foundation.
+:::
+
+## What you should be able to do tonight
+
+- Reproduce the full backward pass of a 2-layer MLP on paper, from the loss down to dW1, with all code closed.
+- Name in writing the two gradient bugs you actually hit this week and describe what each looked like from the outside, before you knew the cause.
+
+## Tasks <span class='task-total'>160 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Close out the list you wrote last night. Gradient checks that do not pass count as outstanding, and so does any notebook that only runs if you execute the cells in a particular order.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [50 min]{.task-min} On paper, with everything closed, re-derive the backward pass for X to Z1 = XW1 + b1 to H = relu(Z1) to O = HW2 + b2 to softmax cross-entropy. Write each expression with its shape beside it. Then open `day06_mlp_manual_backward.py` and diff your paper against it line by line.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Write `week1_summary.md`, one page, answering in your own words: what a computational graph is and what gets stored in it; what a `_backward` closure captures; why cross-entropy computed from logits is numerically different from cross-entropy computed from probabilities; and what initialization is actually controlling.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [25 min]{.task-min} Re-run `mygrad.py` and `day06_mlp_manual_backward.py` from a fresh interpreter, top to bottom, and confirm both still produce the numbers you recorded. Fix anything that only worked because of state left in a session.
+:::
+:::
+
+## Resources
+
+- [SLP3 Ch3 - N-gram Language Models (Week 2 starts here)](https://web.stanford.edu/~jurafsky/slp3/3.pdf) [textbook]{.res-kind}
+- [makemore - single makemore.py plus names.txt](https://github.com/karpathy/makemore) [repo]{.res-kind}
+- [SLP3 landing page](https://web.stanford.edu/~jurafsky/slp3/) [textbook]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+`week1_summary.md` at one page, your paper re-derivation photographed into the same folder, and both `mygrad.py` and `day06_mlp_manual_backward.py` running clean from a fresh interpreter.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Explain backpropagation in under two minutes to someone who knows the chain rule and matrix calculus but has never seen a neural network. If you cannot say what the graph is and why the traversal runs in reverse, go back to Day 4.
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 8, Friday, 31 July 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Download the SLP3 Chapter 3 PDF on n-gram language models. Tomorrow starts there and you do not want to spend study time fetching it.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Clone `github.com/karpathy/makemore` and confirm `names.txt` is present. `wc -l names.txt` should print 32033.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Run `head -20 names.txt`: lowercase, one name per line, no header. That single file is Week 2's entire dataset.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Write down your guess, before you read anything, for how many distinct character bigrams exist in a 27-symbol alphabet including the start/end token.
+:::
+:::

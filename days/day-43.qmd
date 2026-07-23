@@ -1,0 +1,71 @@
+---
+title: "Day 43 — DPO: preference learning as a classification loss"
+subtitle: "Friday, 4 September 2026 · Week 7 · Pipeline, RAG, evaluation · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 42](day-42.qmd) · [All 50 days](../timeline.qmd) · [Day 44 →](day-44.qmd)
+:::
+
+::: {.why}
+InstructGPT needed a reward model and a PPO loop; DPO shows both were an artifact of how the problem was written down, and the algebra that removes them is short enough to do on one sheet of paper.
+:::
+
+## What you should be able to do tonight
+
+- You can write the DPO loss from memory and say exactly where the partition function Z(x) goes and why it cancels.
+- You can state what the frozen reference policy is doing in the loss, and predict what generations look like as beta goes to zero.
+- You can read TRL's rewards/margins and rewards/accuracies curves and say whether a run learned the preference or just drifted away from the reference.
+
+## Tasks <span class='task-total'>200 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Read the DPO paper (arXiv 2305.18290) Sections 1-3, stopping at the end of the preliminaries. You already know the RLHF pipeline from InstructGPT in Week 6 - read Section 3 as a restatement of it in notation you will need next.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Work Section 4 on paper without reading it first. Start from the KL-constrained reward objective, get the closed-form optimal policy, invert it to write the reward as beta*log(pi/pi_ref) + beta*log Z(x), substitute into Bradley-Terry, and watch Z(x) disappear from the difference. This is the same move as a stratum intercept dropping out of a conditional logistic likelihood for matched pairs - and what is left is a binary logistic regression on the difference of two log-ratios.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [75 min]{.task-min} Run a DPOTrainer job in TRL on 200-400 preference pairs, using a model small enough to hold twice in memory since the frozen reference is a second copy. Log rewards/chosen, rewards/rejected, rewards/margins and rewards/accuracies, and plot all four against step.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Rerun with beta at 0.01 and at 0.5, sample 10 generations from each checkpoint, and write down what actually changed in the text - not just what the loss curve did.
+:::
+:::
+
+## Resources
+
+- [Direct Preference Optimization (Rafailov et al.)](https://arxiv.org/abs/2305.18290) [paper]{.res-kind}
+- [InstructGPT - the pipeline DPO replaces](https://arxiv.org/abs/2203.02155) [paper]{.res-kind}
+- [TRL docs - DPOTrainer](https://huggingface.co/docs/trl) [docs]{.res-kind}
+- [SLP3 Ch9 - Post-training: Instruction Tuning, Alignment, Test-Time Compute](https://web.stanford.edu/~jurafsky/slp3/9.pdf) [textbook]{.res-kind}
+- [Google Colab](https://colab.research.google.com/) [tool]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+A half-page handwritten derivation from the KL-constrained objective to the DPO loss, plus a notebook with four logged curves and ten sampled generations at each of two beta values.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+Write the DPO loss on a blank sheet, then answer: what does RLHF get from sampling on-policy during training that DPO never gets, and when would that difference matter?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 44, Saturday, 5 September 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> Clone https://github.com/karpathy/nanochat and confirm runs/speedrun.sh is present.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Skim the nanochat README and copy its wall-clock and dollar figures into a scratch file.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Open discussion #1 and discussion #481 in tabs so tomorrow starts with reading, not searching.
+:::
+:::

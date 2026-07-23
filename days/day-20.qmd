@@ -1,0 +1,68 @@
+---
+title: "Day 20 — Attention Is All You Need, first pass"
+subtitle: "Wednesday, 12 August 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
+---
+
+::: {.day-nav .kind-study}
+[← Day 19](day-19.qmd) · [All 50 days](../timeline.qmd) · [Day 21 →](day-21.qmd)
+:::
+
+::: {.why}
+The 2017 paper is short and roughly a third of it is machine-translation results you can skim. Read it for Figure 1 and Section 3, and read it as a historical document: modern decoder-only models kept the attention block nearly unchanged and discarded most of the surrounding design. A first pass means you finish it today - do not stall on the equations you already saw yesterday.
+:::
+
+## What you should be able to do tonight
+
+- You can redraw Figure 1 from memory and mark which boxes a decoder-only GPT keeps and which it deletes.
+- You can name four parts of the 2017 design that modern decoder-only models do differently, and give the reason each changed.
+- You can quote the base model's N, d_model, h, d_k and d_ff, and show that d_k = d_model / h falls out of the head split.
+
+## Tasks <span class='task-total'>190 min</span>
+
+::: {.task-list}
+::: {.task}
+<input type="checkbox" class="task-check"> [70 min]{.task-min} Read Sections 1 through 3.2 - background, encoder-decoder stacks, scaled dot-product attention, multi-head attention - checking each equation against the notes you wrote yesterday rather than re-deriving anything.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [45 min]{.task-min} Read 3.3 to 3.5 (position-wise feed-forward, embeddings and softmax, positional encoding) and Section 4, Why Self-Attention. Section 4's table is the actual argument of the paper: complexity per layer, sequential operations, and maximum path length between two positions. Skim Section 5 and 6 for the training setup and the 28.4 BLEU on English-German, then stop.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [35 min]{.task-min} Redraw Figure 1 by hand and annotate every box: encoder stack, decoder stack, the cross-attention block, where layer norm sits relative to each residual add. Then mark each box keep or drop for a decoder-only model.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> [40 min]{.task-min} Write a four-row comparison table - 2017 design, modern decoder-only equivalent, why it changed - covering the encoder and cross-attention, sinusoidal absolute positional encoding, post-norm versus pre-norm, and the ReLU feed-forward. Resolve the layer-norm discrepancy you noted yesterday and write down which arrangement trains without a warmup schedule.
+:::
+:::
+
+## Resources
+
+- [Attention Is All You Need (Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762) [paper]{.res-kind}
+- [SLP3 Ch8 - Transformers (yesterday's chapter, for the layer-norm comparison)](https://web.stanford.edu/~jurafsky/slp3/8.pdf) [textbook]{.res-kind}
+
+## Deliverable
+
+::: {.deliverable}
+Your own redrawing of Figure 1 with every box marked keep or drop for a decoder-only model, plus the four-row comparison table with a reason in each row.
+:::
+
+## Checkpoint
+
+::: {.checkpoint}
+The base model has d_model = 512 and h = 8, so each head is 64 wide and the four projection matrices together are about the same size as one 512-wide head. Since the parameter count barely moves, what does splitting into 8 heads actually buy you that one wide head cannot do?
+:::
+
+## Prepare for tomorrow
+
+Ten minutes tonight so Day 21, Thursday, 13 August 2026 starts clean. This is what the evening email sends you.
+
+::: {.task-list .prep}
+::: {.task}
+<input type="checkbox" class="task-check"> List what is still unfinished from Days 15-20 - most likely exercise 4 of the backprop notebook or the tiktoken comparison table - so tomorrow starts with a decision instead of a search.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Get blank paper or clear a whiteboard. Tomorrow is drawing, not typing.
+:::
+::: {.task}
+<input type="checkbox" class="task-check"> Write the config you will drill on at the top of a blank page: B = 64, T = 256, vocab = 65, d_model = 384, 6 heads, 6 layers.
+:::
+:::
