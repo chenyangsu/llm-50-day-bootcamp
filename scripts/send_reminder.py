@@ -173,9 +173,11 @@ def main():
         print(body_text)
         return 0
 
-    sender = os.environ.get("GMAIL_ADDRESS")
-    password = os.environ.get("GMAIL_APP_PASSWORD")
-    recipient = os.environ.get("RECIPIENT_EMAIL") or sender
+    sender = (os.environ.get("GMAIL_ADDRESS") or "").strip()
+    # Google displays app passwords as four space-separated groups. The spaces are
+    # presentational; SMTP login fails if they are sent literally.
+    password = "".join((os.environ.get("GMAIL_APP_PASSWORD") or "").split())
+    recipient = (os.environ.get("RECIPIENT_EMAIL") or "").strip() or sender
 
     if not sender or not password:
         print("GMAIL_ADDRESS and GMAIL_APP_PASSWORD must be set.", file=sys.stderr)
