@@ -1,0 +1,44 @@
+name: Daily reminder email
+
+# 01:11 UTC = 8:11 pm America/Winnipeg (CDT, UTC-5), which holds for the whole
+# bootcamp — Winnipeg does not leave CDT until 1 November. GitHub's scheduler can
+# run a few minutes late under load; that does not matter for an evening nudge.
+on:
+  schedule:
+    - cron: "11 1 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print the email instead of sending it"
+        type: boolean
+        default: false
+      today:
+        description: "Pretend today is this date (YYYY-MM-DD), for testing"
+        type: string
+        default: ""
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PyYAML
+        run: pip install --quiet pyyaml
+
+      - name: Send reminder
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+        run: |
+          ARGS=""
+          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          if [ -n "${{ inputs.today }}" ]; then ARGS="$ARGS --today ${{ inputs.today }}"; fi
+          python scripts/send_reminder.py $ARGS

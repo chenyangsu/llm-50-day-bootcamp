@@ -79,15 +79,44 @@ quarto render           # writes _site/
 
 ## The daily email
 
-A Claude cloud routine fires every evening at 8:11 pm America/Winnipeg (cron `11 1 * * *` UTC — Winnipeg
-holds CDT, UTC−5, for the whole bootcamp). It clones this repo, reads `data/schedule.yml`, works out
-tomorrow's date, and emails the `prep_for_tomorrow` items from today's record along with a summary of
-tomorrow. After 11 September it finds no matching day and sends nothing.
+`.github/workflows/daily-reminder.yml` runs `scripts/send_reminder.py` every evening at 8:11 pm
+America/Winnipeg (cron `11 1 * * *` UTC — Winnipeg holds CDT, UTC−5, for the whole bootcamp). The script
+reads `data/schedule.yml`, works out tomorrow's date, and emails the `prep_for_tomorrow` items from
+*today's* record together with a preview of tomorrow. After 11 September no day matches and it sends
+nothing.
 
-Because it reads the YAML from `main`, editing the schedule and pushing is enough to change what the
-emails say — there's nothing to keep in sync by hand.
+Editing the schedule and pushing is enough to change what the emails say — there is nothing to keep in
+sync by hand.
 
-Manage or disable it at <https://claude.ai/code/routines>.
+### Setup
+
+Three repository secrets, under Settings → Secrets and variables → Actions:
+
+| Secret | Value |
+|:--|:--|
+| `GMAIL_ADDRESS` | the Gmail account that sends |
+| `GMAIL_APP_PASSWORD` | a Google **app password**, not your account password — requires 2-Step Verification, generated at <https://myaccount.google.com/apppasswords> |
+| `RECIPIENT_EMAIL` | optional; defaults to `GMAIL_ADDRESS` |
+
+### Testing without sending
+
+```bash
+python3 scripts/send_reminder.py --dry-run                    # tonight's email
+python3 scripts/send_reminder.py --dry-run --today 2026-08-19 # any date
+```
+
+The workflow also has a manual trigger (Actions → Daily reminder email → Run workflow) with `dry_run` and
+`today` inputs, so you can exercise the real send path on demand.
+
+An earlier version used a Claude cloud routine instead. It could read the schedule but never sent
+anything — connector tools were not reachable from the scheduled cloud session — so it is disabled at
+<https://claude.ai/code/routines> and SMTP replaced it.
+
+### One caveat
+
+GitHub disables scheduled workflows in a repository after 60 days without activity. The bootcamp is 50
+days, so it fits, but if the repo goes completely quiet the schedule can be switched off — any commit
+resets the clock, and the Actions tab shows a banner if it happens.
 
 ## Deployment
 
