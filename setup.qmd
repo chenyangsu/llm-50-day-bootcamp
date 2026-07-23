@@ -9,22 +9,36 @@ subtitle: "Day 0 — done on the evening of 23 July 2026. This page records what
 |:--|:--|
 | Python 3.12.13 virtual environment | `~/.venvs/llm-bootcamp` |
 | PyTorch (CUDA 12.8 build) and the full stack | in that environment |
-| Working repository | `~/Desktop/projects/llm-bootcamp-work` → [`sunami-lab/llm-bootcamp-work`](https://github.com/sunami-lab/llm-bootcamp-work) (private) |
-| Karpathy reference repos | `~/Desktop/projects/llm-bootcamp-refs/` — `nn-zero-to-hero`, `micrograd`, `makemore`, `minbpe`, `nanoGPT` |
+| Working repository | `/mnt/c/Users/csu/Desktop/projects/llm-bootcamp-work` → [`sunami-lab/llm-bootcamp-work`](https://github.com/sunami-lab/llm-bootcamp-work) (private) |
+| Karpathy reference repos | `/mnt/c/Users/csu/Desktop/projects/llm-bootcamp-refs/` — `nn-zero-to-hero`, `micrograd`, `makemore`, `minbpe`, `nanoGPT` |
 
 To start work on any day:
 
 ```bash
-cd ~/Desktop/projects/llm-bootcamp-work
+cd /mnt/c/Users/csu/Desktop/projects/llm-bootcamp-work
 source env.sh
 ```
+
+::: {.callout-warning appearance="simple"}
+**`~` is not your Desktop.** In WSL, `~` is `/home/csu` on the Linux filesystem. Your projects live on the
+Windows drive, under `/mnt/c/Users/csu/`. So `~/Desktop/projects` does not exist and
+`/mnt/c/Users/csu/Desktop/projects` does. The one `~` path on this page that *is* correct is
+`~/.venvs/llm-bootcamp` — the environment genuinely lives in the Linux home, deliberately.
+
+If typing that gets old, a symlink makes both work:
+
+```bash
+ln -s /mnt/c/Users/csu/Desktop/projects ~/projects   # then: cd ~/projects/llm-bootcamp-work
+```
+:::
 
 ## Still yours to do — about five minutes
 
 Two accounts, because they need a browser and a password you own:
 
 - **[Hugging Face](https://huggingface.co/join)** — needed from day 29. Create an access token under
-  Settings → Access Tokens, then `huggingface-cli login`.
+  Settings → Access Tokens, then `hf auth login`. (`huggingface-cli login` still works but is deprecated
+  in `huggingface_hub` 1.24, which is what's installed.)
 - **[Weights & Biases](https://wandb.ai/site)** — free for personal use, and it's what makes day 25's
   experiment table and the milestone write-ups easy. Then `wandb login`.
 
@@ -64,7 +78,7 @@ uv venv ~/.venvs/llm-bootcamp --python 3.12
 uv pip install --python ~/.venvs/llm-bootcamp/bin/python \
   --index-url https://download.pytorch.org/whl/cu128 torch
 uv pip install --python ~/.venvs/llm-bootcamp/bin/python \
-  -r ~/Desktop/projects/llm-bootcamp-work/requirements.txt
+  -r /mnt/c/Users/csu/Desktop/projects/llm-bootcamp-work/requirements.txt
 ```
 
 The environment deliberately lives at `~/.venvs/llm-bootcamp`, on the Linux filesystem, rather than beside
@@ -113,7 +127,7 @@ You will not fully understand `loss.backward()` yet. That is days 2 through 4.
 ## Where things go
 
 ```
-~/Desktop/projects/
+/mnt/c/Users/csu/Desktop/projects/
 ├── llm-50-day-bootcamp/     this site, and data/schedule.yml
 ├── llm-bootcamp-work/       your notebooks, experiments and reports  ← work here
 ├── llm-bootcamp-refs/       Karpathy's repos, read-only reference
