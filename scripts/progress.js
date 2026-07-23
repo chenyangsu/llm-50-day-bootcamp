@@ -47,8 +47,9 @@
     var d = cur.day;
     var link = '<a href="' + dayHref(d) + '">Day ' + d.day + " — " + d.title + "</a>";
     if (cur.state === "before") {
+      var setupHref = (/\/days\//.test(location.pathname) ? "../" : "") + "setup.html";
       host.innerHTML = "<strong>Starts " + longDate(BOOTCAMP_START) + ".</strong> First up: " + link +
-        '. Tonight is for <a href="setup.qmd">setup</a>.';
+        '. Tonight is for <a href="' + setupHref + '">setup</a>.';
     } else if (cur.state === "after") {
       host.innerHTML = "<strong>Finished " + longDate(d.date) + ".</strong> Last day was " + link + ".";
     } else {
