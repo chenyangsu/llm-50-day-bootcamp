@@ -1,0 +1,267 @@
+/* 50-Day LLM Bootcamp — layered on Quarto's cosmo (light) / darkly (dark) themes. */
+
+:root {
+  --bc-accent: #2c7fb8;
+  --bc-accent-soft: rgba(44, 127, 184, 0.10);
+  --bc-border: rgba(0, 0, 0, 0.12);
+  --bc-muted: #6c757d;
+  --bc-card: rgba(0, 0, 0, 0.015);
+  --bc-done: #2e7d32;
+  --bc-milestone: #b8860b;
+  --bc-catchup: #6a7079;
+}
+
+body.quarto-dark {
+  --bc-accent: #6fb3e0;
+  --bc-accent-soft: rgba(111, 179, 224, 0.14);
+  --bc-border: rgba(255, 255, 255, 0.16);
+  --bc-muted: rgba(255, 255, 255, 0.68);
+  --bc-card: rgba(255, 255, 255, 0.035);
+  --bc-done: #7fc784;
+  --bc-milestone: #e0b544;
+  --bc-catchup: #9aa2ac;
+}
+
+/* ---------- day page header nav ---------- */
+
+.day-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  padding: 0.6rem 0.9rem;
+  margin-bottom: 1.4rem;
+  border: 1px solid var(--bc-border);
+  border-left: 4px solid var(--bc-accent);
+  border-radius: 10px;
+  background: var(--bc-card);
+  font-size: 0.92rem;
+}
+
+.day-nav.kind-milestone { border-left-color: var(--bc-milestone); }
+.day-nav.kind-capstone  { border-left-color: var(--bc-milestone); }
+.day-nav.kind-catchup   { border-left-color: var(--bc-catchup); }
+
+.day-nav a { text-decoration: none; }
+.day-nav a:hover { text-decoration: underline; }
+
+/* ---------- the "why today exists" lede ---------- */
+
+.why {
+  padding: 0.9rem 1.1rem;
+  margin: 0 0 1.6rem 0;
+  border-radius: 10px;
+  background: var(--bc-accent-soft);
+  font-size: 1.03rem;
+  line-height: 1.55;
+}
+
+/* ---------- tasks ---------- */
+
+.task-progress {
+  position: relative;
+  height: 26px;
+  margin: 0.4rem 0 1.1rem 0;
+  border: 1px solid var(--bc-border);
+  border-radius: 13px;
+  overflow: hidden;
+  background: var(--bc-card);
+}
+
+.task-progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--bc-accent);
+  opacity: 0.28;
+  transition: width 160ms ease;
+}
+
+.task-progress.complete .task-progress-fill {
+  background: var(--bc-done);
+  opacity: 0.36;
+}
+
+.task-progress-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--bc-muted);
+}
+
+.task-list { margin-bottom: 1.6rem; }
+
+.task {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.7rem 0.95rem;
+  margin: 0.45rem 0;
+  border: 1px solid var(--bc-border);
+  border-radius: 10px;
+  background: var(--bc-card);
+  line-height: 1.5;
+  transition: opacity 140ms ease, background-color 140ms ease;
+}
+
+.task > p { margin: 0; }
+
+.task input.task-check {
+  flex: 0 0 auto;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: 0.2rem;
+  cursor: pointer;
+  accent-color: var(--bc-accent);
+}
+
+.task.done { opacity: 0.5; }
+.task.done > p { text-decoration: line-through; }
+
+.task-min {
+  display: inline-block;
+  min-width: 4.4rem;
+  margin-right: 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--bc-muted);
+  text-transform: uppercase;
+}
+
+.task-total {
+  float: right;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--bc-muted);
+}
+
+.task-list.prep .task { border-style: dashed; }
+
+/* ---------- resources ---------- */
+
+.res-kind {
+  display: inline-block;
+  padding: 0.05rem 0.42rem;
+  margin-left: 0.35rem;
+  border: 1px solid var(--bc-border);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bc-muted);
+  vertical-align: 1px;
+}
+
+/* ---------- deliverable / checkpoint ---------- */
+
+.deliverable,
+.checkpoint {
+  padding: 0.85rem 1.05rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--bc-border);
+  border-left: 4px solid var(--bc-accent);
+  border-radius: 10px;
+  background: var(--bc-card);
+}
+
+.checkpoint {
+  border-left-color: var(--bc-milestone);
+  font-style: italic;
+}
+
+/* ---------- timeline ---------- */
+
+.week-span {
+  float: right;
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--bc-muted);
+}
+
+.timeline table { width: 100%; }
+.timeline td:first-child { text-align: right; color: var(--bc-muted); width: 3rem; }
+.timeline td:nth-child(2) { white-space: nowrap; color: var(--bc-muted); width: 7rem; }
+
+.timeline tr.row-past td { opacity: 0.5; }
+
+.timeline tr.row-today td {
+  background: var(--bc-accent-soft);
+  font-weight: 600;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.08rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid currentColor;
+}
+
+.pill-catchup   { color: var(--bc-catchup); }
+.pill-milestone { color: var(--bc-milestone); }
+.pill-capstone  { color: var(--bc-milestone); font-weight: 700; }
+
+/* ---------- today banner on the landing page ---------- */
+
+#today-banner {
+  display: none;
+  padding: 1rem 1.2rem;
+  margin: 0 0 1.8rem 0;
+  border: 1px solid var(--bc-border);
+  border-left: 5px solid var(--bc-accent);
+  border-radius: 10px;
+  background: var(--bc-accent-soft);
+  font-size: 1.06rem;
+}
+
+#today-banner.live { display: block; }
+
+/* ---------- phase cards on the landing page ---------- */
+
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.9rem;
+  margin: 1.4rem 0 2rem 0;
+}
+
+.phase-card {
+  padding: 0.9rem 1.05rem;
+  border: 1px solid var(--bc-border);
+  border-radius: 10px;
+  background: var(--bc-card);
+}
+
+.phase-card h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+.phase-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--bc-muted);
+  line-height: 1.45;
+}
+
+.phase-card .phase-days {
+  font-size: 0.74rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--bc-accent);
+  font-weight: 700;
+}
+
+@media (max-width: 620px) {
+  .task-min { display: block; margin-bottom: 0.15rem; }
+  .week-span { float: none; display: block; }
+  .task-total { float: none; display: block; }
+}
