@@ -412,8 +412,9 @@ days:
   prep_for_tomorrow:
   - Download the SLP3 Chapter 3 PDF on n-gram language models. Tomorrow starts there and you do not want
     to spend study time fetching it.
-  - Clone `github.com/karpathy/makemore` and confirm `names.txt` is present. `wc -l names.txt` should
-    print 32033.
+  - Clone `github.com/karpathy/makemore` and confirm `names.txt` is present. It holds 32,033 names, but
+    `wc -l` prints 32032 because the file has no trailing newline - use `grep -c . names.txt` for the
+    real count.
   - 'Run `head -20 names.txt`: lowercase, one name per line, no header. That single file is Week 2''s
     entire dataset.'
   - Write down your guess, before you read anything, for how many distinct character bigrams exist in

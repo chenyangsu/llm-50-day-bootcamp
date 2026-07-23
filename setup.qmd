@@ -1,106 +1,97 @@
 ---
 title: "Setup"
-subtitle: "Day 0 — about an hour, tonight. Do this so day 1 is a study day and not a dependency-error afternoon."
+subtitle: "Day 0 — done on the evening of 23 July 2026. This page records what was installed, what you still need to do yourself, and how to rebuild any of it."
 ---
 
-## 1. A Python you can actually install things into
+## Already done
 
-Your system Python on WSL is 3.8 and its `pip` is broken, so don't fight it — install
-[uv](https://docs.astral.sh/uv/) and let it manage a modern Python and a project virtual environment.
+| | Where |
+|:--|:--|
+| Python 3.12.13 virtual environment | `~/.venvs/llm-bootcamp` |
+| PyTorch (CUDA 12.8 build) and the full stack | in that environment |
+| Working repository | `~/Desktop/projects/llm-bootcamp-work` → [`sunami-lab/llm-bootcamp-work`](https://github.com/sunami-lab/llm-bootcamp-work) (private) |
+| Karpathy reference repos | `~/Desktop/projects/llm-bootcamp-refs/` — `nn-zero-to-hero`, `micrograd`, `makemore`, `minbpe`, `nanoGPT` |
 
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-exec $SHELL -l
-
-mkdir -p ~/llm-bootcamp && cd ~/llm-bootcamp
-uv venv --python 3.12
-source .venv/bin/activate
-```
-
-Everything for the next fifty days goes in that environment. If you prefer conda or miniforge, use it —
-the only requirement is Python 3.11 or newer and a package manager that works.
-
-## 2. PyTorch
-
-Check whether WSL can see a GPU first:
+To start work on any day:
 
 ```bash
-nvidia-smi
+cd ~/Desktop/projects/llm-bootcamp-work
+source env.sh
 ```
 
-If that prints a table, install the CUDA build. If it errors, you have no local GPU and that is fine —
-weeks 1 through 4 run comfortably on CPU, and from week 5 onward you use Colab.
+## Still yours to do — about five minutes
+
+Two accounts, because they need a browser and a password you own:
+
+- **[Hugging Face](https://huggingface.co/join)** — needed from day 29. Create an access token under
+  Settings → Access Tokens, then `huggingface-cli login`.
+- **[Weights & Biases](https://wandb.ai/site)** — free for personal use, and it's what makes day 25's
+  experiment table and the milestone write-ups easy. Then `wandb login`.
+
+Optional: an API key for a hosted model (Anthropic or OpenAI) makes day 33's prompting baseline quicker.
+An open instruction-tuned model from the Hub works too.
+
+## The CUDA trap, and why the install is pinned
+
+Your driver is **573.57, advertising CUDA 12.8**. The GPU is a GTX 1650 Ti (Turing, sm_75).
+
+Installing `torch` from PyPI the obvious way gets you a **CUDA 13** build, which does not run on a 12.8
+driver. It does not fail loudly either — it installs cleanly and then reports:
+
+```
+torch 2.13.0+cu130 | cuda available: False
+```
+
+which is the kind of thing you discover on day 25 when a sweep takes all afternoon on CPU. So the
+environment pins the CUDA 12.8 build explicitly:
 
 ```bash
-# with a GPU
-uv pip install torch --index-url https://download.pytorch.org/whl/cu124
-
-# CPU only
-uv pip install torch --index-url https://download.pytorch.org/whl/cpu
+uv pip install --python ~/.venvs/llm-bootcamp/bin/python \
+  --index-url https://download.pytorch.org/whl/cu128 torch
 ```
 
-Then the rest of what you'll need over the fifty days:
+If you ever rebuild the environment, use that line rather than a bare `uv pip install torch`.
+
+::: {.callout-tip appearance="simple"}
+Sanity check before any GPU day: `python -c "import torch; print(torch.cuda.is_available())"` must print
+`True`. If it prints `False`, you are about to train on CPU.
+:::
+
+## Rebuilding the environment from scratch
 
 ```bash
-uv pip install numpy matplotlib jupyter ipykernel \
-               transformers datasets accelerate evaluate \
-               peft trl sentence-transformers faiss-cpu \
-               tiktoken scikit-learn pandas wandb
+uv venv ~/.venvs/llm-bootcamp --python 3.12
+uv pip install --python ~/.venvs/llm-bootcamp/bin/python \
+  --index-url https://download.pytorch.org/whl/cu128 torch
+uv pip install --python ~/.venvs/llm-bootcamp/bin/python \
+  -r ~/Desktop/projects/llm-bootcamp-work/requirements.txt
 ```
 
-Confirm it works:
+The environment deliberately lives at `~/.venvs/llm-bootcamp`, on the Linux filesystem, rather than beside
+the code under `/mnt/c`. WSL2's bridge to the Windows drive is slow for operations over thousands of small
+files, which is exactly what a PyTorch venv is. Code and notebooks on `/mnt/c` are fine; the venv is not.
 
-```bash
-python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
-```
+## What your 4 GB of VRAM will and won't do
 
-## 3. Compute, honestly
+This decides which days run on your laptop and which want Colab.
 
-| Weeks | What you need | Notes |
+| Weeks | Locally? | Notes |
 |:--|:--|:--|
-| 1–4 | CPU is fine | micrograd, makemore and a small GPT on TinyShakespeare all train on a laptop. A GPU makes day 25's sweeps pleasant rather than possible. |
-| 5–7 | A GPU for a few hours | Fine-tuning a small model, a LoRA run, and embedding a few thousand abstracts. [Colab](https://colab.research.google.com/)'s free T4 covers all of it. |
-| Day 45 | Optional 8×H100 | Only if you want to actually run the nanochat speedrun (~1.5 h, ~$48 on demand, ~$15 spot). Reading the pipeline carefully is enough — the day is written so that renting is optional. |
+| 1–4 | Comfortably | micrograd and makemore barely touch the GPU. The day 22–26 GPT is about 10.8 M parameters at the video's config and trains on TinyShakespeare in minutes. Day 25's sweeps are the first thing that really benefits from the card. |
+| 5 | Tight but workable | A BERT-family encoder fine-tune fits with a modest batch size and mixed precision. Reach for gradient accumulation before reaching for Colab. |
+| 6 | Depends | Day 41's LoRA run is where 4 GB starts choosing your model for you. Small model plus LoRA plus 4-bit fits; a full fine-tune of anything decoder-shaped probably doesn't. |
+| 7 | Embeddings yes, speedrun no | Day 47's retrieval work runs locally. Day 45's nanochat speedrun needs 8×H100 — it is explicitly optional, and reading the pipeline carefully is the point. |
 
-## 4. Two accounts, three minutes
+When something doesn't fit, [Colab](https://colab.research.google.com/)'s free T4 has 16 GB and covers
+everything in weeks 5–7.
 
-- **[Hugging Face](https://huggingface.co/join)** — you need this from day 29. Create an access token
-  (Settings → Access Tokens) and run `huggingface-cli login`.
-- **[Weights & Biases](https://wandb.ai/site)** — free for personal use. You start logging runs on day 25
-  and it's what makes the milestone write-ups easy. Run `wandb login`.
+## Verify
 
-Optional: an API key for a hosted model (Anthropic or OpenAI) makes the day 33 prompting baseline quicker,
-but an open instruction-tuned model from the Hub works too.
-
-## 5. Repositories to clone
-
-```bash
-cd ~/llm-bootcamp
-git clone https://github.com/karpathy/nn-zero-to-hero.git   # lecture notebooks, weeks 1-3
-git clone https://github.com/karpathy/micrograd.git          # day 3-4 reference
-git clone https://github.com/karpathy/makemore.git           # names.txt lives here
-git clone https://github.com/karpathy/minbpe.git             # day 18
-git clone https://github.com/karpathy/nanoGPT.git            # day 26
-```
-
-`nanochat` you clone on day 44, not now.
-
-## 6. Somewhere to put your own work
-
-Make one directory for the things you write, separate from the cloned repos, and put it under git on day 1.
-You will produce roughly fifty artifacts and the milestone write-ups are much easier if they're not
-scattered.
-
-```bash
-mkdir -p ~/llm-bootcamp/work && cd ~/llm-bootcamp/work && git init
-```
-
-## 7. Verify
-
-If this prints a decreasing loss, you are ready for day 1:
+If this prints a decreasing loss and `cuda: True`, you are ready for day 1:
 
 ```python
 import torch
+print("cuda:", torch.cuda.is_available())
 
 x = torch.randn(64, 3)
 y = (x.sum(dim=1, keepdim=True) > 0).float()
@@ -117,4 +108,19 @@ for step in range(200):
         print(step, round(loss.item(), 4))
 ```
 
-You will not fully understand `loss.backward()` yet. That is day 2 through day 4.
+You will not fully understand `loss.backward()` yet. That is days 2 through 4.
+
+## Where things go
+
+```
+~/Desktop/projects/
+├── llm-50-day-bootcamp/     this site, and data/schedule.yml
+├── llm-bootcamp-work/       your notebooks, experiments and reports  ← work here
+├── llm-bootcamp-refs/       Karpathy's repos, read-only reference
+└── llm-bootcamp-prompts/    how this bootcamp was generated
+```
+
+Inside `llm-bootcamp-work`, name files by day —
+`work/week-1-foundations/day-03-micrograd.ipynb` — so that on day 28 and day 50, when a milestone report
+needs results from three weeks earlier, they are findable. `data/` and `checkpoints/` are gitignored:
+commit the query, the seed and the split definition, not the data.

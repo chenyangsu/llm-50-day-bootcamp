@@ -60,7 +60,7 @@ Ten minutes tonight so Day 8, Friday, 31 July 2026 starts clean. This is what th
 <input type="checkbox" class="task-check"> Download the SLP3 Chapter 3 PDF on n-gram language models. Tomorrow starts there and you do not want to spend study time fetching it.
 :::
 ::: {.task}
-<input type="checkbox" class="task-check"> Clone `github.com/karpathy/makemore` and confirm `names.txt` is present. `wc -l names.txt` should print 32033.
+<input type="checkbox" class="task-check"> Clone `github.com/karpathy/makemore` and confirm `names.txt` is present. It holds 32,033 names, but `wc -l` prints 32032 because the file has no trailing newline - use `grep -c . names.txt` for the real count.
 :::
 ::: {.task}
 <input type="checkbox" class="task-check"> Run `head -20 names.txt`: lowercase, one name per line, no header. That single file is Week 2's entire dataset.
