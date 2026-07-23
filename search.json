@@ -2671,21 +2671,21 @@
     "href": "setup.html",
     "title": "Setup",
     "section": "",
-    "text": "Where\n\n\n\n\nPython 3.12.13 virtual environment\n~/.venvs/llm-bootcamp\n\n\nPyTorch (CUDA 12.8 build) and the full stack\nin that environment\n\n\nWorking repository\n~/Desktop/projects/llm-bootcamp-work → sunami-lab/llm-bootcamp-work (private)\n\n\nKarpathy reference repos\n~/Desktop/projects/llm-bootcamp-refs/ — nn-zero-to-hero, micrograd, makemore, minbpe, nanoGPT\n\n\n\nTo start work on any day:\ncd ~/Desktop/projects/llm-bootcamp-work\nsource env.sh"
+    "text": "Where\n\n\n\n\nPython 3.12.13 virtual environment\n~/.venvs/llm-bootcamp\n\n\nPyTorch (CUDA 12.8 build) and the full stack\nin that environment\n\n\nWorking repository\n/mnt/c/Users/csu/Desktop/projects/llm-bootcamp-work → sunami-lab/llm-bootcamp-work (private)\n\n\nKarpathy reference repos\n/mnt/c/Users/csu/Desktop/projects/llm-bootcamp-refs/ — nn-zero-to-hero, micrograd, makemore, minbpe, nanoGPT\n\n\n\nTo start work on any day:\ncd /mnt/c/Users/csu/Desktop/projects/llm-bootcamp-work\nsource env.sh\n\n\n\n\n\n\n~ is not your Desktop. In WSL, ~ is /home/csu on the Linux filesystem. Your projects live on the Windows drive, under /mnt/c/Users/csu/. So ~/Desktop/projects does not exist and /mnt/c/Users/csu/Desktop/projects does. The one ~ path on this page that is correct is ~/.venvs/llm-bootcamp — the environment genuinely lives in the Linux home, deliberately.\nIf typing that gets old, a symlink makes both work:\nln -s /mnt/c/Users/csu/Desktop/projects ~/projects   # then: cd ~/projects/llm-bootcamp-work"
   },
   {
     "objectID": "setup.html#already-done",
     "href": "setup.html#already-done",
     "title": "Setup",
     "section": "",
-    "text": "Where\n\n\n\n\nPython 3.12.13 virtual environment\n~/.venvs/llm-bootcamp\n\n\nPyTorch (CUDA 12.8 build) and the full stack\nin that environment\n\n\nWorking repository\n~/Desktop/projects/llm-bootcamp-work → sunami-lab/llm-bootcamp-work (private)\n\n\nKarpathy reference repos\n~/Desktop/projects/llm-bootcamp-refs/ — nn-zero-to-hero, micrograd, makemore, minbpe, nanoGPT\n\n\n\nTo start work on any day:\ncd ~/Desktop/projects/llm-bootcamp-work\nsource env.sh"
+    "text": "Where\n\n\n\n\nPython 3.12.13 virtual environment\n~/.venvs/llm-bootcamp\n\n\nPyTorch (CUDA 12.8 build) and the full stack\nin that environment\n\n\nWorking repository\n/mnt/c/Users/csu/Desktop/projects/llm-bootcamp-work → sunami-lab/llm-bootcamp-work (private)\n\n\nKarpathy reference repos\n/mnt/c/Users/csu/Desktop/projects/llm-bootcamp-refs/ — nn-zero-to-hero, micrograd, makemore, minbpe, nanoGPT\n\n\n\nTo start work on any day:\ncd /mnt/c/Users/csu/Desktop/projects/llm-bootcamp-work\nsource env.sh\n\n\n\n\n\n\n~ is not your Desktop. In WSL, ~ is /home/csu on the Linux filesystem. Your projects live on the Windows drive, under /mnt/c/Users/csu/. So ~/Desktop/projects does not exist and /mnt/c/Users/csu/Desktop/projects does. The one ~ path on this page that is correct is ~/.venvs/llm-bootcamp — the environment genuinely lives in the Linux home, deliberately.\nIf typing that gets old, a symlink makes both work:\nln -s /mnt/c/Users/csu/Desktop/projects ~/projects   # then: cd ~/projects/llm-bootcamp-work"
   },
   {
     "objectID": "setup.html#still-yours-to-do-about-five-minutes",
     "href": "setup.html#still-yours-to-do-about-five-minutes",
     "title": "Setup",
     "section": "Still yours to do — about five minutes",
-    "text": "Still yours to do — about five minutes\nTwo accounts, because they need a browser and a password you own:\n\nHugging Face — needed from day 29. Create an access token under Settings → Access Tokens, then huggingface-cli login.\nWeights & Biases — free for personal use, and it’s what makes day 25’s experiment table and the milestone write-ups easy. Then wandb login.\n\nOptional: an API key for a hosted model (Anthropic or OpenAI) makes day 33’s prompting baseline quicker. An open instruction-tuned model from the Hub works too."
+    "text": "Still yours to do — about five minutes\nTwo accounts, because they need a browser and a password you own:\n\nHugging Face — needed from day 29. Create an access token under Settings → Access Tokens, then hf auth login. (huggingface-cli login still works but is deprecated in huggingface_hub 1.24, which is what’s installed.)\nWeights & Biases — free for personal use, and it’s what makes day 25’s experiment table and the milestone write-ups easy. Then wandb login.\n\nOptional: an API key for a hosted model (Anthropic or OpenAI) makes day 33’s prompting baseline quicker. An open instruction-tuned model from the Hub works too."
   },
   {
     "objectID": "setup.html#the-cuda-trap-and-why-the-install-is-pinned",
@@ -2699,7 +2699,7 @@
     "href": "setup.html#rebuilding-the-environment-from-scratch",
     "title": "Setup",
     "section": "Rebuilding the environment from scratch",
-    "text": "Rebuilding the environment from scratch\nuv venv ~/.venvs/llm-bootcamp --python 3.12\nuv pip install --python ~/.venvs/llm-bootcamp/bin/python \\\n  --index-url https://download.pytorch.org/whl/cu128 torch\nuv pip install --python ~/.venvs/llm-bootcamp/bin/python \\\n  -r ~/Desktop/projects/llm-bootcamp-work/requirements.txt\nThe environment deliberately lives at ~/.venvs/llm-bootcamp, on the Linux filesystem, rather than beside the code under /mnt/c. WSL2’s bridge to the Windows drive is slow for operations over thousands of small files, which is exactly what a PyTorch venv is. Code and notebooks on /mnt/c are fine; the venv is not."
+    "text": "Rebuilding the environment from scratch\nuv venv ~/.venvs/llm-bootcamp --python 3.12\nuv pip install --python ~/.venvs/llm-bootcamp/bin/python \\\n  --index-url https://download.pytorch.org/whl/cu128 torch\nuv pip install --python ~/.venvs/llm-bootcamp/bin/python \\\n  -r /mnt/c/Users/csu/Desktop/projects/llm-bootcamp-work/requirements.txt\nThe environment deliberately lives at ~/.venvs/llm-bootcamp, on the Linux filesystem, rather than beside the code under /mnt/c. WSL2’s bridge to the Windows drive is slow for operations over thousands of small files, which is exactly what a PyTorch venv is. Code and notebooks on /mnt/c are fine; the venv is not."
   },
   {
     "objectID": "setup.html#what-your-4-gb-of-vram-will-and-wont-do",
@@ -2720,6 +2720,6 @@
     "href": "setup.html#where-things-go",
     "title": "Setup",
     "section": "Where things go",
-    "text": "Where things go\n~/Desktop/projects/\n├── llm-50-day-bootcamp/     this site, and data/schedule.yml\n├── llm-bootcamp-work/       your notebooks, experiments and reports  ← work here\n├── llm-bootcamp-refs/       Karpathy's repos, read-only reference\n└── llm-bootcamp-prompts/    how this bootcamp was generated\nInside llm-bootcamp-work, name files by day — work/week-1-foundations/day-03-micrograd.ipynb — so that on day 28 and day 50, when a milestone report needs results from three weeks earlier, they are findable. data/ and checkpoints/ are gitignored: commit the query, the seed and the split definition, not the data."
+    "text": "Where things go\n/mnt/c/Users/csu/Desktop/projects/\n├── llm-50-day-bootcamp/     this site, and data/schedule.yml\n├── llm-bootcamp-work/       your notebooks, experiments and reports  ← work here\n├── llm-bootcamp-refs/       Karpathy's repos, read-only reference\n└── llm-bootcamp-prompts/    how this bootcamp was generated\nInside llm-bootcamp-work, name files by day — work/week-1-foundations/day-03-micrograd.ipynb — so that on day 28 and day 50, when a milestone report needs results from three weeks earlier, they are findable. data/ and checkpoints/ are gitignored: commit the query, the seed and the split definition, not the data."
   }
 ]

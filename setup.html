@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a547dd1b4798262c927e2e52fa668cb1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-0e6a767e897e7be88fc84a61948225f0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-a547dd1b4798262c927e2e52fa668cb1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c98d9d0b3b0a085d3ddf71e6e91476d8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-d03312063cfab2e1753bdcbb830eb4d1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-c98d9d0b3b0a085d3ddf71e6e91476d8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -393,23 +393,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Working repository</td>
-<td style="text-align: left;"><code>~/Desktop/projects/llm-bootcamp-work</code> → <a href="https://github.com/sunami-lab/llm-bootcamp-work"><code>sunami-lab/llm-bootcamp-work</code></a> (private)</td>
+<td style="text-align: left;"><code>/mnt/c/Users/csu/Desktop/projects/llm-bootcamp-work</code> → <a href="https://github.com/sunami-lab/llm-bootcamp-work"><code>sunami-lab/llm-bootcamp-work</code></a> (private)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Karpathy reference repos</td>
-<td style="text-align: left;"><code>~/Desktop/projects/llm-bootcamp-refs/</code> — <code>nn-zero-to-hero</code>, <code>micrograd</code>, <code>makemore</code>, <code>minbpe</code>, <code>nanoGPT</code></td>
+<td style="text-align: left;"><code>/mnt/c/Users/csu/Desktop/projects/llm-bootcamp-refs/</code> — <code>nn-zero-to-hero</code>, <code>micrograd</code>, <code>makemore</code>, <code>minbpe</code>, <code>nanoGPT</code></td>
 </tr>
 </tbody>
 </table>
 <p>To start work on any day:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Desktop/projects/llm-bootcamp-work</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /mnt/c/Users/csu/Desktop/projects/llm-bootcamp-work</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> env.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><code>~</code> is not your Desktop.</strong> In WSL, <code>~</code> is <code>/home/csu</code> on the Linux filesystem. Your projects live on the Windows drive, under <code>/mnt/c/Users/csu/</code>. So <code>~/Desktop/projects</code> does not exist and <code>/mnt/c/Users/csu/Desktop/projects</code> does. The one <code>~</code> path on this page that <em>is</em> correct is <code>~/.venvs/llm-bootcamp</code> — the environment genuinely lives in the Linux home, deliberately.</p>
+<p>If typing that gets old, a symlink makes both work:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /mnt/c/Users/csu/Desktop/projects ~/projects   <span class="co"># then: cd ~/projects/llm-bootcamp-work</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 </section>
 <section id="still-yours-to-do-about-five-minutes" class="level2">
 <h2 class="anchored" data-anchor-id="still-yours-to-do-about-five-minutes">Still yours to do — about five minutes</h2>
 <p>Two accounts, because they need a browser and a password you own:</p>
 <ul>
-<li><strong><a href="https://huggingface.co/join">Hugging Face</a></strong> — needed from day 29. Create an access token under Settings → Access Tokens, then <code>huggingface-cli login</code>.</li>
+<li><strong><a href="https://huggingface.co/join">Hugging Face</a></strong> — needed from day 29. Create an access token under Settings → Access Tokens, then <code>hf auth login</code>. (<code>huggingface-cli login</code> still works but is deprecated in <code>huggingface_hub</code> 1.24, which is what’s installed.)</li>
 <li><strong><a href="https://wandb.ai/site">Weights &amp; Biases</a></strong> — free for personal use, and it’s what makes day 25’s experiment table and the milestone write-ups easy. Then <code>wandb login</code>.</li>
 </ul>
 <p>Optional: an API key for a hosted model (Anthropic or OpenAI) makes day 33’s prompting baseline quicker. An open instruction-tuned model from the Hub works too.</p>
@@ -420,8 +432,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Installing <code>torch</code> from PyPI the obvious way gets you a <strong>CUDA 13</strong> build, which does not run on a 12.8 driver. It does not fail loudly either — it installs cleanly and then reports:</p>
 <pre><code>torch 2.13.0+cu130 | cuda available: False</code></pre>
 <p>which is the kind of thing you discover on day 25 when a sweep takes all afternoon on CPU. So the environment pins the CUDA 12.8 build explicitly:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">--python</span> ~/.venvs/llm-bootcamp/bin/python <span class="dt">\</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--index-url</span> https://download.pytorch.org/whl/cu128 torch</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">--python</span> ~/.venvs/llm-bootcamp/bin/python <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--index-url</span> https://download.pytorch.org/whl/cu128 torch</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If you ever rebuild the environment, use that line rather than a bare <code>uv pip install torch</code>.</p>
 <div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
@@ -436,11 +448,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="rebuilding-the-environment-from-scratch" class="level2">
 <h2 class="anchored" data-anchor-id="rebuilding-the-environment-from-scratch">Rebuilding the environment from scratch</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv ~/.venvs/llm-bootcamp <span class="at">--python</span> 3.12</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">--python</span> ~/.venvs/llm-bootcamp/bin/python <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--index-url</span> https://download.pytorch.org/whl/cu128 torch</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">--python</span> ~/.venvs/llm-bootcamp/bin/python <span class="dt">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-r</span> ~/Desktop/projects/llm-bootcamp-work/requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv ~/.venvs/llm-bootcamp <span class="at">--python</span> 3.12</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">--python</span> ~/.venvs/llm-bootcamp/bin/python <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--index-url</span> https://download.pytorch.org/whl/cu128 torch</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">--python</span> ~/.venvs/llm-bootcamp/bin/python <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-r</span> /mnt/c/Users/csu/Desktop/projects/llm-bootcamp-work/requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The environment deliberately lives at <code>~/.venvs/llm-bootcamp</code>, on the Linux filesystem, rather than beside the code under <code>/mnt/c</code>. WSL2’s bridge to the Windows drive is slow for operations over thousands of small files, which is exactly what a PyTorch venv is. Code and notebooks on <code>/mnt/c</code> are fine; the venv is not.</p>
 </section>
 <section id="what-your-4-gb-of-vram-will-and-wont-do" class="level2">
@@ -487,27 +499,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="verify" class="level2">
 <h2 class="anchored" data-anchor-id="verify">Verify</h2>
 <p>If this prints a decreasing loss and <code>cuda: True</code>, you are ready for day 1:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"cuda:"</span>, torch.cuda.is_available())</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.randn(<span class="dv">64</span>, <span class="dv">3</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (x.<span class="bu">sum</span>(dim<span class="op">=</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>) <span class="op">&gt;</span> <span class="dv">0</span>).<span class="bu">float</span>()</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> torch.zeros(<span class="dv">3</span>, <span class="dv">1</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.zeros(<span class="dv">1</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> torch.nn.functional.binary_cross_entropy_with_logits(x <span class="op">@</span> w <span class="op">+</span> b, y)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        w <span class="op">-=</span> <span class="fl">0.5</span> <span class="op">*</span> w.grad<span class="op">;</span> b <span class="op">-=</span> <span class="fl">0.5</span> <span class="op">*</span> b.grad</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        w.grad <span class="op">=</span> <span class="va">None</span><span class="op">;</span> b.grad <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> step <span class="op">%</span> <span class="dv">50</span> <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(step, <span class="bu">round</span>(loss.item(), <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"cuda:"</span>, torch.cuda.is_available())</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.randn(<span class="dv">64</span>, <span class="dv">3</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (x.<span class="bu">sum</span>(dim<span class="op">=</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>) <span class="op">&gt;</span> <span class="dv">0</span>).<span class="bu">float</span>()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> torch.zeros(<span class="dv">3</span>, <span class="dv">1</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.zeros(<span class="dv">1</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> torch.nn.functional.binary_cross_entropy_with_logits(x <span class="op">@</span> w <span class="op">+</span> b, y)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        w <span class="op">-=</span> <span class="fl">0.5</span> <span class="op">*</span> w.grad<span class="op">;</span> b <span class="op">-=</span> <span class="fl">0.5</span> <span class="op">*</span> b.grad</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        w.grad <span class="op">=</span> <span class="va">None</span><span class="op">;</span> b.grad <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> step <span class="op">%</span> <span class="dv">50</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(step, <span class="bu">round</span>(loss.item(), <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You will not fully understand <code>loss.backward()</code> yet. That is days 2 through 4.</p>
 </section>
 <section id="where-things-go" class="level2">
 <h2 class="anchored" data-anchor-id="where-things-go">Where things go</h2>
-<pre><code>~/Desktop/projects/
+<pre><code>/mnt/c/Users/csu/Desktop/projects/
 ├── llm-50-day-bootcamp/     this site, and data/schedule.yml
 ├── llm-bootcamp-work/       your notebooks, experiments and reports  ← work here
 ├── llm-bootcamp-refs/       Karpathy's repos, read-only reference
