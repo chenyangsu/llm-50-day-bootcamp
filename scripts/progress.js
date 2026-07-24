@@ -85,6 +85,11 @@
     if (!boxes.length) return;
     var page = pageKey();
 
+    // The progress bar measures the day's main tasks only. The "Prepare for
+    // tomorrow" list (.task-list.prep) still persists, but counting it here
+    // would report more tasks than the main list shows.
+    var counted = document.querySelectorAll(".task-list:not(.prep) input.task-check");
+
     var bar = document.createElement("div");
     bar.className = "task-progress";
     bar.innerHTML = '<div class="task-progress-fill"></div><span class="task-progress-label"></span>';
@@ -95,11 +100,11 @@
 
     function refresh() {
       var done = 0;
-      for (var i = 0; i < boxes.length; i++) if (boxes[i].checked) done++;
-      var pct = Math.round((done / boxes.length) * 100);
+      for (var i = 0; i < counted.length; i++) if (counted[i].checked) done++;
+      var pct = counted.length ? Math.round((done / counted.length) * 100) : 0;
       fill.style.width = pct + "%";
-      label.textContent = done + " of " + boxes.length + " done";
-      bar.classList.toggle("complete", done === boxes.length);
+      label.textContent = done + " of " + counted.length + " done";
+      bar.classList.toggle("complete", counted.length > 0 && done === counted.length);
     }
 
     Array.prototype.forEach.call(boxes, function (box, i) {
