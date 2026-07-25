@@ -1,11 +1,15 @@
 name: Daily reminder email
 
-# 01:11 UTC = 8:11 pm America/Winnipeg (CDT, UTC-5), which holds for the whole
-# bootcamp — Winnipeg does not leave CDT until 1 November. GitHub's scheduler can
-# run a few minutes late under load; that does not matter for an evening nudge.
+# The email should arrive at 5 pm America/Winnipeg (CDT, UTC-5 for the whole
+# bootcamp — Winnipeg does not leave CDT until 1 November), i.e. 22:00 UTC.
+# GitHub's scheduler has been starting this workflow about three hours late
+# (a 01:11 UTC cron started at 04:24 and 04:28 UTC), so the cron fires at
+# 18:47 UTC and the job sleeps off whatever is left before 5 pm. Any real
+# start between 1:47 pm and 5 pm local still sends at 5 pm; a later start
+# sends immediately.
 on:
   schedule:
-    - cron: "11 1 * * *"
+    - cron: "47 18 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -21,6 +25,19 @@ jobs:
   send:
     runs-on: ubuntu-latest
     steps:
+      - name: Wait until 5 pm America/Winnipeg
+        if: github.event_name == 'schedule'
+        run: |
+          target=$(TZ=America/Winnipeg date -d "today 17:00" +%s)
+          wait=$(( target - $(date +%s) ))
+          # Negative: the runner started after 5 pm, send now. Over four hours:
+          # the runner started after local midnight, when sleeping is pointless.
+          if [ "$wait" -gt 0 ] && [ "$wait" -le 14400 ]; then
+            echo "Sleeping ${wait}s until 5 pm."
+            sleep "$wait"
+          fi
+          echo "Sending at $(TZ=America/Winnipeg date '+%Y-%m-%d %H:%M %Z')."
+
       - name: Check out repository
         uses: actions/checkout@v5
 

@@ -62,7 +62,7 @@ def build_html(day, prep, meta):
     )
     parts.append(f'<p style="font-style:italic;margin:0 0 4px 0">{e(day.get("why", ""))}</p>')
 
-    # The part that matters at 8pm.
+    # The part that matters at 5pm.
     parts.append(
         f'<div style="background:#eef5fb;border-left:4px solid #2c7fb8;'
         f'padding:12px 16px;margin:20px 0;border-radius:6px">'

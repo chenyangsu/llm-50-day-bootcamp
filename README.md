@@ -79,8 +79,10 @@ quarto render           # writes _site/
 
 ## The daily email
 
-`.github/workflows/daily-reminder.yml` runs `scripts/send_reminder.py` every evening at 8:11 pm
-America/Winnipeg (cron `11 1 * * *` UTC — Winnipeg holds CDT, UTC−5, for the whole bootcamp). The script
+`.github/workflows/daily-reminder.yml` runs `scripts/send_reminder.py` every day at 5 pm
+America/Winnipeg (Winnipeg holds CDT, UTC−5, for the whole bootcamp). GitHub has been starting
+scheduled runs about three hours late, so the cron fires early at `47 18 * * *` UTC and the job waits
+until 5 pm local before sending — an on-time start and a three-hour-late start both send at 5 pm. The script
 reads `data/schedule.yml`, works out tomorrow's date, and emails the `prep_for_tomorrow` items from
 *today's* record together with a preview of tomorrow. After 11 September no day matches and it sends
 nothing.
