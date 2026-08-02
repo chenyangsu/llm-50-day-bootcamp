@@ -4,7 +4,7 @@
     "href": "timeline.html",
     "title": "The 50 days",
     "section": "",
-    "text": "Six study days, then a catch-up day, seven times over, then the capstone. Every catch-up day is a Thursday and is deliberately unallocated — if you are on track, the day is yours.\n\n\nWeek 1 — Foundations Fri 24 Jul – Thu 30 Jul\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n1\nFri 24 Jul\nTensors, gradients, and the chain rule\n\n\n\n2\nSat 25 Jul\nWhat backward() actually does\n\n\n\n3\nSun 26 Jul\nmicrograd, first half: the Value object and the expression graph\n\n\n\n4\nMon 27 Jul\nRebuild micrograd from an empty file\n\n\n\n5\nTue 28 Jul\nSoftmax regression is multinomial logistic regression\n\n\n\n6\nWed 29 Jul\nBackprop through a 2-layer MLP, by hand\n\n\n\n7\nThu 30 Jul\nRe-derive backprop from memory\ncatch-up\n\n\n\n\n\nWeek 2 — Language models Fri 31 Jul – Thu 6 Aug\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n8\nFri 31 Jul\nA language model you can count by hand\n\n\n\n9\nSat 1 Aug\nPerplexity, and what smoothing is actually for\n\n\n\n10\nSun 2 Aug\nThe same bigram model, built twice\n\n\n\n11\nMon 3 Aug\nEmbeddings and a context window\n\n\n\n12\nTue 4 Aug\nWhat the embedding space encodes\n\n\n\n13\nWed 5 Aug\nReading the histograms when training goes wrong\n\n\n\n14\nThu 6 Aug\nOne table, one held-out split\ncatch-up\n\n\n\n\n\nWeek 3 — Tokens and attention Fri 7 Aug – Thu 13 Aug\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n15\nFri 7 Aug\nBackprop ninja: every backward pass by hand\n\n\n\n16\nSat 8 Aug\nWaveNet, and reading torch.nn without flinching\n\n\n\n17\nSun 9 Aug\nWords, tokens, and why models are bad at spelling\n\n\n\n18\nMon 10 Aug\nBuild the tokenizer, train it on PubMed\n\n\n\n19\nTue 11 Aug\nAttention from the textbook: Q, K, V and the sqrt(d_k)\n\n\n\n20\nWed 12 Aug\nAttention Is All You Need, first pass\n\n\n\n21\nThu 13 Aug\nCatch-up: the block from memory, with shapes on every arrow\ncatch-up\n\n\n\n\n\nWeek 4 — Build a GPT Fri 14 Aug – Thu 20 Aug\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n22\nFri 14 Aug\nBigram baseline to one head of masked self-attention\n\n\n\n23\nSat 15 Aug\nMulti-head, feed-forward, residuals, LayerNorm - and it writes Shakespeare\n\n\n\n24\nSun 16 Aug\nRebuild it from an empty file\n\n\n\n25\nMon 17 Aug\nSweep the knobs, then sweep the decoder\n\n\n\n26\nTue 18 Aug\nnanoGPT: the same model with four days of GPU time in mind\n\n\n\n27\nWed 19 Aug\nSLP3 Ch7 - the same model in prose\n\n\n\n28\nThu 20 Aug\nMilestone 1 - My GPT from scratch\nmilestone\n\n\n\n\n\nWeek 5 — Pretrained models Fri 21 Aug – Thu 27 Aug\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n29\nFri 21 Aug\nPipelines, and the three architecture families\n\n\n\n30\nSat 22 Aug\nBehind the pipeline, and your BPE against theirs\n\n\n\n31\nSun 23 Aug\nBERT, masked language modelling, and when an encoder still wins\n\n\n\n32\nMon 24 Aug\nPadding, masks, and truncation: the bugs that never raise\n\n\n\n33\nTue 25 Aug\nProject start: corpus, labels, split, metrics, baseline\n\n\n\n34\nWed 26 Aug\nFine-tuning: the Trainer, and the loop it hides\n\n\n\n35\nThu 27 Aug\nMilestone 2: fine-tuned against prompted, on five axes\nmilestone\n\n\n\n\n\nWeek 6 — Scaling and post-training Fri 28 Aug – Thu 3 Sep\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n36\nFri 28 Aug\nGPT-3 and in-context learning\n\n\n\n37\nSat 29 Aug\nScaling laws, and how far you can trust a fitted line\n\n\n\n38\nSun 30 Aug\nChinchilla: doing the compute arithmetic yourself\n\n\n\n39\nMon 31 Aug\nPost-training: how a next-token predictor becomes an assistant\n\n\n\n40\nTue 1 Sep\nInstructGPT: three stages, forty labelers\n\n\n\n41\nWed 2 Sep\nLoRA: fine-tuning without the optimizer state\n\n\n\n42\nThu 3 Sep\nDecision table: prompt, few-shot, LoRA, fine-tune, retrieve\ncatch-up\n\n\n\n\n\nWeek 7 — Pipeline, RAG, evaluation Fri 4 Sep – Fri 11 Sep\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n43\nFri 4 Sep\nDPO: preference learning as a classification loss\n\n\n\n44\nSat 5 Sep\nnanochat, part 1: tokenizer, base training, base eval\n\n\n\n45\nSun 6 Sep\nMilestone 3 - nanochat, part 2: SFT, RL, eval, serving\nmilestone\n\n\n46\nMon 7 Sep\nRetrieval: BM25, bi-encoders, and when RAG is the wrong answer\n\n\n\n47\nTue 8 Sep\nMilestone 4 - RAG over your abstract corpus, measured in two halves\nmilestone\n\n\n48\nWed 9 Sep\nHELM, MedHELM, and the distinctions a single score erases\n\n\n\n49\nThu 10 Sep\nCatch-up, and an evaluation harness for your own task\ncatch-up\n\n\n50\nFri 11 Sep\nCapstone - the final report, the closed-book self-assessment, and what comes next\ncapstone"
+    "text": "Six study days, then a catch-up day, seven times over, then the capstone. Every catch-up day is a Monday and is deliberately unallocated — if you are on track, the day is yours.\nPaused after day 2 (Sat 25 Jul) and resumed at day 3 on Thursday, 6 August 2026.\n\n\nWeek 1 — Foundations Fri 24 Jul – Mon 10 Aug\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n1\nFri 24 Jul\nTensors, gradients, and the chain rule\n\n\n\n2\nSat 25 Jul\nWhat backward() actually does\n\n\n\n3\nThu 6 Aug\nmicrograd, first half: the Value object and the expression graph\n\n\n\n4\nFri 7 Aug\nRebuild micrograd from an empty file\n\n\n\n5\nSat 8 Aug\nSoftmax regression is multinomial logistic regression\n\n\n\n6\nSun 9 Aug\nBackprop through a 2-layer MLP, by hand\n\n\n\n7\nMon 10 Aug\nRe-derive backprop from memory\ncatch-up\n\n\n\n\n\nWeek 2 — Language models Tue 11 Aug – Mon 17 Aug\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n8\nTue 11 Aug\nA language model you can count by hand\n\n\n\n9\nWed 12 Aug\nPerplexity, and what smoothing is actually for\n\n\n\n10\nThu 13 Aug\nThe same bigram model, built twice\n\n\n\n11\nFri 14 Aug\nEmbeddings and a context window\n\n\n\n12\nSat 15 Aug\nWhat the embedding space encodes\n\n\n\n13\nSun 16 Aug\nReading the histograms when training goes wrong\n\n\n\n14\nMon 17 Aug\nOne table, one held-out split\ncatch-up\n\n\n\n\n\nWeek 3 — Tokens and attention Tue 18 Aug – Mon 24 Aug\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n15\nTue 18 Aug\nBackprop ninja: every backward pass by hand\n\n\n\n16\nWed 19 Aug\nWaveNet, and reading torch.nn without flinching\n\n\n\n17\nThu 20 Aug\nWords, tokens, and why models are bad at spelling\n\n\n\n18\nFri 21 Aug\nBuild the tokenizer, train it on PubMed\n\n\n\n19\nSat 22 Aug\nAttention from the textbook: Q, K, V and the sqrt(d_k)\n\n\n\n20\nSun 23 Aug\nAttention Is All You Need, first pass\n\n\n\n21\nMon 24 Aug\nCatch-up: the block from memory, with shapes on every arrow\ncatch-up\n\n\n\n\n\nWeek 4 — Build a GPT Tue 25 Aug – Mon 31 Aug\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n22\nTue 25 Aug\nBigram baseline to one head of masked self-attention\n\n\n\n23\nWed 26 Aug\nMulti-head, feed-forward, residuals, LayerNorm - and it writes Shakespeare\n\n\n\n24\nThu 27 Aug\nRebuild it from an empty file\n\n\n\n25\nFri 28 Aug\nSweep the knobs, then sweep the decoder\n\n\n\n26\nSat 29 Aug\nnanoGPT: the same model with four days of GPU time in mind\n\n\n\n27\nSun 30 Aug\nSLP3 Ch7 - the same model in prose\n\n\n\n28\nMon 31 Aug\nMilestone 1 - My GPT from scratch\nmilestone\n\n\n\n\n\nWeek 5 — Pretrained models Tue 1 Sep – Mon 7 Sep\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n29\nTue 1 Sep\nPipelines, and the three architecture families\n\n\n\n30\nWed 2 Sep\nBehind the pipeline, and your BPE against theirs\n\n\n\n31\nThu 3 Sep\nBERT, masked language modelling, and when an encoder still wins\n\n\n\n32\nFri 4 Sep\nPadding, masks, and truncation: the bugs that never raise\n\n\n\n33\nSat 5 Sep\nProject start: corpus, labels, split, metrics, baseline\n\n\n\n34\nSun 6 Sep\nFine-tuning: the Trainer, and the loop it hides\n\n\n\n35\nMon 7 Sep\nMilestone 2: fine-tuned against prompted, on five axes\nmilestone\n\n\n\n\n\nWeek 6 — Scaling and post-training Tue 8 Sep – Mon 14 Sep\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n36\nTue 8 Sep\nGPT-3 and in-context learning\n\n\n\n37\nWed 9 Sep\nScaling laws, and how far you can trust a fitted line\n\n\n\n38\nThu 10 Sep\nChinchilla: doing the compute arithmetic yourself\n\n\n\n39\nFri 11 Sep\nPost-training: how a next-token predictor becomes an assistant\n\n\n\n40\nSat 12 Sep\nInstructGPT: three stages, forty labelers\n\n\n\n41\nSun 13 Sep\nLoRA: fine-tuning without the optimizer state\n\n\n\n42\nMon 14 Sep\nDecision table: prompt, few-shot, LoRA, fine-tune, retrieve\ncatch-up\n\n\n\n\n\nWeek 7 — Pipeline, RAG, evaluation Tue 15 Sep – Tue 22 Sep\n\n\n\nDay\nDate\nFocus\n\n\n\n\n\n43\nTue 15 Sep\nDPO: preference learning as a classification loss\n\n\n\n44\nWed 16 Sep\nnanochat, part 1: tokenizer, base training, base eval\n\n\n\n45\nThu 17 Sep\nMilestone 3 - nanochat, part 2: SFT, RL, eval, serving\nmilestone\n\n\n46\nFri 18 Sep\nRetrieval: BM25, bi-encoders, and when RAG is the wrong answer\n\n\n\n47\nSat 19 Sep\nMilestone 4 - RAG over your abstract corpus, measured in two halves\nmilestone\n\n\n48\nSun 20 Sep\nHELM, MedHELM, and the distinctions a single score erases\n\n\n\n49\nMon 21 Sep\nCatch-up, and an evaluation harness for your own task\ncatch-up\n\n\n50\nTue 22 Sep\nCapstone - the final report, the closed-book self-assessment, and what comes next\ncapstone"
   },
   {
     "objectID": "resources.html",
@@ -165,7 +165,7 @@
     "href": "days/day-49.html#prepare-for-tomorrow",
     "title": "Day 49 — Catch-up, and an evaluation harness for your own task",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 50, Friday, 11 September 2026 starts clean. This is what the evening email sends you.\n\n\n Collect every artifact from Days 33-49 into one folder: baseline, fine-tune, evaluation, LoRA run, RAG index, harness output.\n\n\n Reread your Day 35 Milestone 2 report so tomorrow’s report can extend its tables rather than duplicate them.\n\n\n Block four uninterrupted hours and put your notes physically out of reach for the self-assessment."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 50, Tuesday, 22 September 2026 starts clean. This is what the evening email sends you.\n\n\n Collect every artifact from Days 33-49 into one folder: baseline, fine-tune, evaluation, LoRA run, RAG index, harness output.\n\n\n Reread your Day 35 Milestone 2 report so tomorrow’s report can extend its tables rather than duplicate them.\n\n\n Block four uninterrupted hours and put your notes physically out of reach for the self-assessment."
   },
   {
     "objectID": "days/day-47.html",
@@ -214,7 +214,7 @@
     "href": "days/day-47.html#prepare-for-tomorrow",
     "title": "Day 47 — Milestone 4 - RAG over your abstract corpus, measured in two halves",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 48, Wednesday, 9 September 2026 starts clean. This is what the evening email sends you.\n\n\n Open the MedHELM leaderboard and scroll the full scenario list once without reading details.\n\n\n Skim the HELM paper abstract (arXiv 2211.09110) and find the figure showing the scenario-by-metric grid.\n\n\n Note in your log that HELM entered maintenance mode on 2026-06-01, so leaderboard coverage stops at models released before then."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 48, Sunday, 20 September 2026 starts clean. This is what the evening email sends you.\n\n\n Open the MedHELM leaderboard and scroll the full scenario list once without reading details.\n\n\n Skim the HELM paper abstract (arXiv 2211.09110) and find the figure showing the scenario-by-metric grid.\n\n\n Note in your log that HELM entered maintenance mode on 2026-06-01, so leaderboard coverage stops at models released before then."
   },
   {
     "objectID": "days/day-45.html",
@@ -263,7 +263,7 @@
     "href": "days/day-45.html#prepare-for-tomorrow",
     "title": "Day 45 — Milestone 3 - nanochat, part 2: SFT, RL, eval, serving",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 46, Monday, 7 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download SLP3 Chapter 11 (11.pdf) and put it where you read PDFs.\n\n\n Read the RAG paper abstract (arXiv 2005.11401) - just the abstract.\n\n\n Run pip install sentence-transformers faiss-cpu and confirm both import cleanly."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 46, Friday, 18 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download SLP3 Chapter 11 (11.pdf) and put it where you read PDFs.\n\n\n Read the RAG paper abstract (arXiv 2005.11401) - just the abstract.\n\n\n Run pip install sentence-transformers faiss-cpu and confirm both import cleanly."
   },
   {
     "objectID": "days/day-43.html",
@@ -312,7 +312,7 @@
     "href": "days/day-43.html#prepare-for-tomorrow",
     "title": "Day 43 — DPO: preference learning as a classification loss",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 44, Saturday, 5 September 2026 starts clean. This is what the evening email sends you.\n\n\n Clone https://github.com/karpathy/nanochat and confirm runs/speedrun.sh is present.\n\n\n Skim the nanochat README and copy its wall-clock and dollar figures into a scratch file.\n\n\n Open discussion #1 and discussion #481 in tabs so tomorrow starts with reading, not searching."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 44, Wednesday, 16 September 2026 starts clean. This is what the evening email sends you.\n\n\n Clone https://github.com/karpathy/nanochat and confirm runs/speedrun.sh is present.\n\n\n Skim the nanochat README and copy its wall-clock and dollar figures into a scratch file.\n\n\n Open discussion #1 and discussion #481 in tabs so tomorrow starts with reading, not searching."
   },
   {
     "objectID": "days/day-41.html",
@@ -361,7 +361,7 @@
     "href": "days/day-41.html#prepare-for-tomorrow",
     "title": "Day 41 — LoRA: fine-tuning without the optimizer state",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 42, Thursday, 3 September 2026 starts clean. This is what the evening email sends you.\n\n\n Collect the numbers from Days 33, 34 and 41 into one scratch file: accuracy, calibration, wall-clock, peak memory, cost per thousand abstracts. Hunting for them is not how to spend a light day.\n\n\n Skim the abstract of the RAG paper (arXiv:2005.11401). You do not build it until Day 47, but you need enough to fill one row of tomorrow’s table as a prediction.\n\n\n Decide now whether tomorrow is a catch-up day or a day off. Both are allowed."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 42, Monday, 14 September 2026 starts clean. This is what the evening email sends you.\n\n\n Collect the numbers from Days 33, 34 and 41 into one scratch file: accuracy, calibration, wall-clock, peak memory, cost per thousand abstracts. Hunting for them is not how to spend a light day.\n\n\n Skim the abstract of the RAG paper (arXiv:2005.11401). You do not build it until Day 47, but you need enough to fill one row of tomorrow’s table as a prediction.\n\n\n Decide now whether tomorrow is a catch-up day or a day off. Both are allowed."
   },
   {
     "objectID": "days/day-39.html",
@@ -410,7 +410,7 @@
     "href": "days/day-39.html#prepare-for-tomorrow",
     "title": "Day 39 — Post-training: how a next-token predictor becomes an assistant",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 40, Tuesday, 1 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download InstructGPT (arXiv:2203.02155). It is long, but you only read Sections 1, 3, 4 and 5.\n\n\n Write down your guess at how many people OpenAI hired to produce the demonstration and preference data. You check it tomorrow.\n\n\n Flag which of today’s chain-of-thought flips went the wrong way - those cases come back tomorrow when you think about who would label clinical preference data."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 40, Saturday, 12 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download InstructGPT (arXiv:2203.02155). It is long, but you only read Sections 1, 3, 4 and 5.\n\n\n Write down your guess at how many people OpenAI hired to produce the demonstration and preference data. You check it tomorrow.\n\n\n Flag which of today’s chain-of-thought flips went the wrong way - those cases come back tomorrow when you think about who would label clinical preference data."
   },
   {
     "objectID": "days/day-37.html",
@@ -459,7 +459,7 @@
     "href": "days/day-37.html#prepare-for-tomorrow",
     "title": "Day 37 — Scaling laws, and how far you can trust a fitted line",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 38, Sunday, 30 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download the Chinchilla PDF (arXiv:2203.15556).\n\n\n Write today’s numbers on one line where you can see them tomorrow: alpha_N, alpha_D, and the N proportional to C^0.73 allocation. Tomorrow’s paper contradicts the last one.\n\n\n Open a blank notebook and put C = 6ND at the top. That single line is tomorrow’s entire arithmetic."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 38, Thursday, 10 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download the Chinchilla PDF (arXiv:2203.15556).\n\n\n Write today’s numbers on one line where you can see them tomorrow: alpha_N, alpha_D, and the N proportional to C^0.73 allocation. Tomorrow’s paper contradicts the last one.\n\n\n Open a blank notebook and put C = 6ND at the top. That single line is tomorrow’s entire arithmetic."
   },
   {
     "objectID": "days/day-35.html",
@@ -508,7 +508,7 @@
     "href": "days/day-35.html#prepare-for-tomorrow",
     "title": "Day 35 — Milestone 2: fine-tuned against prompted, on five axes",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 36, Friday, 28 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download next week’s five PDFs into one folder tonight: GPT-3 (2005.14165), Scaling Laws (2001.08361), Chinchilla (2203.15556), InstructGPT (2203.02155), LoRA (2106.09685). Week 6 is paper-heavy and you do not want to spend Friday morning on arXiv.\n\n\n Read the GPT-3 abstract and look at its first figure. Five minutes, nothing else.\n\n\n Write one sentence predicting what ‘compute-optimal’ will turn out to mean, before Chinchilla tells you."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 36, Tuesday, 8 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download next week’s five PDFs into one folder tonight: GPT-3 (2005.14165), Scaling Laws (2001.08361), Chinchilla (2203.15556), InstructGPT (2203.02155), LoRA (2106.09685). Week 6 is paper-heavy and you do not want to spend Friday morning on arXiv.\n\n\n Read the GPT-3 abstract and look at its first figure. Five minutes, nothing else.\n\n\n Write one sentence predicting what ‘compute-optimal’ will turn out to mean, before Chinchilla tells you."
   },
   {
     "objectID": "days/day-33.html",
@@ -557,7 +557,7 @@
     "href": "days/day-33.html#prepare-for-tomorrow",
     "title": "Day 33 — Project start: corpus, labels, split, metrics, baseline",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 34, Wednesday, 26 August 2026 starts clean. This is what the evening email sends you.\n\n\n Open Colab, set Runtime -&gt; Change runtime type -&gt; T4 GPU, and confirm torch.cuda.is_available() returns True.\n\n\n Commit and push project/ to a private repo tonight, so the split carries a timestamp you can point at when you report these results later.\n\n\n Skim the section headings of chapter3/3 so Trainer’s shape is familiar before you type it."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 34, Sunday, 6 September 2026 starts clean. This is what the evening email sends you.\n\n\n Open Colab, set Runtime -&gt; Change runtime type -&gt; T4 GPU, and confirm torch.cuda.is_available() returns True.\n\n\n Commit and push project/ to a private repo tonight, so the split carries a timestamp you can point at when you report these results later.\n\n\n Skim the section headings of chapter3/3 so Trainer’s shape is familiar before you type it."
   },
   {
     "objectID": "days/day-31.html",
@@ -606,7 +606,7 @@
     "href": "days/day-31.html#prepare-for-tomorrow",
     "title": "Day 31 — BERT, masked language modelling, and when an encoder still wins",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 32, Monday, 24 August 2026 starts clean. This is what the evening email sends you.\n\n\n Open HF chapter2/5 and read just the first code block - the one where a sentence gets a different result once it is batched with a shorter one. Do not read the explanation yet.\n\n\n Run the PubMed query you intend to use for the project once in the web UI and write down the hit count. If it is under 5,000 or over 200,000, widen or narrow it tonight.\n\n\n Confirm from datasets import Dataset imports without error."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 32, Friday, 4 September 2026 starts clean. This is what the evening email sends you.\n\n\n Open HF chapter2/5 and read just the first code block - the one where a sentence gets a different result once it is batched with a shorter one. Do not read the explanation yet.\n\n\n Run the PubMed query you intend to use for the project once in the web UI and write down the hit count. If it is under 5,000 or over 200,000, widen or narrow it tonight.\n\n\n Confirm from datasets import Dataset imports without error."
   },
   {
     "objectID": "days/day-29.html",
@@ -655,7 +655,7 @@
     "href": "days/day-29.html#prepare-for-tomorrow",
     "title": "Day 29 — Pipelines, and the three architecture families",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 30, Saturday, 22 August 2026 starts clean. This is what the evening email sends you.\n\n\n Open your Day 18 BPE implementation and leave the file somewhere you can find it - tomorrow you run it head to head against AutoTokenizer.\n\n\n Run pip install transformers datasets in tomorrow’s environment now, so you are not debugging installs at 9am.\n\n\n Use PubMed’s Send to -&gt; File -&gt; Format: Abstract to export 200 abstracts from any query you like into a local file. You tokenise them tomorrow."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 30, Wednesday, 2 September 2026 starts clean. This is what the evening email sends you.\n\n\n Open your Day 18 BPE implementation and leave the file somewhere you can find it - tomorrow you run it head to head against AutoTokenizer.\n\n\n Run pip install transformers datasets in tomorrow’s environment now, so you are not debugging installs at 9am.\n\n\n Use PubMed’s Send to -&gt; File -&gt; Format: Abstract to export 200 abstracts from any query you like into a local file. You tokenise them tomorrow."
   },
   {
     "objectID": "days/day-27.html",
@@ -704,7 +704,7 @@
     "href": "days/day-27.html#prepare-for-tomorrow",
     "title": "Day 27 — SLP3 Ch7 - the same model in prose",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 28, Thursday, 20 August 2026 starts clean. This is what the evening email sends you.\n\n\n Collect gpt_mine.py, experiments.md, samples.md, nanogpt_diff.md, slp3_ch7_notes.md and stuck.md into one folder. Tomorrow you are assembling, not hunting.\n\n\n Run sum(p.numel() for p in model.parameters()) on your best config and write the single number down somewhere you will not look at until tomorrow afternoon.\n\n\n Pick the three generations you will actually show: one good, one that fails in an interesting way, one bigram sample for contrast."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 28, Monday, 31 August 2026 starts clean. This is what the evening email sends you.\n\n\n Collect gpt_mine.py, experiments.md, samples.md, nanogpt_diff.md, slp3_ch7_notes.md and stuck.md into one folder. Tomorrow you are assembling, not hunting.\n\n\n Run sum(p.numel() for p in model.parameters()) on your best config and write the single number down somewhere you will not look at until tomorrow afternoon.\n\n\n Pick the three generations you will actually show: one good, one that fails in an interesting way, one bigram sample for contrast."
   },
   {
     "objectID": "days/day-25.html",
@@ -753,7 +753,7 @@
     "href": "days/day-25.html#prepare-for-tomorrow",
     "title": "Day 25 — Sweep the knobs, then sweep the decoder",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 26, Tuesday, 18 August 2026 starts clean. This is what the evening email sends you.\n\n\n Clone nanoGPT with git clone https://github.com/karpathy/nanoGPT and run pip install -r requirements.txt tonight - tiktoken and datasets are not instant installs.\n\n\n Run python data/shakespeare_char/prepare.py so tomorrow’s training starts with no download in front of it.\n\n\n Run wc -l model.py train.py and note the two numbers. Do not read the files yet."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 26, Saturday, 29 August 2026 starts clean. This is what the evening email sends you.\n\n\n Clone nanoGPT with git clone https://github.com/karpathy/nanoGPT and run pip install -r requirements.txt tonight - tiktoken and datasets are not instant installs.\n\n\n Run python data/shakespeare_char/prepare.py so tomorrow’s training starts with no download in front of it.\n\n\n Run wc -l model.py train.py and note the two numbers. Do not read the files yet."
   },
   {
     "objectID": "days/day-23.html",
@@ -802,7 +802,7 @@
     "href": "days/day-23.html#prepare-for-tomorrow",
     "title": "Day 23 — Multi-head, feed-forward, residuals, LayerNorm - and it writes Shakespeare",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 24, Sunday, 16 August 2026 starts clean. This is what the evening email sends you.\n\n\n Rename today’s file to gpt_karpathy.py and move it into a different directory - not a background tab, a directory you will not open tomorrow.\n\n\n Save the checkpoint with torch.save(m.state_dict(), 'shakespeare_karpathy.pt') so tomorrow’s comparison costs no retraining.\n\n\n Create an empty gpt_mine.py containing nothing but the imports you are sure you will need.\n\n\n Close the video tab."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 24, Thursday, 27 August 2026 starts clean. This is what the evening email sends you.\n\n\n Rename today’s file to gpt_karpathy.py and move it into a different directory - not a background tab, a directory you will not open tomorrow.\n\n\n Save the checkpoint with torch.save(m.state_dict(), 'shakespeare_karpathy.pt') so tomorrow’s comparison costs no retraining.\n\n\n Create an empty gpt_mine.py containing nothing but the imports you are sure you will need.\n\n\n Close the video tab."
   },
   {
     "objectID": "days/day-21.html",
@@ -851,7 +851,7 @@
     "href": "days/day-21.html#prepare-for-tomorrow",
     "title": "Day 21 — Catch-up: the block from memory, with shapes on every arrow",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 22, Friday, 14 August 2026 starts clean. This is what the evening email sends you.\n\n\n Clone nanoGPT and read the README only - tomorrow is the build week and you want the repo already on disk.\n\n\n Run python data/shakespeare_char/prepare.py inside the clone - it pulls TinyShakespeare down to data/shakespeare_char/input.txt and then writes train.bin and val.bin. Copy input.txt into the folder you will write tomorrow’s gpt.py in, and confirm the character vocab comes out at 65.\n\n\n Confirm your compute actually works: run a tensor on the GPU with torch.cuda.is_available() locally, or open Colab, set the runtime to a GPU, and check nvidia-smi returns a card. Do this tonight, not Friday morning.\n\n\n Note the parameter count nanoGPT prints when it starts on the shakespeare_char config, and compare it to the number you totalled today."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 22, Tuesday, 25 August 2026 starts clean. This is what the evening email sends you.\n\n\n Clone nanoGPT and read the README only - tomorrow is the build week and you want the repo already on disk.\n\n\n Run python data/shakespeare_char/prepare.py inside the clone - it pulls TinyShakespeare down to data/shakespeare_char/input.txt and then writes train.bin and val.bin. Copy input.txt into the folder you will write tomorrow’s gpt.py in, and confirm the character vocab comes out at 65.\n\n\n Confirm your compute actually works: run a tensor on the GPU with torch.cuda.is_available() locally, or open Colab, set the runtime to a GPU, and check nvidia-smi returns a card. Do this tonight, not Friday morning.\n\n\n Note the parameter count nanoGPT prints when it starts on the shakespeare_char config, and compare it to the number you totalled today."
   },
   {
     "objectID": "days/day-19.html",
@@ -900,7 +900,7 @@
     "href": "days/day-19.html#prepare-for-tomorrow",
     "title": "Day 19 — Attention from the textbook: Q, K, V and the sqrt(d_k)",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 20, Wednesday, 12 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download the PDF of arXiv 1706.03762.\n\n\n Print Figure 1 on its own sheet, or open it in a window you can keep beside the text - you will annotate it tomorrow.\n\n\n Write down where SLP3 Ch8 put layer norm relative to the residual add, because tomorrow’s paper does it differently and you want to catch the discrepancy yourself."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 20, Sunday, 23 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download the PDF of arXiv 1706.03762.\n\n\n Print Figure 1 on its own sheet, or open it in a window you can keep beside the text - you will annotate it tomorrow.\n\n\n Write down where SLP3 Ch8 put layer norm relative to the residual add, because tomorrow’s paper does it differently and you want to catch the discrepancy yourself."
   },
   {
     "objectID": "days/day-17.html",
@@ -949,7 +949,7 @@
     "href": "days/day-17.html#prepare-for-tomorrow",
     "title": "Day 17 — Words, tokens, and why models are bad at spelling",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 18, Monday, 10 August 2026 starts clean. This is what the evening email sends you.\n\n\n Register for an NCBI API key from your NCBI account settings - it raises the E-utilities rate limit from 3 to 10 requests per second, and you will want it tomorrow.\n\n\n Paste one esearch URL for db=pubmed into your browser and confirm it returns XML with a list of PMIDs.\n\n\n Clone minbpe and read exercise.md - just the four step headings, not the detail.\n\n\n Decide your PubMed query now (a disease or exposure you know well) and write it down, because you will build the corpus on it tomorrow and still be using it on Day 33."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 18, Friday, 21 August 2026 starts clean. This is what the evening email sends you.\n\n\n Register for an NCBI API key from your NCBI account settings - it raises the E-utilities rate limit from 3 to 10 requests per second, and you will want it tomorrow.\n\n\n Paste one esearch URL for db=pubmed into your browser and confirm it returns XML with a list of PMIDs.\n\n\n Clone minbpe and read exercise.md - just the four step headings, not the detail.\n\n\n Decide your PubMed query now (a disease or exposure you know well) and write it down, because you will build the corpus on it tomorrow and still be using it on Day 33."
   },
   {
     "objectID": "days/day-15.html",
@@ -998,7 +998,7 @@
     "href": "days/day-15.html#prepare-for-tomorrow",
     "title": "Day 15 — Backprop ninja: every backward pass by hand",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 16, Saturday, 8 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download SLP3 Ch6 (6.pdf) so you are not waiting on it tomorrow.\n\n\n Open lectures/makemore/makemore_part5_cnn1.ipynb and run the data-loading cell to confirm names.txt is where the notebook expects it.\n\n\n Run python -c “import torch.nn.modules.module as m; print(m.__file__)” and note the path - you will read that file tomorrow."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 16, Wednesday, 19 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download SLP3 Ch6 (6.pdf) so you are not waiting on it tomorrow.\n\n\n Open lectures/makemore/makemore_part5_cnn1.ipynb and run the data-loading cell to confirm names.txt is where the notebook expects it.\n\n\n Run python -c “import torch.nn.modules.module as m; print(m.__file__)” and note the path - you will read that file tomorrow."
   },
   {
     "objectID": "days/day-13.html",
@@ -1047,7 +1047,7 @@
     "href": "days/day-13.html#prepare-for-tomorrow",
     "title": "Day 13 — Reading the histograms when training goes wrong",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 14, Thursday, 6 August 2026 starts clean. This is what the evening email sends you.\n\n\n Gather the saved losses from Days 8, 9, 10 and 11 into one file - tomorrow they all go into a single table.\n\n\n Check whether the n-gram work used your 90/10 split while the MLP used the 80/10/10 split; if so, note the mismatch now, because tomorrow you fix it.\n\n\n Confirm every saved model loads: the count matrix N, the trained W, and the MLP parameters."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 14, Monday, 17 August 2026 starts clean. This is what the evening email sends you.\n\n\n Gather the saved losses from Days 8, 9, 10 and 11 into one file - tomorrow they all go into a single table.\n\n\n Check whether the n-gram work used your 90/10 split while the MLP used the 80/10/10 split; if so, note the mismatch now, because tomorrow you fix it.\n\n\n Confirm every saved model loads: the count matrix N, the trained W, and the MLP parameters."
   },
   {
     "objectID": "days/day-11.html",
@@ -1096,7 +1096,7 @@
     "href": "days/day-11.html#prepare-for-tomorrow",
     "title": "Day 11 — Embeddings and a context window",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 12, Tuesday, 4 August 2026 starts clean. This is what the evening email sends you.\n\n\n torch.save the trained C matrix so tomorrow you can inspect it without retraining.\n\n\n Download SLP3 Ch5 and skim the figure showing words projected into two dimensions.\n\n\n Confirm torch.pca_lowrank or sklearn’s PCA imports cleanly - tomorrow’s projection needs one of them."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 12, Saturday, 15 August 2026 starts clean. This is what the evening email sends you.\n\n\n torch.save the trained C matrix so tomorrow you can inspect it without retraining.\n\n\n Download SLP3 Ch5 and skim the figure showing words projected into two dimensions.\n\n\n Confirm torch.pca_lowrank or sklearn’s PCA imports cleanly - tomorrow’s projection needs one of them."
   },
   {
     "objectID": "days/day-09.html",
@@ -1145,7 +1145,7 @@
     "href": "days/day-09.html#prepare-for-tomorrow",
     "title": "Day 9 — Perplexity, and what smoothing is actually for",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 10, Sunday, 2 August 2026 starts clean. This is what the evening email sends you.\n\n\n Queue makemore part 1 and block the time: it is 1h57m, not a background video.\n\n\n Clone github.com/karpathy/nn-zero-to-hero and open lectures/makemore/makemore_part1_bigrams.ipynb next to your own Day 8 script.\n\n\n Write your best held-out perplexity and its NLL somewhere visible - tomorrow you check whether a trained network can beat it."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 10, Thursday, 13 August 2026 starts clean. This is what the evening email sends you.\n\n\n Queue makemore part 1 and block the time: it is 1h57m, not a background video.\n\n\n Clone github.com/karpathy/nn-zero-to-hero and open lectures/makemore/makemore_part1_bigrams.ipynb next to your own Day 8 script.\n\n\n Write your best held-out perplexity and its NLL somewhere visible - tomorrow you check whether a trained network can beat it."
   },
   {
     "objectID": "days/day-07.html",
@@ -1194,7 +1194,7 @@
     "href": "days/day-07.html#prepare-for-tomorrow",
     "title": "Day 7 — Re-derive backprop from memory",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 8, Friday, 31 July 2026 starts clean. This is what the evening email sends you.\n\n\n Download the SLP3 Chapter 3 PDF on n-gram language models. Tomorrow starts there and you do not want to spend study time fetching it.\n\n\n Clone github.com/karpathy/makemore and confirm names.txt is present. It holds 32,033 names, but wc -l prints 32032 because the file has no trailing newline - use grep -c . names.txt for the real count.\n\n\n Run head -20 names.txt: lowercase, one name per line, no header. That single file is Week 2’s entire dataset.\n\n\n Write down your guess, before you read anything, for how many distinct character bigrams exist in a 27-symbol alphabet including the start/end token."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 8, Tuesday, 11 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download the SLP3 Chapter 3 PDF on n-gram language models. Tomorrow starts there and you do not want to spend study time fetching it.\n\n\n Clone github.com/karpathy/makemore and confirm names.txt is present. It holds 32,033 names, but wc -l prints 32032 because the file has no trailing newline - use grep -c . names.txt for the real count.\n\n\n Run head -20 names.txt: lowercase, one name per line, no header. That single file is Week 2’s entire dataset.\n\n\n Write down your guess, before you read anything, for how many distinct character bigrams exist in a 27-symbol alphabet including the start/end token."
   },
   {
     "objectID": "days/day-05.html",
@@ -1243,7 +1243,7 @@
     "href": "days/day-05.html#prepare-for-tomorrow",
     "title": "Day 5 — Softmax regression is multinomial logistic regression",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 6, Wednesday, 29 July 2026 starts clean. This is what the evening email sends you.\n\n\n Open D2L 5.1, 5.3, and 5.4 in three tabs. Tomorrow is all three and it is the heaviest reading day of the week.\n\n\n Sketch on one sheet the forward pass of a 2-layer MLP: X to Z1 = XW1 + b1 to H = relu(Z1) to O = HW2 + b2 to loss. Annotate every shape. You differentiate this tomorrow.\n\n\n Skim only the section headings of D2L 5.3 so tomorrow’s densest read does not start cold."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 6, Sunday, 9 August 2026 starts clean. This is what the evening email sends you.\n\n\n Open D2L 5.1, 5.3, and 5.4 in three tabs. Tomorrow is all three and it is the heaviest reading day of the week.\n\n\n Sketch on one sheet the forward pass of a 2-layer MLP: X to Z1 = XW1 + b1 to H = relu(Z1) to O = HW2 + b2 to loss. Annotate every shape. You differentiate this tomorrow.\n\n\n Skim only the section headings of D2L 5.3 so tomorrow’s densest read does not start cold."
   },
   {
     "objectID": "days/day-03.html",
@@ -1292,7 +1292,7 @@
     "href": "days/day-03.html#prepare-for-tomorrow",
     "title": "Day 3 — micrograd, first half: the Value object and the expression graph",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 4, Monday, 27 July 2026 starts clean. This is what the evening email sends you.\n\n\n Queue the micrograd video at 1:15 and open micrograd_lecture_second_half_roughly.ipynb.\n\n\n Create an empty file called mygrad.py in your working directory and leave it empty. Tomorrow you write micrograd into it from nothing.\n\n\n Look at the file listing of github.com/karpathy/micrograd and note that engine.py is about 100 lines. Still do not open it."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 4, Friday, 7 August 2026 starts clean. This is what the evening email sends you.\n\n\n Queue the micrograd video at 1:15 and open micrograd_lecture_second_half_roughly.ipynb.\n\n\n Create an empty file called mygrad.py in your working directory and leave it empty. Tomorrow you write micrograd into it from nothing.\n\n\n Look at the file listing of github.com/karpathy/micrograd and note that engine.py is about 100 lines. Still do not open it."
   },
   {
     "objectID": "days/day-01.html",
@@ -1453,7 +1453,7 @@
     "href": "days/day-02.html#prepare-for-tomorrow",
     "title": "Day 2 — What backward() actually does",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 3, Sunday, 26 July 2026 starts clean. This is what the evening email sends you.\n\n\n Clone github.com/karpathy/nn-zero-to-hero. Tomorrow you work inside lectures/micrograd/.\n\n\n Clone github.com/karpathy/micrograd as well, but do not open engine.py. You write that yourself on Day 4.\n\n\n Open the micrograd lecture and confirm it plays. It runs 2h25m total and tomorrow you watch the first 1h15m."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 3, Thursday, 6 August 2026 starts clean. This is what the evening email sends you.\n\n\n Clone github.com/karpathy/nn-zero-to-hero. Tomorrow you work inside lectures/micrograd/.\n\n\n Clone github.com/karpathy/micrograd as well, but do not open engine.py. You write that yourself on Day 4.\n\n\n Open the micrograd lecture and confirm it plays. It runs 2h25m total and tomorrow you watch the first 1h15m."
   },
   {
     "objectID": "days/day-04.html",
@@ -1502,7 +1502,7 @@
     "href": "days/day-04.html#prepare-for-tomorrow",
     "title": "Day 4 — Rebuild micrograd from an empty file",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 5, Tuesday, 28 July 2026 starts clean. This is what the evening email sends you.\n\n\n Write down, from memory tonight, the multinomial logistic regression log-likelihood the way you would write it in a stats paper. Tomorrow you match it to D2L’s cross-entropy notation.\n\n\n Confirm torchvision.datasets.FashionMNIST downloads in your environment - tomorrow’s classifier needs a real 10-class dataset and you do not want to spend study time on the download.\n\n\n Open D2L 4.1 Softmax Regression and read only its first paragraph."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 5, Saturday, 8 August 2026 starts clean. This is what the evening email sends you.\n\n\n Write down, from memory tonight, the multinomial logistic regression log-likelihood the way you would write it in a stats paper. Tomorrow you match it to D2L’s cross-entropy notation.\n\n\n Confirm torchvision.datasets.FashionMNIST downloads in your environment - tomorrow’s classifier needs a real 10-class dataset and you do not want to spend study time on the download.\n\n\n Open D2L 4.1 Softmax Regression and read only its first paragraph."
   },
   {
     "objectID": "days/day-06.html",
@@ -1551,7 +1551,7 @@
     "href": "days/day-06.html#prepare-for-tomorrow",
     "title": "Day 6 — Backprop through a 2-layer MLP, by hand",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 7, Thursday, 30 July 2026 starts clean. This is what the evening email sends you.\n\n\n Put a blank sheet of paper somewhere visible and close your Day 6 code. Tomorrow you re-derive that backward pass from memory before you are allowed to reopen it.\n\n\n Write the list of things from Days 1 to 6 you left half-finished or half-understood. Tomorrow’s first task is closing that list.\n\n\n Check that mygrad.py from Day 4 still runs, so tomorrow’s clean-interpreter check is not a surprise."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 7, Monday, 10 August 2026 starts clean. This is what the evening email sends you.\n\n\n Put a blank sheet of paper somewhere visible and close your Day 6 code. Tomorrow you re-derive that backward pass from memory before you are allowed to reopen it.\n\n\n Write the list of things from Days 1 to 6 you left half-finished or half-understood. Tomorrow’s first task is closing that list.\n\n\n Check that mygrad.py from Day 4 still runs, so tomorrow’s clean-interpreter check is not a surprise."
   },
   {
     "objectID": "days/day-08.html",
@@ -1600,7 +1600,7 @@
     "href": "days/day-08.html#prepare-for-tomorrow",
     "title": "Day 8 — A language model you can count by hand",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 9, Saturday, 1 August 2026 starts clean. This is what the evening email sends you.\n\n\n torch.save the 27x27 count matrix N so tomorrow starts from it instead of a rebuild.\n\n\n Split names.txt into 90% train and 10% held-out with a fixed seed, and write both to disk as separate files.\n\n\n Skim the two pages of SLP3 3.5 that define perplexity - do not work through it, just see the equation once."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 9, Wednesday, 12 August 2026 starts clean. This is what the evening email sends you.\n\n\n torch.save the 27x27 count matrix N so tomorrow starts from it instead of a rebuild.\n\n\n Split names.txt into 90% train and 10% held-out with a fixed seed, and write both to disk as separate files.\n\n\n Skim the two pages of SLP3 3.5 that define perplexity - do not work through it, just see the equation once."
   },
   {
     "objectID": "days/day-10.html",
@@ -1649,7 +1649,7 @@
     "href": "days/day-10.html#prepare-for-tomorrow",
     "title": "Day 10 — The same bigram model, built twice",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 11, Monday, 3 August 2026 starts clean. This is what the evening email sends you.\n\n\n Queue makemore part 2 (1h15m) and open lectures/makemore/makemore_part2_mlp.ipynb.\n\n\n Skim the architecture figure reproduced in the first cells of that notebook so the embedding table is not new to you at 8am.\n\n\n Add your bigram network’s final NLL to the results file you started on Day 9 - the MLP row goes in tomorrow."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 11, Friday, 14 August 2026 starts clean. This is what the evening email sends you.\n\n\n Queue makemore part 2 (1h15m) and open lectures/makemore/makemore_part2_mlp.ipynb.\n\n\n Skim the architecture figure reproduced in the first cells of that notebook so the embedding table is not new to you at 8am.\n\n\n Add your bigram network’s final NLL to the results file you started on Day 9 - the MLP row goes in tomorrow."
   },
   {
     "objectID": "days/day-12.html",
@@ -1698,7 +1698,7 @@
     "href": "days/day-12.html#prepare-for-tomorrow",
     "title": "Day 12 — What the embedding space encodes",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 13, Wednesday, 5 August 2026 starts clean. This is what the evening email sends you.\n\n\n Queue makemore part 3 (1h55m) and open lectures/makemore/makemore_part3_bn.ipynb.\n\n\n Keep yesterday’s MLP training script runnable end to end - tomorrow you break it on purpose and need a working baseline to break.\n\n\n Compute -log(1/27) tonight and write the number down; it is the loss your network should start at."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 13, Sunday, 16 August 2026 starts clean. This is what the evening email sends you.\n\n\n Queue makemore part 3 (1h55m) and open lectures/makemore/makemore_part3_bn.ipynb.\n\n\n Keep yesterday’s MLP training script runnable end to end - tomorrow you break it on purpose and need a working baseline to break.\n\n\n Compute -log(1/27) tonight and write the number down; it is the loss your network should start at."
   },
   {
     "objectID": "days/day-14.html",
@@ -1747,7 +1747,7 @@
     "href": "days/day-14.html#prepare-for-tomorrow",
     "title": "Day 14 — One table, one held-out split",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 15, Friday, 7 August 2026 starts clean. This is what the evening email sends you.\n\n\n Open lectures/makemore/makemore_part4_backprop.ipynb from nn-zero-to-hero and run the setup cell so the data is loaded and ready.\n\n\n Re-read your Day 6 hand-written backward pass for the 2-layer MLP - tomorrow you write one of those for every intermediate tensor, BatchNorm included.\n\n\n Queue makemore part 4, Backprop Ninja (1h55m), and block the time for it."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 15, Tuesday, 18 August 2026 starts clean. This is what the evening email sends you.\n\n\n Open lectures/makemore/makemore_part4_backprop.ipynb from nn-zero-to-hero and run the setup cell so the data is loaded and ready.\n\n\n Re-read your Day 6 hand-written backward pass for the 2-layer MLP - tomorrow you write one of those for every intermediate tensor, BatchNorm included.\n\n\n Queue makemore part 4, Backprop Ninja (1h55m), and block the time for it."
   },
   {
     "objectID": "days/day-16.html",
@@ -1796,7 +1796,7 @@
     "href": "days/day-16.html#prepare-for-tomorrow",
     "title": "Day 16 — WaveNet, and reading torch.nn without flinching",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 17, Sunday, 9 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download SLP3 Ch2 (2.pdf).\n\n\n pip install tiktoken and confirm tiktoken.get_encoding(‘cl100k_base’).encode(‘hello’) returns something.\n\n\n Write down ten strings from your own work to tokenize tomorrow - a couple of rsIDs, gene and protein symbols, a p-value in scientific notation, a dosage, one sentence that is not English."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 17, Thursday, 20 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download SLP3 Ch2 (2.pdf).\n\n\n pip install tiktoken and confirm tiktoken.get_encoding(‘cl100k_base’).encode(‘hello’) returns something.\n\n\n Write down ten strings from your own work to tokenize tomorrow - a couple of rsIDs, gene and protein symbols, a p-value in scientific notation, a dosage, one sentence that is not English."
   },
   {
     "objectID": "days/day-18.html",
@@ -1845,7 +1845,7 @@
     "href": "days/day-18.html#prepare-for-tomorrow",
     "title": "Day 18 — Build the tokenizer, train it on PubMed",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 19, Tuesday, 11 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download SLP3 Ch8 (8.pdf) - it is the longest chapter you have read so far, so have it open before you start.\n\n\n Write down the three questions you most want answered about attention, so you can check them off tomorrow.\n\n\n Skim Ch8’s figures only, no text, so the shapes are not a cold start."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 19, Saturday, 22 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download SLP3 Ch8 (8.pdf) - it is the longest chapter you have read so far, so have it open before you start.\n\n\n Write down the three questions you most want answered about attention, so you can check them off tomorrow.\n\n\n Skim Ch8’s figures only, no text, so the shapes are not a cold start."
   },
   {
     "objectID": "days/day-20.html",
@@ -1894,7 +1894,7 @@
     "href": "days/day-20.html#prepare-for-tomorrow",
     "title": "Day 20 — Attention Is All You Need, first pass",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 21, Thursday, 13 August 2026 starts clean. This is what the evening email sends you.\n\n\n List what is still unfinished from Days 15-20 - most likely exercise 4 of the backprop notebook or the tiktoken comparison table - so tomorrow starts with a decision instead of a search.\n\n\n Get blank paper or clear a whiteboard. Tomorrow is drawing, not typing.\n\n\n Write the config you will drill on at the top of a blank page: B = 64, T = 256, vocab = 65, d_model = 384, 6 heads, 6 layers."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 21, Monday, 24 August 2026 starts clean. This is what the evening email sends you.\n\n\n List what is still unfinished from Days 15-20 - most likely exercise 4 of the backprop notebook or the tiktoken comparison table - so tomorrow starts with a decision instead of a search.\n\n\n Get blank paper or clear a whiteboard. Tomorrow is drawing, not typing.\n\n\n Write the config you will drill on at the top of a blank page: B = 64, T = 256, vocab = 65, d_model = 384, 6 heads, 6 layers."
   },
   {
     "objectID": "days/day-22.html",
@@ -1943,7 +1943,7 @@
     "href": "days/day-22.html#prepare-for-tomorrow",
     "title": "Day 22 — Bigram baseline to one head of masked self-attention",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 23, Saturday, 15 August 2026 starts clean. This is what the evening email sends you.\n\n\n Run gpt.py for 200 steps once more before you close the laptop, so tomorrow starts from a file you know works.\n\n\n Queue kCc8FmEb1nY at 01:19:11 in a pinned tab so tomorrow starts exactly where you stopped.\n\n\n Check torch.cuda.is_available(). If it is False, open Colab and confirm you can get a T4, because tomorrow’s scaled-up model is painful on CPU."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 23, Wednesday, 26 August 2026 starts clean. This is what the evening email sends you.\n\n\n Run gpt.py for 200 steps once more before you close the laptop, so tomorrow starts from a file you know works.\n\n\n Queue kCc8FmEb1nY at 01:19:11 in a pinned tab so tomorrow starts exactly where you stopped.\n\n\n Check torch.cuda.is_available(). If it is False, open Colab and confirm you can get a T4, because tomorrow’s scaled-up model is painful on CPU."
   },
   {
     "objectID": "days/day-24.html",
@@ -1992,7 +1992,7 @@
     "href": "days/day-24.html#prepare-for-tomorrow",
     "title": "Day 24 — Rebuild it from an empty file",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 25, Monday, 17 August 2026 starts clean. This is what the evening email sends you.\n\n\n Add torch.manual_seed(1337) explicitly at the top of gpt_mine.py - tomorrow’s comparisons are worthless if runs are not seeded.\n\n\n Time one 500-step run on the small config and write down the seconds. Tomorrow is thirteen runs; if one takes six minutes, shrink the config tonight.\n\n\n Decide now whether you log train/val curves to CSV or to Weights & Biases, and if it is W&B, create the account and run wandb login tonight. Do not decide this mid-sweep tomorrow."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 25, Friday, 28 August 2026 starts clean. This is what the evening email sends you.\n\n\n Add torch.manual_seed(1337) explicitly at the top of gpt_mine.py - tomorrow’s comparisons are worthless if runs are not seeded.\n\n\n Time one 500-step run on the small config and write down the seconds. Tomorrow is thirteen runs; if one takes six minutes, shrink the config tonight.\n\n\n Decide now whether you log train/val curves to CSV or to Weights & Biases, and if it is W&B, create the account and run wandb login tonight. Do not decide this mid-sweep tomorrow."
   },
   {
     "objectID": "days/day-26.html",
@@ -2041,7 +2041,7 @@
     "href": "days/day-26.html#prepare-for-tomorrow",
     "title": "Day 26 — nanoGPT: the same model with four days of GPU time in mind",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 27, Wednesday, 19 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download SLP3 Ch7 from https://web.stanford.edu/~jurafsky/slp3/7.pdf and skim only the section headings, so you know tomorrow’s shape.\n\n\n Open experiments.md to the decoding table - tomorrow covers top-p, which you did not implement, and you will want your top-k numbers alongside.\n\n\n Note at the top of nanogpt_diff.md anything you ran out of time to trace today, so it does not silently disappear."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 27, Sunday, 30 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download SLP3 Ch7 from https://web.stanford.edu/~jurafsky/slp3/7.pdf and skim only the section headings, so you know tomorrow’s shape.\n\n\n Open experiments.md to the decoding table - tomorrow covers top-p, which you did not implement, and you will want your top-k numbers alongside.\n\n\n Note at the top of nanogpt_diff.md anything you ran out of time to trace today, so it does not silently disappear."
   },
   {
     "objectID": "days/day-28.html",
@@ -2090,7 +2090,7 @@
     "href": "days/day-28.html#prepare-for-tomorrow",
     "title": "Day 28 — Milestone 1 - My GPT from scratch",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 29, Friday, 21 August 2026 starts clean. This is what the evening email sends you.\n\n\n Create a Hugging Face account and a read token if you do not have one, then run huggingface-cli login and confirm it stores the token.\n\n\n Run pip install transformers datasets and check that from transformers import pipeline imports without error.\n\n\n Open Chapter 1 of the Hugging Face LLM course at https://huggingface.co/learn/llm-course/en/chapter1/1 and read section 1 only. Five minutes - tomorrow the bootcamp stops writing models and starts using ones that were trained for you."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 29, Tuesday, 1 September 2026 starts clean. This is what the evening email sends you.\n\n\n Create a Hugging Face account and a read token if you do not have one, then run huggingface-cli login and confirm it stores the token.\n\n\n Run pip install transformers datasets and check that from transformers import pipeline imports without error.\n\n\n Open Chapter 1 of the Hugging Face LLM course at https://huggingface.co/learn/llm-course/en/chapter1/1 and read section 1 only. Five minutes - tomorrow the bootcamp stops writing models and starts using ones that were trained for you."
   },
   {
     "objectID": "days/day-30.html",
@@ -2139,7 +2139,7 @@
     "href": "days/day-30.html#prepare-for-tomorrow",
     "title": "Day 30 — Behind the pipeline, and your BPE against theirs",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 31, Sunday, 23 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download the BERT paper (arXiv 1810.04805) and SLP3 Chapter 10 as PDFs tonight.\n\n\n Read only BERT’s abstract and Figure 1. Five minutes, then stop.\n\n\n Write one sentence in your log predicting what ‘masked language model’ means, before you read anything. You grade it tomorrow."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 31, Thursday, 3 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download the BERT paper (arXiv 1810.04805) and SLP3 Chapter 10 as PDFs tonight.\n\n\n Read only BERT’s abstract and Figure 1. Five minutes, then stop.\n\n\n Write one sentence in your log predicting what ‘masked language model’ means, before you read anything. You grade it tomorrow."
   },
   {
     "objectID": "days/day-32.html",
@@ -2188,7 +2188,7 @@
     "href": "days/day-32.html#prepare-for-tomorrow",
     "title": "Day 32 — Padding, masks, and truncation: the bugs that never raise",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 33, Tuesday, 25 August 2026 starts clean. This is what the evening email sends you.\n\n\n Register for a free NCBI API key (Account -&gt; Settings -&gt; API Key Management). It takes three minutes and raises E-utilities from 3 to 10 requests per second.\n\n\n Read only the ESearch and EFetch examples in the E-utilities Quick Start (NBK25501) - skip the rest of the chapter.\n\n\n Paste the PubMed query you settled on into project/query.txt, so tomorrow opens with a script to run rather than a decision to make."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 33, Saturday, 5 September 2026 starts clean. This is what the evening email sends you.\n\n\n Register for a free NCBI API key (Account -&gt; Settings -&gt; API Key Management). It takes three minutes and raises E-utilities from 3 to 10 requests per second.\n\n\n Read only the ESearch and EFetch examples in the E-utilities Quick Start (NBK25501) - skip the rest of the chapter.\n\n\n Paste the PubMed query you settled on into project/query.txt, so tomorrow opens with a script to run rather than a decision to make."
   },
   {
     "objectID": "days/day-34.html",
@@ -2237,7 +2237,7 @@
     "href": "days/day-34.html#prepare-for-tomorrow",
     "title": "Day 34 — Fine-tuning: the Trainer, and the loop it hides",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 35, Thursday, 27 August 2026 starts clean. This is what the evening email sends you.\n\n\n Check that runs/ holds both checkpoints and that baselines/prompt_v1_val.jsonl still carries its latency and token-count columns - tomorrow’s report is built out of them.\n\n\n Confirm from sklearn.calibration import calibration_curve imports cleanly.\n\n\n Write one number in your log tonight: the test accuracy you expect the fine-tune to reach. You are grading that prediction tomorrow, and a miss tells you more than a hit."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 35, Monday, 7 September 2026 starts clean. This is what the evening email sends you.\n\n\n Check that runs/ holds both checkpoints and that baselines/prompt_v1_val.jsonl still carries its latency and token-count columns - tomorrow’s report is built out of them.\n\n\n Confirm from sklearn.calibration import calibration_curve imports cleanly.\n\n\n Write one number in your log tonight: the test accuracy you expect the fine-tune to reach. You are grading that prediction tomorrow, and a miss tells you more than a hit."
   },
   {
     "objectID": "days/day-36.html",
@@ -2286,7 +2286,7 @@
     "href": "days/day-36.html#prepare-for-tomorrow",
     "title": "Day 36 — GPT-3 and in-context learning",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 37, Saturday, 29 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download the Scaling Laws PDF (arXiv:2001.08361) so it is on disk before you start.\n\n\n Type Table 2.1 into a small CSV - eight rows, parameters, layers, d_model, heads. You will plot against it tomorrow.\n\n\n Write one line, dated, guessing how validation loss scales with parameter count: linear, logarithmic, power law, or something else. Do it before you read tomorrow’s paper."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 37, Wednesday, 9 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download the Scaling Laws PDF (arXiv:2001.08361) so it is on disk before you start.\n\n\n Type Table 2.1 into a small CSV - eight rows, parameters, layers, d_model, heads. You will plot against it tomorrow.\n\n\n Write one line, dated, guessing how validation loss scales with parameter count: linear, logarithmic, power law, or something else. Do it before you read tomorrow’s paper."
   },
   {
     "objectID": "days/day-38.html",
@@ -2335,7 +2335,7 @@
     "href": "days/day-38.html#prepare-for-tomorrow",
     "title": "Day 38 — Chinchilla: doing the compute arithmetic yourself",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 39, Monday, 31 August 2026 starts clean. This is what the evening email sends you.\n\n\n Download SLP3 Chapter 9 (9.pdf). It is 18 pages, so it is a read-in-one-sitting chapter.\n\n\n Write one sentence on what you think separates a base model from a chat model, before the textbook tells you.\n\n\n Open your Day 35 failure taxonomy. You rerun the worst cases from it tomorrow afternoon."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 39, Friday, 11 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download SLP3 Chapter 9 (9.pdf). It is 18 pages, so it is a read-in-one-sitting chapter.\n\n\n Write one sentence on what you think separates a base model from a chat model, before the textbook tells you.\n\n\n Open your Day 35 failure taxonomy. You rerun the worst cases from it tomorrow afternoon."
   },
   {
     "objectID": "days/day-40.html",
@@ -2384,7 +2384,7 @@
     "href": "days/day-40.html#prepare-for-tomorrow",
     "title": "Day 40 — InstructGPT: three stages, forty labelers",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 41, Wednesday, 2 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download LoRA (arXiv:2106.09685).\n\n\n Run pip install peft and confirm from peft import LoraConfig, get_peft_model imports cleanly.\n\n\n Dig out your Day 34 run and write its peak GPU memory, wall-clock and final metrics somewhere visible. Tomorrow is a comparison, and the baseline column has to be filled in before you start."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 41, Sunday, 13 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download LoRA (arXiv:2106.09685).\n\n\n Run pip install peft and confirm from peft import LoraConfig, get_peft_model imports cleanly.\n\n\n Dig out your Day 34 run and write its peak GPU memory, wall-clock and final metrics somewhere visible. Tomorrow is a comparison, and the baseline column has to be filled in before you start."
   },
   {
     "objectID": "days/day-42.html",
@@ -2433,7 +2433,7 @@
     "href": "days/day-42.html#prepare-for-tomorrow",
     "title": "Day 42 — Decision table: prompt, few-shot, LoRA, fine-tune, retrieve",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 43, Friday, 4 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download the DPO paper (arXiv:2305.18290). Week 7 opens on it.\n\n\n Run pip install trl and confirm from trl import SFTTrainer imports cleanly.\n\n\n Skim the nanochat README and runs/speedrun.sh - just far enough to see which scripts run, in what order, and what the speedrun costs."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 43, Tuesday, 15 September 2026 starts clean. This is what the evening email sends you.\n\n\n Download the DPO paper (arXiv:2305.18290). Week 7 opens on it.\n\n\n Run pip install trl and confirm from trl import SFTTrainer imports cleanly.\n\n\n Skim the nanochat README and runs/speedrun.sh - just far enough to see which scripts run, in what order, and what the speedrun costs."
   },
   {
     "objectID": "days/day-44.html",
@@ -2482,7 +2482,7 @@
     "href": "days/day-44.html#prepare-for-tomorrow",
     "title": "Day 44 — nanochat, part 1: tokenizer, base training, base eval",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 45, Sunday, 6 September 2026 starts clean. This is what the evening email sends you.\n\n\n Open chat_sft.py, chat_rl.py, chat_eval.py, chat_cli.py and infer_bench.py so tomorrow is reading, not file-hunting.\n\n\n Skim the nanochat miniseries thread (discussion #420) for the mid-training explanation.\n\n\n Decide tonight whether you are renting a GPU node tomorrow - if yes, create the account and check quota now; if no, drop it and stop thinking about it."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 45, Thursday, 17 September 2026 starts clean. This is what the evening email sends you.\n\n\n Open chat_sft.py, chat_rl.py, chat_eval.py, chat_cli.py and infer_bench.py so tomorrow is reading, not file-hunting.\n\n\n Skim the nanochat miniseries thread (discussion #420) for the mid-training explanation.\n\n\n Decide tonight whether you are renting a GPU node tomorrow - if yes, create the account and check quota now; if no, drop it and stop thinking about it."
   },
   {
     "objectID": "days/day-46.html",
@@ -2531,7 +2531,7 @@
     "href": "days/day-46.html#prepare-for-tomorrow",
     "title": "Day 46 — Retrieval: BM25, bi-encoders, and when RAG is the wrong answer",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 47, Tuesday, 8 September 2026 starts clean. This is what the evening email sends you.\n\n\n Put your PubMed abstract corpus in one directory with stable IDs, and check the file count.\n\n\n Download a sentence-transformers bi-encoder checkpoint now so tomorrow does not start with a download.\n\n\n Write five query-to-abstract pairs where you already know the right answer - just five, the rest is tomorrow’s work."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 47, Saturday, 19 September 2026 starts clean. This is what the evening email sends you.\n\n\n Put your PubMed abstract corpus in one directory with stable IDs, and check the file count.\n\n\n Download a sentence-transformers bi-encoder checkpoint now so tomorrow does not start with a download.\n\n\n Write five query-to-abstract pairs where you already know the right answer - just five, the rest is tomorrow’s work."
   },
   {
     "objectID": "days/day-48.html",
@@ -2580,7 +2580,7 @@
     "href": "days/day-48.html#prepare-for-tomorrow",
     "title": "Day 48 — HELM, MedHELM, and the distinctions a single score erases",
     "section": "Prepare for tomorrow",
-    "text": "Prepare for tomorrow\nTen minutes tonight so Day 49, Thursday, 10 September 2026 starts clean. This is what the evening email sends you.\n\n\n Name the two or three models you will evaluate tomorrow and confirm each one loads.\n\n\n Locate your held-out split and verify from your logs that no prompt, threshold or checkpoint was ever selected using it.\n\n\n Reread your Day 35 failure taxonomy so tomorrow’s version extends it instead of restarting it."
+    "text": "Prepare for tomorrow\nTen minutes tonight so Day 49, Monday, 21 September 2026 starts clean. This is what the evening email sends you.\n\n\n Name the two or three models you will evaluate tomorrow and confirm each one loads.\n\n\n Locate your held-out split and verify from your logs that no prompt, threshold or checkpoint was ever selected using it.\n\n\n Reread your Day 35 failure taxonomy so tomorrow’s version extends it instead of restarting it."
   },
   {
     "objectID": "days/day-50.html",
@@ -2636,35 +2636,35 @@
     "href": "milestones.html#m1",
     "title": "Milestones",
     "section": "Milestone 1 — A GPT you wrote yourself",
-    "text": "Milestone 1 — A GPT you wrote yourself\nDay 28, Thursday 20 August. Fed by days 22–27.\nA decoder-only transformer you implemented, trained, and understand line by line, written up as a short report.\nWhat’s in it\n\nThe architecture, with your parameter count derived by hand and then checked against the code. If the two numbers disagree, the report is finding out why.\nThe experiment table from day 25: context length, n_layer, n_head, n_embd, learning rate and dropout against final validation loss. Say which change mattered and which didn’t.\nSamples at three sampling temperatures, and one sentence on what temperature is actually doing to the distribution.\nA short section on what nanoGPT does that yours doesn’t, and why those things exist.\n\nHow you know it’s good — you can hand someone your model.py, and answer any “why is this line here?” question about it without looking anything up."
+    "text": "Milestone 1 — A GPT you wrote yourself\nDay 28, Monday 31 August. Fed by days 22–27.\nA decoder-only transformer you implemented, trained, and understand line by line, written up as a short report.\nWhat’s in it\n\nThe architecture, with your parameter count derived by hand and then checked against the code. If the two numbers disagree, the report is finding out why.\nThe experiment table from day 25: context length, n_layer, n_head, n_embd, learning rate and dropout against final validation loss. Say which change mattered and which didn’t.\nSamples at three sampling temperatures, and one sentence on what temperature is actually doing to the distribution.\nA short section on what nanoGPT does that yours doesn’t, and why those things exist.\n\nHow you know it’s good — you can hand someone your model.py, and answer any “why is this line here?” question about it without looking anything up."
   },
   {
     "objectID": "milestones.html#m2",
     "href": "milestones.html#m2",
     "title": "Milestones",
     "section": "Milestone 2 — Fine-tuned versus prompted, evaluated properly",
-    "text": "Milestone 2 — Fine-tuned versus prompted, evaluated properly\nDay 35, Thursday 27 August. Fed by days 29–34.\nThe first real report on the PubMed abstract task. The point of this one is that it is not a single accuracy number, because a single accuracy number is how clinical AI results get overclaimed.\nWhat’s in it\n\nThe task, the label scheme, and the train/validation/test split — fixed here and not touched again for the rest of the bootcamp.\nAccuracy and per-class performance for the prompting baseline and the fine-tune. Confidence intervals, since you know how to compute them.\nCalibration: a reliability curve and expected calibration error. A model that is 95% confident and 70% correct is a different failure from one that is 70% confident and 70% correct.\nLatency and cost per 1000 abstracts for both approaches.\nA failure taxonomy you built by reading actual errors — not a confusion matrix, a set of named failure modes with an example of each.\n\nHow you know it’s good — it contains at least one finding that would make you not deploy the better-scoring model."
+    "text": "Milestone 2 — Fine-tuned versus prompted, evaluated properly\nDay 35, Monday 7 September. Fed by days 29–34.\nThe first real report on the PubMed abstract task. The point of this one is that it is not a single accuracy number, because a single accuracy number is how clinical AI results get overclaimed.\nWhat’s in it\n\nThe task, the label scheme, and the train/validation/test split — fixed here and not touched again for the rest of the bootcamp.\nAccuracy and per-class performance for the prompting baseline and the fine-tune. Confidence intervals, since you know how to compute them.\nCalibration: a reliability curve and expected calibration error. A model that is 95% confident and 70% correct is a different failure from one that is 70% confident and 70% correct.\nLatency and cost per 1000 abstracts for both approaches.\nA failure taxonomy you built by reading actual errors — not a confusion matrix, a set of named failure modes with an example of each.\n\nHow you know it’s good — it contains at least one finding that would make you not deploy the better-scoring model."
   },
   {
     "objectID": "milestones.html#m3",
     "href": "milestones.html#m3",
     "title": "Milestones",
     "section": "Milestone 3 — The whole pipeline, traced",
-    "text": "Milestone 3 — The whole pipeline, traced\nDay 45, Sunday 6 September. Fed by day 44.\nnanochat is the only place you’ll see every stage in one readable repo: tokenizer training, pretraining, mid-training, SFT, RL, evaluation, and serving. The deliverable is a written trace of the path from raw text to a model answering in a browser.\nWhat’s in it\n\nEach stage, the script that runs it, what goes in, what comes out, and roughly what it costs in GPU-hours.\nFor each stage, the thing you built earlier that corresponds to it — your BPE from day 18, your training loop from day 24, your fine-tune from day 34.\nThe two or three stages you could not have guessed were necessary before reading it.\n\nRunning the speedrun yourself is optional. Reading it properly is not."
+    "text": "Milestone 3 — The whole pipeline, traced\nDay 45, Thursday 17 September. Fed by day 44.\nnanochat is the only place you’ll see every stage in one readable repo: tokenizer training, pretraining, mid-training, SFT, RL, evaluation, and serving. The deliverable is a written trace of the path from raw text to a model answering in a browser.\nWhat’s in it\n\nEach stage, the script that runs it, what goes in, what comes out, and roughly what it costs in GPU-hours.\nFor each stage, the thing you built earlier that corresponds to it — your BPE from day 18, your training loop from day 24, your fine-tune from day 34.\nThe two or three stages you could not have guessed were necessary before reading it.\n\nRunning the speedrun yourself is optional. Reading it properly is not."
   },
   {
     "objectID": "milestones.html#m4",
     "href": "milestones.html#m4",
     "title": "Milestones",
     "section": "Milestone 4 — Retrieval over your own corpus",
-    "text": "Milestone 4 — Retrieval over your own corpus\nDay 47, Tuesday 8 September. Fed by day 46.\nA working RAG system over the PubMed abstracts you’ve been carrying since day 18.\nWhat’s in it\n\nChunking strategy and why you chose it. Abstracts are short — say whether chunking helped at all.\nEmbeddings, an index, and top-k retrieval.\nRetrieval quality measured separately: recall@k and MRR against a small set of questions where you know which abstract holds the answer.\nEnd-to-end answer quality measured separately.\nOne worked example where retrieval succeeded and generation still got it wrong, and one of the reverse.\n\nHow you know it’s good — you can say which of your end-to-end failures are retrieval failures and which are generation failures. Conflating the two is the single most common way RAG evaluations mislead."
+    "text": "Milestone 4 — Retrieval over your own corpus\nDay 47, Saturday 19 September. Fed by day 46.\nA working RAG system over the PubMed abstracts you’ve been carrying since day 18.\nWhat’s in it\n\nChunking strategy and why you chose it. Abstracts are short — say whether chunking helped at all.\nEmbeddings, an index, and top-k retrieval.\nRetrieval quality measured separately: recall@k and MRR against a small set of questions where you know which abstract holds the answer.\nEnd-to-end answer quality measured separately.\nOne worked example where retrieval succeeded and generation still got it wrong, and one of the reverse.\n\nHow you know it’s good — you can say which of your end-to-end failures are retrieval failures and which are generation failures. Conflating the two is the single most common way RAG evaluations mislead."
   },
   {
     "objectID": "milestones.html#m5",
     "href": "milestones.html#m5",
     "title": "Milestones",
     "section": "Milestone 5 — Capstone",
-    "text": "Milestone 5 — Capstone\nDay 50, Friday 11 September.\nTwo things.\nThe final report pulls together days 33 to 49 into one evaluation of the biomedical task across every approach you tried — zero-shot prompt, few-shot prompt, full fine-tune, LoRA, and RAG — on the same fixed test set, with the same metrics, plus the error taxonomy. It ends with a recommendation and the conditions under which you’d change it.\nThe self-assessment is the self-check page, answered out loud, without notes. Anything you can’t answer is not a failure of the bootcamp; it’s the reading list for October."
+    "text": "Milestone 5 — Capstone\nDay 50, Tuesday 22 September.\nTwo things.\nThe final report pulls together days 33 to 49 into one evaluation of the biomedical task across every approach you tried — zero-shot prompt, few-shot prompt, full fine-tune, LoRA, and RAG — on the same fixed test set, with the same metrics, plus the error taxonomy. It ends with a recommendation and the conditions under which you’d change it.\nThe self-assessment is the self-check page, answered out loud, without notes. Anything you can’t answer is not a failure of the bootcamp; it’s the reading list for October."
   },
   {
     "objectID": "setup.html",
