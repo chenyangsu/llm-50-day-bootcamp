@@ -1,6 +1,6 @@
 ---
 title: "Day 41 — LoRA: fine-tuning without the optimizer state"
-subtitle: "Wednesday, 2 September 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
+subtitle: "Sunday, 13 September 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -54,7 +54,7 @@ Your LoRA run trains roughly a thousandth as many parameters as Day 34, so why d
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 42, Thursday, 3 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 42, Monday, 14 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

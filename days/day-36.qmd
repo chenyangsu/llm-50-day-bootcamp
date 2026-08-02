@@ -1,6 +1,6 @@
 ---
 title: "Day 36 — GPT-3 and in-context learning"
-subtitle: "Friday, 28 August 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
+subtitle: "Tuesday, 8 September 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -53,7 +53,7 @@ Your k = 20 run beats your k = 0 run. Without rerunning anything, how would you 
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 37, Saturday, 29 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 37, Wednesday, 9 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

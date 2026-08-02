@@ -32,7 +32,7 @@ website:
               href: https://github.com/chenyangsu/llm-50-day-bootcamp
               aria-label: GitHub repository
     page-footer:
-        left: "24 July – 11 September 2026"
+        left: "24 July – 22 September 2026"
         right: "Progress is stored in this browser only."
 
 format:

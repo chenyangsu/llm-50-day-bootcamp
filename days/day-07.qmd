@@ -1,6 +1,6 @@
 ---
 title: "Day 7 — Re-derive backprop from memory"
-subtitle: "Thursday, 30 July 2026 · Week 1 · Foundations · Catch-up day · 2-3 h"
+subtitle: "Monday, 10 August 2026 · Week 1 · Foundations · Catch-up day · 2-3 h"
 ---
 
 ::: {.day-nav .kind-catchup}
@@ -53,7 +53,7 @@ Explain backpropagation in under two minutes to someone who knows the chain rule
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 8, Friday, 31 July 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 8, Tuesday, 11 August 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

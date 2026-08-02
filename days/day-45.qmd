@@ -1,6 +1,6 @@
 ---
 title: "Day 45 — Milestone 3 - nanochat, part 2: SFT, RL, eval, serving"
-subtitle: "Sunday, 6 September 2026 · Week 7 · Pipeline, RAG, evaluation · Milestone · 3-4 h"
+subtitle: "Thursday, 17 September 2026 · Week 7 · Pipeline, RAG, evaluation · Milestone · 3-4 h"
 ---
 
 ::: {.day-nav .kind-milestone}
@@ -59,7 +59,7 @@ In chat_sft.py, which token positions contribute to the loss and which are maske
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 46, Monday, 7 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 46, Friday, 18 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

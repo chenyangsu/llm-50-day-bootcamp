@@ -1,6 +1,6 @@
 ---
 title: "Day 29 — Pipelines, and the three architecture families"
-subtitle: "Friday, 21 August 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
+subtitle: "Tuesday, 1 September 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -58,7 +58,7 @@ You have written a decoder-only transformer twice, so from here you stop reimple
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 30, Saturday, 22 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 30, Wednesday, 2 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

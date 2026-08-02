@@ -1,6 +1,6 @@
 ---
 title: "Day 10 — The same bigram model, built twice"
-subtitle: "Sunday, 2 August 2026 · Week 2 · Language models · Study day · 3-4 h"
+subtitle: "Thursday, 13 August 2026 · Week 2 · Language models · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -53,7 +53,7 @@ Without looking: why does gradient descent on the NLL of a linear model with one
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 11, Monday, 3 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 11, Friday, 14 August 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

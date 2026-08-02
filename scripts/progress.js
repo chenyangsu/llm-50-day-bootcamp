@@ -23,6 +23,9 @@
     if (today > last.date) return { state: "after", day: last };
     for (var i = 0; i < BOOTCAMP_DAYS.length; i++) {
       if (BOOTCAMP_DAYS[i].date === today) return { state: "on", day: BOOTCAMP_DAYS[i] };
+      // The schedule can contain a pause. A date with no day of its own belongs to
+      // the break before the next scheduled day, not to the end of the bootcamp.
+      if (BOOTCAMP_DAYS[i].date > today) return { state: "break", day: BOOTCAMP_DAYS[i] };
     }
     return { state: "after", day: last };
   }
@@ -50,6 +53,8 @@
       var setupHref = (/\/days\//.test(location.pathname) ? "../" : "") + "setup.html";
       host.innerHTML = "<strong>Starts " + longDate(BOOTCAMP_START) + ".</strong> First up: " + link +
         '. Tonight is for <a href="' + setupHref + '">setup</a>.';
+    } else if (cur.state === "break") {
+      host.innerHTML = "<strong>Paused — back on " + longDate(d.date) + ".</strong> Next up: " + link + ".";
     } else if (cur.state === "after") {
       host.innerHTML = "<strong>Finished " + longDate(d.date) + ".</strong> Last day was " + link + ".";
     } else {

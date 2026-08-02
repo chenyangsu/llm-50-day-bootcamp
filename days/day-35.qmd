@@ -1,6 +1,6 @@
 ---
 title: "Day 35 — Milestone 2: fine-tuned against prompted, on five axes"
-subtitle: "Thursday, 27 August 2026 · Week 5 · Pretrained models · Milestone · 3 h"
+subtitle: "Monday, 7 September 2026 · Week 5 · Pretrained models · Milestone · 3 h"
 ---
 
 ::: {.day-nav .kind-milestone}
@@ -63,7 +63,7 @@ Which model goes behind a screening tool where a missed RCT means re-running the
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 36, Friday, 28 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 36, Tuesday, 8 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

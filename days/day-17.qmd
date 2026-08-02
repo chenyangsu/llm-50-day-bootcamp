@@ -1,6 +1,6 @@
 ---
 title: "Day 17 — Words, tokens, and why models are bad at spelling"
-subtitle: "Sunday, 9 August 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
+subtitle: "Thursday, 20 August 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -54,7 +54,7 @@ Corpus: low low lower lowest. Three merges. Write the merges in order and the fi
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 18, Monday, 10 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 18, Friday, 21 August 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

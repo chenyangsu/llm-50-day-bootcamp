@@ -1,6 +1,6 @@
 ---
 title: "Day 49 — Catch-up, and an evaluation harness for your own task"
-subtitle: "Thursday, 10 September 2026 · Week 7 · Pipeline, RAG, evaluation · Catch-up day · 2.5-3 h"
+subtitle: "Monday, 21 September 2026 · Week 7 · Pipeline, RAG, evaluation · Catch-up day · 2.5-3 h"
 ---
 
 ::: {.day-nav .kind-catchup}
@@ -55,7 +55,7 @@ Which of your three metrics moves if a model becomes better calibrated without b
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 50, Friday, 11 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 50, Tuesday, 22 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

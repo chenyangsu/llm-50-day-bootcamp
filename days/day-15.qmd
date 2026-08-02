@@ -1,6 +1,6 @@
 ---
 title: "Day 15 — Backprop ninja: every backward pass by hand"
-subtitle: "Friday, 7 August 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
+subtitle: "Tuesday, 18 August 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -54,7 +54,7 @@ hpreact = embcat @ W1 + b1, with embcat (32, 30), W1 (30, 200), b1 (200,). Given
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 16, Saturday, 8 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 16, Wednesday, 19 August 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

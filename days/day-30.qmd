@@ -1,6 +1,6 @@
 ---
 title: "Day 30 — Behind the pipeline, and your BPE against theirs"
-subtitle: "Saturday, 22 August 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
+subtitle: "Wednesday, 2 September 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -62,7 +62,7 @@ Your Day 18 BPE and `bert-base-uncased` produce different token counts for the s
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 31, Sunday, 23 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 31, Thursday, 3 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

@@ -1,6 +1,6 @@
 ---
 title: "Day 22 — Bigram baseline to one head of masked self-attention"
-subtitle: "Friday, 14 August 2026 · Week 4 · Build a GPT · Study day · 3-4 h"
+subtitle: "Tuesday, 25 August 2026 · Week 4 · Build a GPT · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -58,7 +58,7 @@ Without looking: what does `wei` look like at initialization if you delete `* he
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 23, Saturday, 15 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 23, Wednesday, 26 August 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

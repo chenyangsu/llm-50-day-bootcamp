@@ -1,6 +1,6 @@
 ---
 title: "Day 21 — Catch-up: the block from memory, with shapes on every arrow"
-subtitle: "Thursday, 13 August 2026 · Week 3 · Tokens and attention · Catch-up day · 2-3 h"
+subtitle: "Monday, 24 August 2026 · Week 3 · Tokens and attention · Catch-up day · 2-3 h"
 ---
 
 ::: {.day-nav .kind-catchup}
@@ -54,7 +54,7 @@ Without notes: name every tensor between idx of shape (64, 256) and logits of sh
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 22, Friday, 14 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 22, Tuesday, 25 August 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

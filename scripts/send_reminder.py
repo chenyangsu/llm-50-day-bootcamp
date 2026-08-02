@@ -2,8 +2,8 @@
 """Send the evening reminder email for tomorrow's bootcamp day.
 
 Reads data/schedule.yml, works out tomorrow's date in the schedule's timezone,
-and emails the prep items from *today's* record (prep_for_tomorrow on day N
-describes how to get ready for day N+1) along with a preview of tomorrow.
+and emails the prep items from the *preceding* day's record (prep_for_tomorrow on
+day N describes how to get ready for day N+1) along with a preview of tomorrow.
 
 Run by .github/workflows/daily-reminder.yml. To see the email without sending:
 
@@ -143,21 +143,19 @@ def main():
         else datetime.now(tz).date()
     )
     tomorrow_iso = (today + timedelta(days=1)).strftime("%Y-%m-%d")
-    today_iso = today.strftime("%Y-%m-%d")
 
     by_date = {as_iso(d["date"]): d for d in days}
 
     target = by_date.get(tomorrow_iso)
     if target is None:
-        print(f"No scheduled day for {tomorrow_iso} — bootcamp not started or finished. Nothing to send.")
+        print(f"No scheduled day for {tomorrow_iso} — bootcamp not started, paused, or finished. Nothing to send.")
         return 0
 
-    current = by_date.get(today_iso)
-    if current is not None:
-        prep = current.get("prep_for_tomorrow") or []
-    else:
-        # Only happens the night before day 1.
-        prep = meta.get("prep_for_day_1") or []
+    # Prep comes from day N-1 by day number rather than by yesterday's date: the
+    # schedule can contain a pause, and on the evening before it resumes there is
+    # no record for today. Before day 1 there is no previous day at all.
+    previous = {d["day"]: d for d in days}.get(target["day"] - 1)
+    prep = (previous.get("prep_for_tomorrow") if previous else meta.get("prep_for_day_1")) or []
 
     if not prep:
         prep = ["Nothing to prepare tonight — just show up."]
@@ -168,7 +166,8 @@ def main():
 
     if args.dry_run:
         print(f"Subject: {subject}")
-        print(f"Would send for {tomorrow_iso}, prep taken from {today_iso}")
+        source = f"day {previous['day']}" if previous else "meta.prep_for_day_1"
+        print(f"Would send for {tomorrow_iso}, prep taken from {source}")
         print("-" * 72)
         print(body_text)
         return 0

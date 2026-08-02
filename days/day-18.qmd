@@ -1,6 +1,6 @@
 ---
 title: "Day 18 — Build the tokenizer, train it on PubMed"
-subtitle: "Monday, 10 August 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
+subtitle: "Friday, 21 August 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -59,7 +59,7 @@ Your decode maps ids to bytes and calls .decode('utf-8'). Build a token id seque
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 19, Tuesday, 11 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 19, Saturday, 22 August 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

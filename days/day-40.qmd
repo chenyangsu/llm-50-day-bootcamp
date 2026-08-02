@@ -1,6 +1,6 @@
 ---
 title: "Day 40 — InstructGPT: three stages, forty labelers"
-subtitle: "Tuesday, 1 September 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
+subtitle: "Saturday, 12 September 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -53,7 +53,7 @@ What does the policy do to the reward model if you remove the KL penalty from th
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 41, Wednesday, 2 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 41, Sunday, 13 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

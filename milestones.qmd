@@ -1,6 +1,6 @@
 ---
 title: "Milestones"
-subtitle: "Five things you will have built by 11 September. Each one is something you'd be willing to show a colleague."
+subtitle: "Five things you will have built by 22 September. Each one is something you'd be willing to show a colleague."
 ---
 
 Days pass and leave nothing behind unless you write something down. These five are the artifacts the
@@ -10,7 +10,7 @@ bootcamp is actually for — the rest of the days feed them.
 
 ## Milestone 1 — A GPT you wrote yourself {#m1}
 
-**[Day 28](days/day-28.qmd), Thursday 20 August.** Fed by days 22–27.
+**[Day 28](days/day-28.qmd), Monday 31 August.** Fed by days 22–27.
 
 A decoder-only transformer you implemented, trained, and understand line by line, written up as a short
 report.
@@ -32,7 +32,7 @@ question about it without looking anything up.
 
 ## Milestone 2 — Fine-tuned versus prompted, evaluated properly {#m2}
 
-**[Day 35](days/day-35.qmd), Thursday 27 August.** Fed by days 29–34.
+**[Day 35](days/day-35.qmd), Monday 7 September.** Fed by days 29–34.
 
 The first real report on the PubMed abstract task. The point of this one is that it is **not a single
 accuracy number**, because a single accuracy number is how clinical AI results get overclaimed.
@@ -56,7 +56,7 @@ model.
 
 ## Milestone 3 — The whole pipeline, traced {#m3}
 
-**[Day 45](days/day-45.qmd), Sunday 6 September.** Fed by day 44.
+**[Day 45](days/day-45.qmd), Thursday 17 September.** Fed by day 44.
 
 nanochat is the only place you'll see every stage in one readable repo: tokenizer training, pretraining,
 mid-training, SFT, RL, evaluation, and serving. The deliverable is a written trace of the path from raw
@@ -75,7 +75,7 @@ Running the speedrun yourself is optional. Reading it properly is not.
 
 ## Milestone 4 — Retrieval over your own corpus {#m4}
 
-**[Day 47](days/day-47.qmd), Tuesday 8 September.** Fed by day 46.
+**[Day 47](days/day-47.qmd), Saturday 19 September.** Fed by day 46.
 
 A working RAG system over the PubMed abstracts you've been carrying since day 18.
 
@@ -95,7 +95,7 @@ are generation failures. Conflating the two is the single most common way RAG ev
 
 ## Milestone 5 — Capstone {#m5}
 
-**[Day 50](days/day-50.qmd), Friday 11 September.**
+**[Day 50](days/day-50.qmd), Tuesday 22 September.**
 
 Two things.
 

@@ -1,6 +1,6 @@
 ---
 title: "Day 42 — Decision table: prompt, few-shot, LoRA, fine-tune, retrieve"
-subtitle: "Thursday, 3 September 2026 · Week 6 · Scaling and post-training · Catch-up day · 2-3 h"
+subtitle: "Monday, 14 September 2026 · Week 6 · Scaling and post-training · Catch-up day · 2-3 h"
 ---
 
 ::: {.day-nav .kind-catchup}
@@ -54,7 +54,7 @@ Someone hands you 50 labeled examples and wants a classifier by Friday. Which ro
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 43, Friday, 4 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 43, Tuesday, 15 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

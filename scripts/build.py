@@ -162,12 +162,28 @@ def timeline_page(days, meta):
     lines.append("subtitle: " + yq(span_all))
     lines.append("---")
     lines.append("")
+    # The weekday the catch-up days land on moves whenever the schedule is shifted
+    # by something other than a whole number of weeks, so read it off the dates.
+    weekdays = {
+        datetime.strptime(d["date"], "%Y-%m-%d").strftime("%A")
+        for d in days
+        if d.get("kind") == "catchup"
+    }
+    subject = f"Every catch-up day is a {weekdays.pop()} and" if len(weekdays) == 1 else "Every catch-up day"
     lines.append(
         "Six study days, then a catch-up day, seven times over, then the capstone. "
-        "Every catch-up day is a Thursday and is deliberately unallocated — if you are on track, "
-        "the day is yours."
+        f"{subject} is deliberately unallocated — if you are on track, the day is yours."
     )
     lines.append("")
+
+    for before, after in zip(days, days[1:]):
+        gap = datetime.strptime(after["date"], "%Y-%m-%d") - datetime.strptime(before["date"], "%Y-%m-%d")
+        if gap.days > 1:
+            lines.append(
+                f"Paused after day {before['day']} ({short_date(before['date'])}) and resumed at "
+                f"day {after['day']} on {long_date(after['date'])}."
+            )
+            lines.append("")
     lines.append('::: {.timeline}')
     lines.append("")
 
