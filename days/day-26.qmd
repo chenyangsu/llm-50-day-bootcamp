@@ -1,6 +1,6 @@
 ---
 title: "Day 26 — nanoGPT: the same model with four days of GPU time in mind"
-subtitle: "Saturday, 29 August 2026 · Week 4 · Build a GPT · Study day · 3-4 h"
+subtitle: "Friday, 11 September 2026 · Week 4 · Build a GPT · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -57,7 +57,7 @@ nanoGPT ties `wte.weight` to `lm_head.weight`. How many parameters does that sav
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 27, Sunday, 30 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 27, Saturday, 12 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

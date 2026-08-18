@@ -1,6 +1,6 @@
 ---
 title: "Day 38 — Chinchilla: doing the compute arithmetic yourself"
-subtitle: "Thursday, 10 September 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
+subtitle: "Wednesday, 23 September 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -53,7 +53,7 @@ You have 1e22 FLOPs. Someone offers you a 4B-parameter model trained on 420B tok
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 39, Friday, 11 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 39, Thursday, 24 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

@@ -1,6 +1,6 @@
 ---
 title: "Day 23 — Multi-head, feed-forward, residuals, LayerNorm - and it writes Shakespeare"
-subtitle: "Wednesday, 26 August 2026 · Week 4 · Build a GPT · Study day · 3-4 h"
+subtitle: "Tuesday, 8 September 2026 · Week 4 · Build a GPT · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -57,7 +57,7 @@ Why does removing residual connections hurt a 6-layer model far more than a 1-la
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 24, Thursday, 27 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 24, Wednesday, 9 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

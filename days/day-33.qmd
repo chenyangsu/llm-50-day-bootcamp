@@ -1,6 +1,6 @@
 ---
 title: "Day 33 — Project start: corpus, labels, split, metrics, baseline"
-subtitle: "Saturday, 5 September 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
+subtitle: "Friday, 18 September 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -58,7 +58,7 @@ What does your primary metric score for a classifier that always predicts the ma
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 34, Sunday, 6 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 34, Saturday, 19 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

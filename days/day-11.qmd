@@ -1,6 +1,6 @@
 ---
 title: "Day 11 — Embeddings and a context window"
-subtitle: "Friday, 14 August 2026 · Week 2 · Language models · Study day · 3-4 h"
+subtitle: "Thursday, 27 August 2026 · Week 2 · Language models · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -57,7 +57,7 @@ Without looking: with 27 characters and a 3-character context, how many rows wou
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 12, Saturday, 15 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 12, Friday, 28 August 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

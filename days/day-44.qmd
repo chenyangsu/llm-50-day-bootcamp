@@ -1,6 +1,6 @@
 ---
 title: "Day 44 — nanochat, part 1: tokenizer, base training, base eval"
-subtitle: "Wednesday, 16 September 2026 · Week 7 · Pipeline, RAG, evaluation · Study day · 3-4 h"
+subtitle: "Tuesday, 29 September 2026 · Week 7 · Pipeline, RAG, evaluation · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -58,7 +58,7 @@ Without reopening the repo: what does base_train.py produce, what consumes it ne
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 45, Thursday, 17 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 45, Wednesday, 30 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

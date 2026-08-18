@@ -57,7 +57,7 @@ Why does PyTorch accumulate into `.grad` rather than overwriting it, and what do
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 3, Thursday, 6 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 3, Wednesday, 19 August 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

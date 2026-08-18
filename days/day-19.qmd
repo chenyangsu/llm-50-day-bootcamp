@@ -1,6 +1,6 @@
 ---
 title: "Day 19 — Attention from the textbook: Q, K, V and the sqrt(d_k)"
-subtitle: "Saturday, 22 August 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
+subtitle: "Friday, 4 September 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -52,7 +52,7 @@ Why sqrt(d_k), and not d_k or d_k squared? Give the variance argument for a dot 
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 20, Sunday, 23 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 20, Saturday, 5 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

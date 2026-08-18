@@ -1,6 +1,6 @@
 ---
 title: "Day 50 — Capstone - the final report, the closed-book self-assessment, and what comes next"
-subtitle: "Tuesday, 22 September 2026 · Week 7 · Pipeline, RAG, evaluation · Capstone · 3-4 h"
+subtitle: "Monday, 5 October 2026 · Week 7 · Pipeline, RAG, evaluation · Capstone · 3-4 h"
 ---
 
 ::: {.day-nav .kind-capstone}

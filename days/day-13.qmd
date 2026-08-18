@@ -1,6 +1,6 @@
 ---
 title: "Day 13 — Reading the histograms when training goes wrong"
-subtitle: "Sunday, 16 August 2026 · Week 2 · Language models · Study day · 3-4 h"
+subtitle: "Saturday, 29 August 2026 · Week 2 · Language models · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -57,7 +57,7 @@ Without looking: you plot the ratio of update magnitude to parameter magnitude p
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 14, Monday, 17 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 14, Sunday, 30 August 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

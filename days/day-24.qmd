@@ -1,6 +1,6 @@
 ---
 title: "Day 24 — Rebuild it from an empty file"
-subtitle: "Thursday, 27 August 2026 · Week 4 · Build a GPT · Study day · 3-4 h"
+subtitle: "Wednesday, 9 September 2026 · Week 4 · Build a GPT · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -57,7 +57,7 @@ Write the chain of tensor shapes from `idx` entering `forward` as (B,T) through 
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 25, Friday, 28 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 25, Thursday, 10 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

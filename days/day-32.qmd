@@ -1,6 +1,6 @@
 ---
 title: "Day 32 — Padding, masks, and truncation: the bugs that never raise"
-subtitle: "Friday, 4 September 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
+subtitle: "Thursday, 17 September 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -60,7 +60,7 @@ You tokenise with `padding='max_length', max_length=512` inside `Dataset.map` an
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 33, Saturday, 5 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 33, Friday, 18 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

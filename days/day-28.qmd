@@ -1,6 +1,6 @@
 ---
 title: "Day 28 — Milestone 1 - My GPT from scratch"
-subtitle: "Monday, 31 August 2026 · Week 4 · Build a GPT · Milestone · 3-4 h"
+subtitle: "Sunday, 13 September 2026 · Week 4 · Build a GPT · Milestone · 3-4 h"
 ---
 
 ::: {.day-nav .kind-milestone}
@@ -58,7 +58,7 @@ Where do a transformer's parameters actually live? Give the split between embedd
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 29, Tuesday, 1 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 29, Monday, 14 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

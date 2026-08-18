@@ -1,6 +1,6 @@
 ---
 title: "Day 20 — Attention Is All You Need, first pass"
-subtitle: "Sunday, 23 August 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
+subtitle: "Saturday, 5 September 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -53,7 +53,7 @@ The base model has d_model = 512 and h = 8, so each head is 64 wide and the four
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 21, Monday, 24 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 21, Sunday, 6 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

@@ -1,6 +1,6 @@
 ---
 title: "Day 47 — Milestone 4 - RAG over your abstract corpus, measured in two halves"
-subtitle: "Saturday, 19 September 2026 · Week 7 · Pipeline, RAG, evaluation · Milestone · 3-4 h"
+subtitle: "Friday, 2 October 2026 · Week 7 · Pipeline, RAG, evaluation · Milestone · 3-4 h"
 ---
 
 ::: {.day-nav .kind-milestone}
@@ -59,7 +59,7 @@ End-to-end accuracy rose from 0.61 to 0.72 when you added retrieval, and recall@
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 48, Sunday, 20 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 48, Saturday, 3 October 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

@@ -1,6 +1,6 @@
 ---
 title: "Day 46 — Retrieval: BM25, bi-encoders, and when RAG is the wrong answer"
-subtitle: "Friday, 18 September 2026 · Week 7 · Pipeline, RAG, evaluation · Study day · 3-4 h"
+subtitle: "Thursday, 1 October 2026 · Week 7 · Pipeline, RAG, evaluation · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -59,7 +59,7 @@ Your RAG variant answers a question correctly and your fine-tuned model does not
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 47, Saturday, 19 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 47, Friday, 2 October 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

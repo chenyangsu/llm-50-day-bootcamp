@@ -1,6 +1,6 @@
 ---
 title: "Day 16 — WaveNet, and reading torch.nn without flinching"
-subtitle: "Wednesday, 19 August 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
+subtitle: "Tuesday, 1 September 2026 · Week 3 · Tokens and attention · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -55,7 +55,7 @@ Batch 32, block size 8, embedding dim 10, 68 channels. Give the tensor shape goi
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 17, Thursday, 20 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 17, Wednesday, 2 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

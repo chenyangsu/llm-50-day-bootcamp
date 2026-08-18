@@ -1,6 +1,6 @@
 ---
 title: "Day 34 — Fine-tuning: the Trainer, and the loop it hides"
-subtitle: "Sunday, 6 September 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
+subtitle: "Saturday, 19 September 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -57,7 +57,7 @@ Your manual loop lands 0.03 below `Trainer` on the same data and the same seed. 
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 35, Monday, 7 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 35, Sunday, 20 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

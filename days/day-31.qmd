@@ -1,6 +1,6 @@
 ---
 title: "Day 31 — BERT, masked language modelling, and when an encoder still wins"
-subtitle: "Thursday, 3 September 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
+subtitle: "Wednesday, 16 September 2026 · Week 5 · Pretrained models · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -56,7 +56,7 @@ BERT masks 15% of tokens, and of those replaces 80% with `[MASK]`, 10% with a ra
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 32, Friday, 4 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 32, Thursday, 17 September 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

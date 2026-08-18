@@ -1,6 +1,6 @@
 ---
 title: "Day 48 — HELM, MedHELM, and the distinctions a single score erases"
-subtitle: "Sunday, 20 September 2026 · Week 7 · Pipeline, RAG, evaluation · Study day · 3-4 h"
+subtitle: "Saturday, 3 October 2026 · Week 7 · Pipeline, RAG, evaluation · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -60,7 +60,7 @@ A model scores 0.89 on a MedHELM scenario named after a clinical workflow - what
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 49, Monday, 21 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 49, Sunday, 4 October 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

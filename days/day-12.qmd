@@ -1,6 +1,6 @@
 ---
 title: "Day 12 — What the embedding space encodes"
-subtitle: "Saturday, 15 August 2026 · Week 2 · Language models · Study day · 3-4 h"
+subtitle: "Friday, 28 August 2026 · Week 2 · Language models · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -53,7 +53,7 @@ Without looking: your character vectors came from an MLP trained to predict the 
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 13, Sunday, 16 August 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 13, Saturday, 29 August 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

@@ -1,6 +1,6 @@
 ---
 title: "50-Day LLM Bootcamp"
-subtitle: "From backpropagation to a model you built, fine-tuned, and evaluated honestly. 24 July – 22 September 2026."
+subtitle: "From backpropagation to a model you built, fine-tuned, and evaluated honestly. 24 July – 5 October 2026."
 toc: false
 ---
 
