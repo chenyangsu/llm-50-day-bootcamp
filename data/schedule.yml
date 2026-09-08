@@ -4,7 +4,7 @@
 meta:
   title: 50-Day LLM Bootcamp
   start_date: '2026-07-24'
-  end_date: '2026-10-05'
+  end_date: '2026-10-26'
   timezone: America/Winnipeg
   site_url: https://chenyangsu.github.io/llm-50-day-bootcamp
   daily_hours: 3-4 h
@@ -131,7 +131,7 @@ days:
   - Open the micrograd lecture and confirm it plays. It runs 2h25m total and tomorrow you watch the first
     1h15m.
 - day: 3
-  date: '2026-08-19'
+  date: '2026-09-09'
   weekday: Wednesday
   week: 1
   phase: Foundations
@@ -189,7 +189,7 @@ days:
   - Look at the file listing of `github.com/karpathy/micrograd` and note that `engine.py` is about 100
     lines. Still do not open it.
 - day: 4
-  date: '2026-08-20'
+  date: '2026-09-10'
   weekday: Thursday
   week: 1
   phase: Foundations
@@ -246,7 +246,7 @@ days:
     needs a real 10-class dataset and you do not want to spend study time on the download.
   - Open D2L 4.1 Softmax Regression and read only its first paragraph.
 - day: 5
-  date: '2026-08-21'
+  date: '2026-09-11'
   weekday: Friday
   week: 1
   phase: Foundations
@@ -304,7 +304,7 @@ days:
     HW2 + b2 to loss. Annotate every shape. You differentiate this tomorrow.'
   - Skim only the section headings of D2L 5.3 so tomorrow's densest read does not start cold.
 - day: 6
-  date: '2026-08-22'
+  date: '2026-09-12'
   weekday: Saturday
   week: 1
   phase: Foundations
@@ -362,7 +362,7 @@ days:
     task is closing that list.
   - Check that `mygrad.py` from Day 4 still runs, so tomorrow's clean-interpreter check is not a surprise.
 - day: 7
-  date: '2026-08-23'
+  date: '2026-09-13'
   weekday: Sunday
   week: 1
   phase: Foundations
@@ -420,7 +420,7 @@ days:
   - Write down your guess, before you read anything, for how many distinct character bigrams exist in
     a 27-symbol alphabet including the start/end token.
 - day: 8
-  date: '2026-08-24'
+  date: '2026-09-14'
   weekday: Monday
   week: 2
   phase: Language models
@@ -472,7 +472,7 @@ days:
   - Skim the two pages of SLP3 3.5 that define perplexity - do not work through it, just see the equation
     once.
 - day: 9
-  date: '2026-08-25'
+  date: '2026-09-15'
   weekday: Tuesday
   week: 2
   phase: Language models
@@ -526,7 +526,7 @@ days:
   - Write your best held-out perplexity and its NLL somewhere visible - tomorrow you check whether a trained
     network can beat it.
 - day: 10
-  date: '2026-08-26'
+  date: '2026-09-16'
   weekday: Wednesday
   week: 2
   phase: Language models
@@ -576,7 +576,7 @@ days:
   - Add your bigram network's final NLL to the results file you started on Day 9 - the MLP row goes in
     tomorrow.
 - day: 11
-  date: '2026-08-27'
+  date: '2026-09-17'
   weekday: Thursday
   week: 2
   phase: Language models
@@ -629,7 +629,7 @@ days:
   - Download SLP3 Ch5 and skim the figure showing words projected into two dimensions.
   - Confirm torch.pca_lowrank or sklearn's PCA imports cleanly - tomorrow's projection needs one of them.
 - day: 12
-  date: '2026-08-28'
+  date: '2026-09-18'
   weekday: Friday
   week: 2
   phase: Language models
@@ -678,7 +678,7 @@ days:
     a working baseline to break.
   - Compute -log(1/27) tonight and write the number down; it is the loss your network should start at.
 - day: 13
-  date: '2026-08-29'
+  date: '2026-09-19'
   weekday: Saturday
   week: 2
   phase: Language models
@@ -733,7 +733,7 @@ days:
     note the mismatch now, because tomorrow you fix it.
   - 'Confirm every saved model loads: the count matrix N, the trained W, and the MLP parameters.'
 - day: 14
-  date: '2026-08-30'
+  date: '2026-09-20'
   weekday: Sunday
   week: 2
   phase: Language models
@@ -779,7 +779,7 @@ days:
     for every intermediate tensor, BatchNorm included.
   - Queue makemore part 4, Backprop Ninja (1h55m), and block the time for it.
 - day: 15
-  date: '2026-08-31'
+  date: '2026-09-21'
   weekday: Monday
   week: 3
   phase: Tokens and attention
@@ -838,7 +838,7 @@ days:
   - Run python -c "import torch.nn.modules.module as m; print(m.__file__)" and note the path - you will
     read that file tomorrow.
 - day: 16
-  date: '2026-09-01'
+  date: '2026-09-22'
   weekday: Tuesday
   week: 3
   phase: Tokens and attention
@@ -899,7 +899,7 @@ days:
   - Write down ten strings from your own work to tokenize tomorrow - a couple of rsIDs, gene and protein
     symbols, a p-value in scientific notation, a dosage, one sentence that is not English.
 - day: 17
-  date: '2026-09-02'
+  date: '2026-09-23'
   weekday: Wednesday
   week: 3
   phase: Tokens and attention
@@ -958,7 +958,7 @@ days:
   - Decide your PubMed query now (a disease or exposure you know well) and write it down, because you
     will build the corpus on it tomorrow and still be using it on Day 33.
 - day: 18
-  date: '2026-09-03'
+  date: '2026-09-24'
   weekday: Thursday
   week: 3
   phase: Tokens and attention
@@ -1026,7 +1026,7 @@ days:
   - Write down the three questions you most want answered about attention, so you can check them off tomorrow.
   - Skim Ch8's figures only, no text, so the shapes are not a cold start.
 - day: 19
-  date: '2026-09-04'
+  date: '2026-09-25'
   weekday: Friday
   week: 3
   phase: Tokens and attention
@@ -1079,7 +1079,7 @@ days:
   - Write down where SLP3 Ch8 put layer norm relative to the residual add, because tomorrow's paper does
     it differently and you want to catch the discrepancy yourself.
 - day: 20
-  date: '2026-09-05'
+  date: '2026-09-26'
   weekday: Saturday
   week: 3
   phase: Tokens and attention
@@ -1134,7 +1134,7 @@ days:
   - 'Write the config you will drill on at the top of a blank page: B = 64, T = 256, vocab = 65, d_model
     = 384, 6 heads, 6 layers.'
 - day: 21
-  date: '2026-09-06'
+  date: '2026-09-27'
   weekday: Sunday
   week: 3
   phase: Tokens and attention
@@ -1198,7 +1198,7 @@ days:
   - Note the parameter count nanoGPT prints when it starts on the shakespeare_char config, and compare
     it to the number you totalled today.
 - day: 22
-  date: '2026-09-07'
+  date: '2026-09-28'
   weekday: Monday
   week: 4
   phase: Build a GPT
@@ -1264,7 +1264,7 @@ days:
   - Check `torch.cuda.is_available()`. If it is False, open Colab and confirm you can get a T4, because
     tomorrow's scaled-up model is painful on CPU.
 - day: 23
-  date: '2026-09-08'
+  date: '2026-09-29'
   weekday: Tuesday
   week: 4
   phase: Build a GPT
@@ -1326,7 +1326,7 @@ days:
   - Create an empty `gpt_mine.py` containing nothing but the imports you are sure you will need.
   - Close the video tab.
 - day: 24
-  date: '2026-09-09'
+  date: '2026-09-30'
   weekday: Wednesday
   week: 4
   phase: Build a GPT
@@ -1386,7 +1386,7 @@ days:
   - Decide now whether you log train/val curves to CSV or to Weights & Biases, and if it is W&B, create
     the account and run `wandb login` tonight. Do not decide this mid-sweep tomorrow.
 - day: 25
-  date: '2026-09-10'
+  date: '2026-10-01'
   weekday: Thursday
   week: 4
   phase: Build a GPT
@@ -1447,7 +1447,7 @@ days:
     of it.
   - Run `wc -l model.py train.py` and note the two numbers. Do not read the files yet.
 - day: 26
-  date: '2026-09-11'
+  date: '2026-10-02'
   weekday: Friday
   week: 4
   phase: Build a GPT
@@ -1514,7 +1514,7 @@ days:
   - Note at the top of `nanogpt_diff.md` anything you ran out of time to trace today, so it does not silently
     disappear.
 - day: 27
-  date: '2026-09-12'
+  date: '2026-10-03'
   weekday: Saturday
   week: 4
   phase: Build a GPT
@@ -1579,7 +1579,7 @@ days:
   - 'Pick the three generations you will actually show: one good, one that fails in an interesting way,
     one bigram sample for contrast.'
 - day: 28
-  date: '2026-09-13'
+  date: '2026-10-04'
   weekday: Sunday
   week: 4
   phase: Build a GPT
@@ -1587,7 +1587,7 @@ days:
   title: Milestone 1 - My GPT from scratch
   hours: 3-4 h
   why: 'Milestone 1: a parameter count you cannot rederive on paper is a model you do not really have,
-    and a week of results you never wrote down is a week you will not be able to reconstruct in September.'
+    and a week of results you never wrote down is a week you will not be able to reconstruct in October.'
   objectives:
   - You can derive the parameter count of a decoder-only transformer from n_layer, n_embd, block_size
     and vocabulary size, and match `sum(p.numel() for p in model.parameters())` exactly rather than approximately.
@@ -1650,7 +1650,7 @@ days:
     and read section 1 only. Five minutes - tomorrow the bootcamp stops writing models and starts using
     ones that were trained for you.
 - day: 29
-  date: '2026-09-14'
+  date: '2026-10-05'
   weekday: Monday
   week: 5
   phase: Pretrained models
@@ -1721,7 +1721,7 @@ days:
   - 'Use PubMed''s Send to -> File -> Format: Abstract to export 200 abstracts from any query you like
     into a local file. You tokenise them tomorrow.'
 - day: 30
-  date: '2026-09-15'
+  date: '2026-10-06'
   weekday: Tuesday
   week: 5
   phase: Pretrained models
@@ -1800,7 +1800,7 @@ days:
   - Write one sentence in your log predicting what 'masked language model' means, before you read anything.
     You grade it tomorrow.
 - day: 31
-  date: '2026-09-16'
+  date: '2026-10-07'
   weekday: Wednesday
   week: 5
   phase: Pretrained models
@@ -1862,7 +1862,7 @@ days:
     If it is under 5,000 or over 200,000, widen or narrow it tonight.
   - Confirm `from datasets import Dataset` imports without error.
 - day: 32
-  date: '2026-09-17'
+  date: '2026-10-08'
   weekday: Thursday
   week: 5
   phase: Pretrained models
@@ -1940,7 +1940,7 @@ days:
   - Paste the PubMed query you settled on into `project/query.txt`, so tomorrow opens with a script to
     run rather than a decision to make.
 - day: 33
-  date: '2026-09-18'
+  date: '2026-10-09'
   weekday: Friday
   week: 5
   phase: Pretrained models
@@ -2019,7 +2019,7 @@ days:
     at when you report these results later.
   - Skim the section headings of chapter3/3 so `Trainer`'s shape is familiar before you type it.
 - day: 34
-  date: '2026-09-19'
+  date: '2026-10-10'
   weekday: Saturday
   week: 5
   phase: Pretrained models
@@ -2084,7 +2084,7 @@ days:
   - 'Write one number in your log tonight: the test accuracy you expect the fine-tune to reach. You are
     grading that prediction tomorrow, and a miss tells you more than a hit.'
 - day: 35
-  date: '2026-09-20'
+  date: '2026-10-11'
   weekday: Sunday
   week: 5
   phase: Pretrained models
@@ -2169,7 +2169,7 @@ days:
   - Write one sentence predicting what 'compute-optimal' will turn out to mean, before Chinchilla tells
     you.
 - day: 36
-  date: '2026-09-21'
+  date: '2026-10-12'
   weekday: Monday
   week: 6
   phase: Scaling and post-training
@@ -2221,7 +2221,7 @@ days:
   - 'Write one line, dated, guessing how validation loss scales with parameter count: linear, logarithmic,
     power law, or something else. Do it before you read tomorrow''s paper.'
 - day: 37
-  date: '2026-09-22'
+  date: '2026-10-13'
   weekday: Tuesday
   week: 6
   phase: Scaling and post-training
@@ -2269,7 +2269,7 @@ days:
     to C^0.73 allocation. Tomorrow''s paper contradicts the last one.'
   - Open a blank notebook and put C = 6ND at the top. That single line is tomorrow's entire arithmetic.
 - day: 38
-  date: '2026-09-23'
+  date: '2026-10-14'
   weekday: Wednesday
   week: 6
   phase: Scaling and post-training
@@ -2328,7 +2328,7 @@ days:
     tells you.
   - Open your Day 35 failure taxonomy. You rerun the worst cases from it tomorrow afternoon.
 - day: 39
-  date: '2026-09-24'
+  date: '2026-10-15'
   weekday: Thursday
   week: 6
   phase: Scaling and post-training
@@ -2376,7 +2376,7 @@ days:
   - Flag which of today's chain-of-thought flips went the wrong way - those cases come back tomorrow when
     you think about who would label clinical preference data.
 - day: 40
-  date: '2026-09-25'
+  date: '2026-10-16'
   weekday: Friday
   week: 6
   phase: Scaling and post-training
@@ -2430,7 +2430,7 @@ days:
   - Dig out your Day 34 run and write its peak GPU memory, wall-clock and final metrics somewhere visible.
     Tomorrow is a comparison, and the baseline column has to be filled in before you start.
 - day: 41
-  date: '2026-09-26'
+  date: '2026-10-17'
   weekday: Saturday
   week: 6
   phase: Scaling and post-training
@@ -2487,7 +2487,7 @@ days:
     enough to fill one row of tomorrow's table as a prediction.
   - Decide now whether tomorrow is a catch-up day or a day off. Both are allowed.
 - day: 42
-  date: '2026-09-27'
+  date: '2026-10-18'
   weekday: Sunday
   week: 6
   phase: Scaling and post-training
@@ -2541,7 +2541,7 @@ days:
   - Skim the nanochat README and `runs/speedrun.sh` - just far enough to see which scripts run, in what
     order, and what the speedrun costs.
 - day: 43
-  date: '2026-09-28'
+  date: '2026-10-19'
   weekday: Monday
   week: 7
   phase: Pipeline, RAG, evaluation
@@ -2600,7 +2600,7 @@ days:
   - Skim the nanochat README and copy its wall-clock and dollar figures into a scratch file.
   - 'Open discussion #1 and discussion #481 in tabs so tomorrow starts with reading, not searching.'
 - day: 44
-  date: '2026-09-29'
+  date: '2026-10-20'
   weekday: Tuesday
   week: 7
   phase: Pipeline, RAG, evaluation
@@ -2661,7 +2661,7 @@ days:
   - Decide tonight whether you are renting a GPU node tomorrow - if yes, create the account and check
     quota now; if no, drop it and stop thinking about it.
 - day: 45
-  date: '2026-09-30'
+  date: '2026-10-21'
   weekday: Wednesday
   week: 7
   phase: Pipeline, RAG, evaluation
@@ -2724,7 +2724,7 @@ days:
   - Read the RAG paper abstract (arXiv 2005.11401) - just the abstract.
   - Run pip install sentence-transformers faiss-cpu and confirm both import cleanly.
 - day: 46
-  date: '2026-10-01'
+  date: '2026-10-22'
   weekday: Thursday
   week: 7
   phase: Pipeline, RAG, evaluation
@@ -2789,7 +2789,7 @@ days:
   - Write five query-to-abstract pairs where you already know the right answer - just five, the rest is
     tomorrow's work.
 - day: 47
-  date: '2026-10-02'
+  date: '2026-10-23'
   weekday: Friday
   week: 7
   phase: Pipeline, RAG, evaluation
@@ -2855,7 +2855,7 @@ days:
   - Note in your log that HELM entered maintenance mode on 2026-06-01, so leaderboard coverage stops at
     models released before then.
 - day: 48
-  date: '2026-10-03'
+  date: '2026-10-24'
   weekday: Saturday
   week: 7
   phase: Pipeline, RAG, evaluation
@@ -2925,7 +2925,7 @@ days:
     selected using it.
   - Reread your Day 35 failure taxonomy so tomorrow's version extends it instead of restarting it.
 - day: 49
-  date: '2026-10-04'
+  date: '2026-10-25'
   weekday: Sunday
   week: 7
   phase: Pipeline, RAG, evaluation
@@ -2983,7 +2983,7 @@ days:
     them.
   - Block four uninterrupted hours and put your notes physically out of reach for the self-assessment.
 - day: 50
-  date: '2026-10-05'
+  date: '2026-10-26'
   weekday: Monday
   week: 7
   phase: Pipeline, RAG, evaluation
