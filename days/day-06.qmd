@@ -1,6 +1,6 @@
 ---
 title: "Day 6 — Backprop through a 2-layer MLP, by hand"
-subtitle: "Saturday, 12 September 2026 · Week 1 · Foundations · Study day · 3-4 h"
+subtitle: "Saturday, 3 October 2026 · Week 1 · Foundations · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -57,7 +57,7 @@ In your backward pass, `dZ1 = dH * (Z1 > 0)`. Why is that elementwise mask there
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 7, Sunday, 13 September 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 7, Sunday, 4 October 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

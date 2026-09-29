@@ -1,12 +1,12 @@
 name: Daily reminder email
 
-# The email should arrive at 5 pm America/Winnipeg (CDT, UTC-5 for the whole
-# bootcamp — Winnipeg does not leave CDT until 1 November), i.e. 22:00 UTC.
+# The email should arrive at 5 pm America/Winnipeg: 22:00 UTC while Winnipeg
+# is on CDT (UTC-5), 23:00 UTC once it moves to CST (UTC-6) on 1 November.
 # GitHub's scheduler has been starting this workflow about three hours late
 # (a 01:11 UTC cron started at 04:24 and 04:28 UTC), so the cron fires at
 # 18:47 UTC and the job sleeps off whatever is left before 5 pm. Any real
-# start between 1:47 pm and 5 pm local still sends at 5 pm; a later start
-# sends immediately.
+# start between 18:47 UTC (1:47 pm CDT, 12:47 pm CST) and 5 pm local still
+# sends at 5 pm; a later start sends immediately.
 on:
   schedule:
     - cron: "47 18 * * *"
@@ -30,9 +30,10 @@ jobs:
         run: |
           target=$(TZ=America/Winnipeg date -d "today 17:00" +%s)
           wait=$(( target - $(date +%s) ))
-          # Negative: the runner started after 5 pm, send now. Over four hours:
-          # the runner started after local midnight, when sleeping is pointless.
-          if [ "$wait" -gt 0 ] && [ "$wait" -le 14400 ]; then
+          # Negative: the runner started after 5 pm, send now. Over five hours
+          # (an on-time start under CST waits 4h13m): the runner started after
+          # local midnight, when sleeping is pointless.
+          if [ "$wait" -gt 0 ] && [ "$wait" -le 18000 ]; then
             echo "Sleeping ${wait}s until 5 pm."
             sleep "$wait"
           fi

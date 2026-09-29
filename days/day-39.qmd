@@ -1,6 +1,6 @@
 ---
 title: "Day 39 — Post-training: how a next-token predictor becomes an assistant"
-subtitle: "Thursday, 15 October 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
+subtitle: "Thursday, 5 November 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -52,7 +52,7 @@ Preference learning needs pairs. Where do the two candidate responses in a pair 
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 40, Friday, 16 October 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 40, Friday, 6 November 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}

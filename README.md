@@ -1,7 +1,7 @@
 # 50-Day LLM Bootcamp
 
 A day-by-day study plan taking you from backpropagation to building, fine-tuning and honestly evaluating a
-language model. 24 July – 26 October 2026.
+language model. 24 July – 16 November 2026.
 
 **Site:** <https://chenyangsu.github.io/llm-50-day-bootcamp>
 
@@ -44,7 +44,7 @@ A day record looks like this:
 
 ```yaml
 - day: 3
-  date: "2026-09-09"
+  date: "2026-09-30"
   weekday: Wednesday
   week: 1
   phase: Foundations
@@ -80,12 +80,12 @@ quarto render           # writes _site/
 ## The daily email
 
 `.github/workflows/daily-reminder.yml` runs `scripts/send_reminder.py` every day at 5 pm
-America/Winnipeg (Winnipeg holds CDT, UTC−5, for the whole bootcamp). GitHub has been starting
+America/Winnipeg (CDT, UTC−5, until 1 November; CST, UTC−6, after). GitHub has been starting
 scheduled runs about three hours late, so the cron fires early at `47 18 * * *` UTC and the job waits
 until 5 pm local before sending — an on-time start and a three-hour-late start both send at 5 pm. The script
 reads `data/schedule.yml`, works out tomorrow's date, and emails the `prep_for_tomorrow` items from the
 *preceding* day's record together with a preview of tomorrow. On a date the schedule does not cover — before
-day 1, during a pause, after 26 October — it sends nothing.
+day 1, during a pause, after 16 November — it sends nothing.
 
 Editing the schedule and pushing is enough to change what the emails say — there is nothing to keep in
 sync by hand.
@@ -104,7 +104,7 @@ Three repository secrets, under Settings → Secrets and variables → Actions:
 
 ```bash
 python3 scripts/send_reminder.py --dry-run                    # tonight's email
-python3 scripts/send_reminder.py --dry-run --today 2026-09-09 # any date
+python3 scripts/send_reminder.py --dry-run --today 2026-09-30 # any date
 ```
 
 The workflow also has a manual trigger (Actions → Daily reminder email → Run workflow) with `dry_run` and

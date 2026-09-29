@@ -107,5 +107,5 @@ And three you should be able to do, not just say:
 - Fine-tune a pretrained model on a task you define, and report more than accuracy.
 - Design an evaluation for a clinical task that would catch a polished, confident, wrong answer.
 
-Anything on this page you can't answer is not a failure. It's your October reading list — and
+Anything on this page you can't answer is not a failure. It's your November reading list — and
 [CS336](https://cs336.stanford.edu) is where most of the remaining answers live.

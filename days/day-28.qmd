@@ -1,6 +1,6 @@
 ---
 title: "Day 28 — Milestone 1 - My GPT from scratch"
-subtitle: "Sunday, 4 October 2026 · Week 4 · Build a GPT · Milestone · 3-4 h"
+subtitle: "Sunday, 25 October 2026 · Week 4 · Build a GPT · Milestone · 3-4 h"
 ---
 
 ::: {.day-nav .kind-milestone}
@@ -8,7 +8,7 @@ subtitle: "Sunday, 4 October 2026 · Week 4 · Build a GPT · Milestone · 3-4 h
 :::
 
 ::: {.why}
-Milestone 1: a parameter count you cannot rederive on paper is a model you do not really have, and a week of results you never wrote down is a week you will not be able to reconstruct in October.
+Milestone 1: a parameter count you cannot rederive on paper is a model you do not really have, and a week of results you never wrote down is a week you will not be able to reconstruct in November.
 :::
 
 ## What you should be able to do tonight
@@ -58,7 +58,7 @@ Where do a transformer's parameters actually live? Give the split between embedd
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 29, Monday, 5 October 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 29, Monday, 26 October 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}
