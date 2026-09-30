@@ -1,97 +1,97 @@
 ---
 title: "The 50 days"
-subtitle: "Friday, 24 July 2026 → Monday, 16 November 2026"
+subtitle: "Friday, 24 July 2026 → Wednesday, 18 November 2026"
 ---
 
-Six study days, then a catch-up day, seven times over, then the capstone. Every catch-up day is a Sunday and is deliberately unallocated — if you are on track, the day is yours.
+Six study days, then a catch-up day, seven times over, then the capstone. Every catch-up day is a Tuesday and is deliberately unallocated — if you are on track, the day is yours.
 
-Paused after day 2 (Sat 25 Jul) and resumed at day 3 on Wednesday, 30 September 2026.
+Paused after day 2 (Sat 25 Jul) and resumed at day 3 on Friday, 2 October 2026.
 
 ::: {.timeline}
 
-### Week 1 — Foundations <span class='week-span'>Fri 24 Jul – Sun 4 Oct</span>
+### Week 1 — Foundations <span class='week-span'>Fri 24 Jul – Tue 6 Oct</span>
 
 | Day | Date | Focus | |
 |---:|:---|:---|:---|
 | [1](days/day-01.qmd) | Fri 24 Jul | [Tensors, gradients, and the chain rule](days/day-01.qmd) |  |
 | [2](days/day-02.qmd) | Sat 25 Jul | [What backward() actually does](days/day-02.qmd) |  |
-| [3](days/day-03.qmd) | Wed 30 Sep | [micrograd, first half: the Value object and the expression graph](days/day-03.qmd) |  |
-| [4](days/day-04.qmd) | Thu 1 Oct | [Rebuild micrograd from an empty file](days/day-04.qmd) |  |
-| [5](days/day-05.qmd) | Fri 2 Oct | [Softmax regression is multinomial logistic regression](days/day-05.qmd) |  |
-| [6](days/day-06.qmd) | Sat 3 Oct | [Backprop through a 2-layer MLP, by hand](days/day-06.qmd) |  |
-| [7](days/day-07.qmd) | Sun 4 Oct | [Re-derive backprop from memory](days/day-07.qmd) | [catch-up]{.pill .pill-catchup} |
+| [3](days/day-03.qmd) | Fri 2 Oct | [micrograd, first half: the Value object and the expression graph](days/day-03.qmd) |  |
+| [4](days/day-04.qmd) | Sat 3 Oct | [Rebuild micrograd from an empty file](days/day-04.qmd) |  |
+| [5](days/day-05.qmd) | Sun 4 Oct | [Softmax regression is multinomial logistic regression](days/day-05.qmd) |  |
+| [6](days/day-06.qmd) | Mon 5 Oct | [Backprop through a 2-layer MLP, by hand](days/day-06.qmd) |  |
+| [7](days/day-07.qmd) | Tue 6 Oct | [Re-derive backprop from memory](days/day-07.qmd) | [catch-up]{.pill .pill-catchup} |
 
-### Week 2 — Language models <span class='week-span'>Mon 5 Oct – Sun 11 Oct</span>
-
-| Day | Date | Focus | |
-|---:|:---|:---|:---|
-| [8](days/day-08.qmd) | Mon 5 Oct | [A language model you can count by hand](days/day-08.qmd) |  |
-| [9](days/day-09.qmd) | Tue 6 Oct | [Perplexity, and what smoothing is actually for](days/day-09.qmd) |  |
-| [10](days/day-10.qmd) | Wed 7 Oct | [The same bigram model, built twice](days/day-10.qmd) |  |
-| [11](days/day-11.qmd) | Thu 8 Oct | [Embeddings and a context window](days/day-11.qmd) |  |
-| [12](days/day-12.qmd) | Fri 9 Oct | [What the embedding space encodes](days/day-12.qmd) |  |
-| [13](days/day-13.qmd) | Sat 10 Oct | [Reading the histograms when training goes wrong](days/day-13.qmd) |  |
-| [14](days/day-14.qmd) | Sun 11 Oct | [One table, one held-out split](days/day-14.qmd) | [catch-up]{.pill .pill-catchup} |
-
-### Week 3 — Tokens and attention <span class='week-span'>Mon 12 Oct – Sun 18 Oct</span>
+### Week 2 — Language models <span class='week-span'>Wed 7 Oct – Tue 13 Oct</span>
 
 | Day | Date | Focus | |
 |---:|:---|:---|:---|
-| [15](days/day-15.qmd) | Mon 12 Oct | [Backprop ninja: every backward pass by hand](days/day-15.qmd) |  |
-| [16](days/day-16.qmd) | Tue 13 Oct | [WaveNet, and reading torch.nn without flinching](days/day-16.qmd) |  |
-| [17](days/day-17.qmd) | Wed 14 Oct | [Words, tokens, and why models are bad at spelling](days/day-17.qmd) |  |
-| [18](days/day-18.qmd) | Thu 15 Oct | [Build the tokenizer, train it on PubMed](days/day-18.qmd) |  |
-| [19](days/day-19.qmd) | Fri 16 Oct | [Attention from the textbook: Q, K, V and the sqrt(d_k)](days/day-19.qmd) |  |
-| [20](days/day-20.qmd) | Sat 17 Oct | [Attention Is All You Need, first pass](days/day-20.qmd) |  |
-| [21](days/day-21.qmd) | Sun 18 Oct | [Catch-up: the block from memory, with shapes on every arrow](days/day-21.qmd) | [catch-up]{.pill .pill-catchup} |
+| [8](days/day-08.qmd) | Wed 7 Oct | [A language model you can count by hand](days/day-08.qmd) |  |
+| [9](days/day-09.qmd) | Thu 8 Oct | [Perplexity, and what smoothing is actually for](days/day-09.qmd) |  |
+| [10](days/day-10.qmd) | Fri 9 Oct | [The same bigram model, built twice](days/day-10.qmd) |  |
+| [11](days/day-11.qmd) | Sat 10 Oct | [Embeddings and a context window](days/day-11.qmd) |  |
+| [12](days/day-12.qmd) | Sun 11 Oct | [What the embedding space encodes](days/day-12.qmd) |  |
+| [13](days/day-13.qmd) | Mon 12 Oct | [Reading the histograms when training goes wrong](days/day-13.qmd) |  |
+| [14](days/day-14.qmd) | Tue 13 Oct | [One table, one held-out split](days/day-14.qmd) | [catch-up]{.pill .pill-catchup} |
 
-### Week 4 — Build a GPT <span class='week-span'>Mon 19 Oct – Sun 25 Oct</span>
-
-| Day | Date | Focus | |
-|---:|:---|:---|:---|
-| [22](days/day-22.qmd) | Mon 19 Oct | [Bigram baseline to one head of masked self-attention](days/day-22.qmd) |  |
-| [23](days/day-23.qmd) | Tue 20 Oct | [Multi-head, feed-forward, residuals, LayerNorm - and it writes Shakespeare](days/day-23.qmd) |  |
-| [24](days/day-24.qmd) | Wed 21 Oct | [Rebuild it from an empty file](days/day-24.qmd) |  |
-| [25](days/day-25.qmd) | Thu 22 Oct | [Sweep the knobs, then sweep the decoder](days/day-25.qmd) |  |
-| [26](days/day-26.qmd) | Fri 23 Oct | [nanoGPT: the same model with four days of GPU time in mind](days/day-26.qmd) |  |
-| [27](days/day-27.qmd) | Sat 24 Oct | [SLP3 Ch7 - the same model in prose](days/day-27.qmd) |  |
-| [28](days/day-28.qmd) | Sun 25 Oct | [Milestone 1 - My GPT from scratch](days/day-28.qmd) | [milestone]{.pill .pill-milestone} |
-
-### Week 5 — Pretrained models <span class='week-span'>Mon 26 Oct – Sun 1 Nov</span>
+### Week 3 — Tokens and attention <span class='week-span'>Wed 14 Oct – Tue 20 Oct</span>
 
 | Day | Date | Focus | |
 |---:|:---|:---|:---|
-| [29](days/day-29.qmd) | Mon 26 Oct | [Pipelines, and the three architecture families](days/day-29.qmd) |  |
-| [30](days/day-30.qmd) | Tue 27 Oct | [Behind the pipeline, and your BPE against theirs](days/day-30.qmd) |  |
-| [31](days/day-31.qmd) | Wed 28 Oct | [BERT, masked language modelling, and when an encoder still wins](days/day-31.qmd) |  |
-| [32](days/day-32.qmd) | Thu 29 Oct | [Padding, masks, and truncation: the bugs that never raise](days/day-32.qmd) |  |
-| [33](days/day-33.qmd) | Fri 30 Oct | [Project start: corpus, labels, split, metrics, baseline](days/day-33.qmd) |  |
-| [34](days/day-34.qmd) | Sat 31 Oct | [Fine-tuning: the Trainer, and the loop it hides](days/day-34.qmd) |  |
-| [35](days/day-35.qmd) | Sun 1 Nov | [Milestone 2: fine-tuned against prompted, on five axes](days/day-35.qmd) | [milestone]{.pill .pill-milestone} |
+| [15](days/day-15.qmd) | Wed 14 Oct | [Backprop ninja: every backward pass by hand](days/day-15.qmd) |  |
+| [16](days/day-16.qmd) | Thu 15 Oct | [WaveNet, and reading torch.nn without flinching](days/day-16.qmd) |  |
+| [17](days/day-17.qmd) | Fri 16 Oct | [Words, tokens, and why models are bad at spelling](days/day-17.qmd) |  |
+| [18](days/day-18.qmd) | Sat 17 Oct | [Build the tokenizer, train it on PubMed](days/day-18.qmd) |  |
+| [19](days/day-19.qmd) | Sun 18 Oct | [Attention from the textbook: Q, K, V and the sqrt(d_k)](days/day-19.qmd) |  |
+| [20](days/day-20.qmd) | Mon 19 Oct | [Attention Is All You Need, first pass](days/day-20.qmd) |  |
+| [21](days/day-21.qmd) | Tue 20 Oct | [Catch-up: the block from memory, with shapes on every arrow](days/day-21.qmd) | [catch-up]{.pill .pill-catchup} |
 
-### Week 6 — Scaling and post-training <span class='week-span'>Mon 2 Nov – Sun 8 Nov</span>
-
-| Day | Date | Focus | |
-|---:|:---|:---|:---|
-| [36](days/day-36.qmd) | Mon 2 Nov | [GPT-3 and in-context learning](days/day-36.qmd) |  |
-| [37](days/day-37.qmd) | Tue 3 Nov | [Scaling laws, and how far you can trust a fitted line](days/day-37.qmd) |  |
-| [38](days/day-38.qmd) | Wed 4 Nov | [Chinchilla: doing the compute arithmetic yourself](days/day-38.qmd) |  |
-| [39](days/day-39.qmd) | Thu 5 Nov | [Post-training: how a next-token predictor becomes an assistant](days/day-39.qmd) |  |
-| [40](days/day-40.qmd) | Fri 6 Nov | [InstructGPT: three stages, forty labelers](days/day-40.qmd) |  |
-| [41](days/day-41.qmd) | Sat 7 Nov | [LoRA: fine-tuning without the optimizer state](days/day-41.qmd) |  |
-| [42](days/day-42.qmd) | Sun 8 Nov | [Decision table: prompt, few-shot, LoRA, fine-tune, retrieve](days/day-42.qmd) | [catch-up]{.pill .pill-catchup} |
-
-### Week 7 — Pipeline, RAG, evaluation <span class='week-span'>Mon 9 Nov – Mon 16 Nov</span>
+### Week 4 — Build a GPT <span class='week-span'>Wed 21 Oct – Tue 27 Oct</span>
 
 | Day | Date | Focus | |
 |---:|:---|:---|:---|
-| [43](days/day-43.qmd) | Mon 9 Nov | [DPO: preference learning as a classification loss](days/day-43.qmd) |  |
-| [44](days/day-44.qmd) | Tue 10 Nov | [nanochat, part 1: tokenizer, base training, base eval](days/day-44.qmd) |  |
-| [45](days/day-45.qmd) | Wed 11 Nov | [Milestone 3 - nanochat, part 2: SFT, RL, eval, serving](days/day-45.qmd) | [milestone]{.pill .pill-milestone} |
-| [46](days/day-46.qmd) | Thu 12 Nov | [Retrieval: BM25, bi-encoders, and when RAG is the wrong answer](days/day-46.qmd) |  |
-| [47](days/day-47.qmd) | Fri 13 Nov | [Milestone 4 - RAG over your abstract corpus, measured in two halves](days/day-47.qmd) | [milestone]{.pill .pill-milestone} |
-| [48](days/day-48.qmd) | Sat 14 Nov | [HELM, MedHELM, and the distinctions a single score erases](days/day-48.qmd) |  |
-| [49](days/day-49.qmd) | Sun 15 Nov | [Catch-up, and an evaluation harness for your own task](days/day-49.qmd) | [catch-up]{.pill .pill-catchup} |
-| [50](days/day-50.qmd) | Mon 16 Nov | [Capstone - the final report, the closed-book self-assessment, and what comes next](days/day-50.qmd) | [capstone]{.pill .pill-capstone} |
+| [22](days/day-22.qmd) | Wed 21 Oct | [Bigram baseline to one head of masked self-attention](days/day-22.qmd) |  |
+| [23](days/day-23.qmd) | Thu 22 Oct | [Multi-head, feed-forward, residuals, LayerNorm - and it writes Shakespeare](days/day-23.qmd) |  |
+| [24](days/day-24.qmd) | Fri 23 Oct | [Rebuild it from an empty file](days/day-24.qmd) |  |
+| [25](days/day-25.qmd) | Sat 24 Oct | [Sweep the knobs, then sweep the decoder](days/day-25.qmd) |  |
+| [26](days/day-26.qmd) | Sun 25 Oct | [nanoGPT: the same model with four days of GPU time in mind](days/day-26.qmd) |  |
+| [27](days/day-27.qmd) | Mon 26 Oct | [SLP3 Ch7 - the same model in prose](days/day-27.qmd) |  |
+| [28](days/day-28.qmd) | Tue 27 Oct | [Milestone 1 - My GPT from scratch](days/day-28.qmd) | [milestone]{.pill .pill-milestone} |
+
+### Week 5 — Pretrained models <span class='week-span'>Wed 28 Oct – Tue 3 Nov</span>
+
+| Day | Date | Focus | |
+|---:|:---|:---|:---|
+| [29](days/day-29.qmd) | Wed 28 Oct | [Pipelines, and the three architecture families](days/day-29.qmd) |  |
+| [30](days/day-30.qmd) | Thu 29 Oct | [Behind the pipeline, and your BPE against theirs](days/day-30.qmd) |  |
+| [31](days/day-31.qmd) | Fri 30 Oct | [BERT, masked language modelling, and when an encoder still wins](days/day-31.qmd) |  |
+| [32](days/day-32.qmd) | Sat 31 Oct | [Padding, masks, and truncation: the bugs that never raise](days/day-32.qmd) |  |
+| [33](days/day-33.qmd) | Sun 1 Nov | [Project start: corpus, labels, split, metrics, baseline](days/day-33.qmd) |  |
+| [34](days/day-34.qmd) | Mon 2 Nov | [Fine-tuning: the Trainer, and the loop it hides](days/day-34.qmd) |  |
+| [35](days/day-35.qmd) | Tue 3 Nov | [Milestone 2: fine-tuned against prompted, on five axes](days/day-35.qmd) | [milestone]{.pill .pill-milestone} |
+
+### Week 6 — Scaling and post-training <span class='week-span'>Wed 4 Nov – Tue 10 Nov</span>
+
+| Day | Date | Focus | |
+|---:|:---|:---|:---|
+| [36](days/day-36.qmd) | Wed 4 Nov | [GPT-3 and in-context learning](days/day-36.qmd) |  |
+| [37](days/day-37.qmd) | Thu 5 Nov | [Scaling laws, and how far you can trust a fitted line](days/day-37.qmd) |  |
+| [38](days/day-38.qmd) | Fri 6 Nov | [Chinchilla: doing the compute arithmetic yourself](days/day-38.qmd) |  |
+| [39](days/day-39.qmd) | Sat 7 Nov | [Post-training: how a next-token predictor becomes an assistant](days/day-39.qmd) |  |
+| [40](days/day-40.qmd) | Sun 8 Nov | [InstructGPT: three stages, forty labelers](days/day-40.qmd) |  |
+| [41](days/day-41.qmd) | Mon 9 Nov | [LoRA: fine-tuning without the optimizer state](days/day-41.qmd) |  |
+| [42](days/day-42.qmd) | Tue 10 Nov | [Decision table: prompt, few-shot, LoRA, fine-tune, retrieve](days/day-42.qmd) | [catch-up]{.pill .pill-catchup} |
+
+### Week 7 — Pipeline, RAG, evaluation <span class='week-span'>Wed 11 Nov – Wed 18 Nov</span>
+
+| Day | Date | Focus | |
+|---:|:---|:---|:---|
+| [43](days/day-43.qmd) | Wed 11 Nov | [DPO: preference learning as a classification loss](days/day-43.qmd) |  |
+| [44](days/day-44.qmd) | Thu 12 Nov | [nanochat, part 1: tokenizer, base training, base eval](days/day-44.qmd) |  |
+| [45](days/day-45.qmd) | Fri 13 Nov | [Milestone 3 - nanochat, part 2: SFT, RL, eval, serving](days/day-45.qmd) | [milestone]{.pill .pill-milestone} |
+| [46](days/day-46.qmd) | Sat 14 Nov | [Retrieval: BM25, bi-encoders, and when RAG is the wrong answer](days/day-46.qmd) |  |
+| [47](days/day-47.qmd) | Sun 15 Nov | [Milestone 4 - RAG over your abstract corpus, measured in two halves](days/day-47.qmd) | [milestone]{.pill .pill-milestone} |
+| [48](days/day-48.qmd) | Mon 16 Nov | [HELM, MedHELM, and the distinctions a single score erases](days/day-48.qmd) |  |
+| [49](days/day-49.qmd) | Tue 17 Nov | [Catch-up, and an evaluation harness for your own task](days/day-49.qmd) | [catch-up]{.pill .pill-catchup} |
+| [50](days/day-50.qmd) | Wed 18 Nov | [Capstone - the final report, the closed-book self-assessment, and what comes next](days/day-50.qmd) | [capstone]{.pill .pill-capstone} |
 
 :::

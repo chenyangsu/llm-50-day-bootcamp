@@ -1,6 +1,6 @@
 ---
 title: "Day 21 — Catch-up: the block from memory, with shapes on every arrow"
-subtitle: "Sunday, 18 October 2026 · Week 3 · Tokens and attention · Catch-up day · 2-3 h"
+subtitle: "Tuesday, 20 October 2026 · Week 3 · Tokens and attention · Catch-up day · 2-3 h"
 ---
 
 ::: {.day-nav .kind-catchup}
@@ -54,7 +54,7 @@ Without notes: name every tensor between idx of shape (64, 256) and logits of sh
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 22, Monday, 19 October 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 22, Wednesday, 21 October 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}
@@ -64,7 +64,7 @@ Ten minutes tonight so Day 22, Monday, 19 October 2026 starts clean. This is wha
 <input type="checkbox" class="task-check"> Run python data/shakespeare_char/prepare.py inside the clone - it pulls TinyShakespeare down to data/shakespeare_char/input.txt and then writes train.bin and val.bin. Copy input.txt into the folder you will write tomorrow's gpt.py in, and confirm the character vocab comes out at 65.
 :::
 ::: {.task}
-<input type="checkbox" class="task-check"> Confirm your compute actually works: run a tensor on the GPU with torch.cuda.is_available() locally, or open Colab, set the runtime to a GPU, and check nvidia-smi returns a card. Do this tonight, not Friday morning.
+<input type="checkbox" class="task-check"> Confirm your compute actually works: run a tensor on the GPU with torch.cuda.is_available() locally, or open Colab, set the runtime to a GPU, and check nvidia-smi returns a card. Do this tonight, not tomorrow morning.
 :::
 ::: {.task}
 <input type="checkbox" class="task-check"> Note the parameter count nanoGPT prints when it starts on the shakespeare_char config, and compare it to the number you totalled today.

@@ -1,6 +1,6 @@
 ---
 title: "Day 36 — GPT-3 and in-context learning"
-subtitle: "Monday, 2 November 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
+subtitle: "Wednesday, 4 November 2026 · Week 6 · Scaling and post-training · Study day · 3-4 h"
 ---
 
 ::: {.day-nav .kind-study}
@@ -21,7 +21,7 @@ Few-shot prompting is the cheapest thing you can do to a frozen model, and GPT-3
 
 ::: {.task-list}
 ::: {.task}
-<input type="checkbox" class="task-check"> [50 min]{.task-min} Read Sections 1 and 2 of GPT-3 (arXiv:2005.14165), including Table 2.1 (the eight model sizes from 125M to 175B) and Table 2.2 (the training mix). Write down the context window and the total training tokens - both come back on Sunday.
+<input type="checkbox" class="task-check"> [50 min]{.task-min} Read Sections 1 and 2 of GPT-3 (arXiv:2005.14165), including Table 2.1 (the eight model sizes from 125M to 175B) and Table 2.2 (the training mix). Write down the context window and the total training tokens - both come back on Day 38.
 :::
 ::: {.task}
 <input type="checkbox" class="task-check"> [45 min]{.task-min} Skim Sections 3.1-3.8 at the level of the figures and the fine-tuned-SOTA comparison only, then read Section 3.9.1 (arithmetic), Section 4 (benchmark contamination, including the bug they admit to) and Section 5 (limitations) properly. Skip every appendix.
@@ -53,7 +53,7 @@ Your k = 20 run beats your k = 0 run. Without rerunning anything, how would you 
 
 ## Prepare for tomorrow
 
-Ten minutes tonight so Day 37, Tuesday, 3 November 2026 starts clean. This is what the evening email sends you.
+Ten minutes tonight so Day 37, Thursday, 5 November 2026 starts clean. This is what the evening email sends you.
 
 ::: {.task-list .prep}
 ::: {.task}
